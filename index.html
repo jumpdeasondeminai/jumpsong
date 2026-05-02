@@ -9,21 +9,21 @@
       --accent: #7a747d;
       --accent-2: #b6b0b8;
       --accent-soft: rgba(122, 116, 125, 0.12);
-      --ink: #232236;
-      --paper: rgba(255,255,255,0.86);
-      --paper-strong: rgba(255,255,255,0.94);
-      --text: #232236;
-      --muted: #717184;
-      --line: rgba(132, 126, 136, 0.24);
-      --shadow: 0 18px 44px rgba(40, 40, 90, 0.12);
+      --ink: #242336;
+      --text: #242336;
+      --muted: #747284;
+      --line: rgba(120, 116, 128, 0.22);
+      --glass: rgba(255,255,255,0.72);
+      --glass-strong: rgba(255,255,255,0.90);
+      --shadow: 0 14px 36px rgba(36, 35, 54, 0.10);
       --bg: linear-gradient(135deg,
-        rgba(233,66,74,0.16) 0%,
-        rgba(245,163,191,0.14) 16%,
-        rgba(242,140,40,0.14) 31%,
-        rgba(139,92,246,0.14) 47%,
-        rgba(107,183,255,0.10) 62%,
-        rgba(244,208,63,0.16) 78%,
-        rgba(124,207,122,0.15) 100%);
+        rgba(233,66,74,0.13) 0%,
+        rgba(245,163,191,0.12) 16%,
+        rgba(242,140,40,0.11) 31%,
+        rgba(139,92,246,0.12) 47%,
+        rgba(107,183,255,0.08) 62%,
+        rgba(244,208,63,0.12) 78%,
+        rgba(124,207,122,0.12) 100%);
     }
 
     * { box-sizing: border-box; }
@@ -36,26 +36,26 @@
     body {
       margin: 0;
       min-height: 100vh;
-      min-height: 100dvh;
+      min-height: 100svh;
       color: var(--text);
       background: var(--bg);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
-      transition: background 0.45s ease;
+      transition: background 0.42s ease;
       overflow-x: hidden;
     }
 
     body.member-theme {
       background:
-        radial-gradient(circle at 14% 4%, rgba(255,255,255,0.9) 0 12%, transparent 36%),
-        radial-gradient(circle at 92% 0%, color-mix(in srgb, var(--accent) 30%, transparent) 0 17%, transparent 42%),
-        linear-gradient(135deg, color-mix(in srgb, var(--accent) 16%, white) 0%, #ffffff 52%, color-mix(in srgb, var(--accent-2) 20%, white) 100%);
+        radial-gradient(circle at 8% 0%, rgba(255,255,255,0.92) 0 14%, transparent 38%),
+        radial-gradient(circle at 88% 0%, color-mix(in srgb, var(--accent) 25%, transparent) 0 16%, transparent 42%),
+        linear-gradient(145deg, color-mix(in srgb, var(--accent) 12%, #ffffff) 0%, #ffffff 50%, color-mix(in srgb, var(--accent-2) 16%, #ffffff) 100%);
     }
 
     body.white-theme {
       background:
-        radial-gradient(circle at 14% 4%, rgba(255,255,255,0.96) 0 12%, transparent 36%),
-        radial-gradient(circle at 92% 0%, rgba(210,216,230,0.46) 0 17%, transparent 42%),
-        linear-gradient(135deg, #ffffff 0%, #f8f8fb 52%, #eef1f7 100%);
+        radial-gradient(circle at 8% 0%, rgba(255,255,255,0.96) 0 14%, transparent 38%),
+        radial-gradient(circle at 88% 0%, rgba(210,216,230,0.36) 0 16%, transparent 42%),
+        linear-gradient(145deg, #ffffff 0%, #fafafe 50%, #eef1f7 100%);
     }
 
     button {
@@ -67,54 +67,56 @@
     }
 
     .wrap {
-      width: min(100%, 540px);
+      width: min(100%, 440px);
       margin: 0 auto;
-      padding: calc(14px + env(safe-area-inset-top)) 14px calc(28px + env(safe-area-inset-bottom));
+      padding: calc(10px + env(safe-area-inset-top)) 12px calc(20px + env(safe-area-inset-bottom));
     }
 
     .hero {
       display: grid;
-      grid-template-columns: 42px 1fr;
-      column-gap: 12px;
+      grid-template-columns: 36px 1fr;
+      column-gap: 10px;
       align-items: center;
-      padding: 6px 2px 16px;
-      text-align: left;
+      padding: 6px 2px 12px;
+      min-height: 74px;
     }
 
     .hero::before {
       content: "♪";
-      width: 42px;
-      height: 42px;
-      border-radius: 15px;
+      width: 36px;
+      height: 36px;
+      border-radius: 13px;
       display: grid;
       place-items: center;
-      background:
-        radial-gradient(circle at 30% 22%, rgba(255,255,255,0.9) 0 20%, transparent 44%),
-        color-mix(in srgb, var(--accent) 13%, white);
+      background: color-mix(in srgb, var(--accent) 10%, white);
       color: var(--accent);
-      border: 1.5px solid color-mix(in srgb, var(--accent) 22%, white);
-      font-size: 22px;
-      font-weight: 700;
-      box-shadow: 0 10px 24px rgba(40,40,90,0.08);
+      border: 1px solid color-mix(in srgb, var(--accent) 22%, white);
+      font-size: 20px;
+      font-weight: 680;
+      box-shadow: 0 7px 18px rgba(36,35,54,0.07);
     }
 
     .eyebrow {
       grid-column: 2;
-      color: var(--accent);
-      font-size: 11px;
+      color: color-mix(in srgb, var(--accent) 78%, var(--muted));
+      font-size: 10px;
       font-weight: 800;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      line-height: 1.3;
+      line-height: 1.15;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     h1 {
       grid-column: 2;
-      margin: 3px 0 0;
-      font-size: clamp(24px, 7.4vw, 34px);
-      line-height: 1.05;
-      letter-spacing: -0.055em;
-      font-weight: 900;
+      margin: 2px 0 0;
+      font-size: clamp(21px, 5.4vw, 26px);
+      line-height: 1.12;
+      letter-spacing: -0.045em;
+      font-weight: 860;
+      text-wrap: balance;
     }
 
     .subtitle,
@@ -126,10 +128,10 @@
     }
 
     .screen { display: none; }
-    .screen.active { display: block; animation: fadeUp .28s ease both; }
+    .screen.active { display: block; animation: fadeUp .24s ease both; }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(8px); }
+      from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -137,18 +139,19 @@
     .result-card {
       width: 100%;
       margin: 0 auto;
-      padding: 20px;
-      border-radius: 28px;
-      background: var(--paper);
-      border: 1.5px solid var(--line);
-      box-shadow: var(--shadow);
+      padding: 16px;
+      border-radius: 24px;
+      background: var(--glass);
+      border: 1px solid rgba(255,255,255,0.72);
+      box-shadow: var(--shadow), inset 0 0 0 1px var(--line);
       backdrop-filter: blur(18px);
     }
 
     #quizScreen.card {
-      min-height: calc(100dvh - 118px);
+      min-height: calc(100svh - 94px);
       display: none;
       flex-direction: column;
+      justify-content: flex-start;
     }
 
     #quizScreen.active {
@@ -159,35 +162,34 @@
     .answer-grid,
     .member-group-grid {
       display: grid;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .language-grid {
-      grid-template-columns: 1fr;
-    }
+    .language-grid { grid-template-columns: 1fr; }
 
     .member-grid {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 16px;
     }
 
     .member-section {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
     .member-group-title {
       padding-left: 4px;
       color: var(--muted);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.12em;
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: 0.10em;
     }
 
     .member-group-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
     }
 
     .member-section-all .member-group-grid {
@@ -198,15 +200,15 @@
     .member-btn,
     .lang-btn,
     .nav-btn {
-      min-height: 52px;
-      border-radius: 18px;
-      padding: 14px 16px;
-      background: rgba(255,255,255,0.88);
-      border: 1.5px solid color-mix(in srgb, var(--accent) 28%, white);
+      min-height: 48px;
+      border-radius: 16px;
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid color-mix(in srgb, var(--accent) 25%, white);
       color: var(--text);
-      box-shadow: 0 8px 22px rgba(40,40,90,0.07);
-      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
-      font-weight: 700;
+      box-shadow: 0 6px 18px rgba(36,35,54,0.055);
+      transition: transform .14s ease, background .14s ease, border-color .14s ease;
+      font-weight: 650;
     }
 
     .choice:active,
@@ -214,86 +216,78 @@
     .lang-btn:active,
     .nav-btn:active {
       transform: scale(0.985);
-      box-shadow: 0 5px 14px rgba(40,40,90,0.08);
-    }
-
-    .choice:hover,
-    .member-btn:hover,
-    .lang-btn:hover,
-    .nav-btn:hover {
-      background: rgba(255,255,255,0.96);
     }
 
     .choice.selected,
     .member-btn.selected,
     .lang-btn.selected {
-      background: color-mix(in srgb, var(--accent) 15%, white);
-      border-color: color-mix(in srgb, var(--accent) 52%, white);
+      background: color-mix(in srgb, var(--accent) 13%, white);
+      border-color: color-mix(in srgb, var(--accent) 50%, white);
     }
 
     .lang-btn {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      text-align: left;
-      border-radius: 20px;
-      min-height: 62px;
+      display: block;
+      text-align: center;
+      min-height: 58px;
+      border-radius: 18px;
+      padding: 11px 14px;
     }
 
     .lang-btn strong {
       display: block;
-      font-size: 18px;
+      font-size: 17px;
+      line-height: 1.1;
       font-weight: 760;
       letter-spacing: -0.02em;
     }
 
     .lang-btn span {
       display: block;
-      margin-top: 2px;
+      margin-top: 4px;
       color: var(--muted);
       font-size: 12px;
-      line-height: 1.35;
+      line-height: 1.25;
       font-weight: 500;
     }
 
+    .section-title {
+      margin: 0 0 14px;
+      font-size: 22px;
+      line-height: 1.2;
+      letter-spacing: -0.035em;
+      font-weight: 820;
+    }
+
     .member-btn {
-      min-height: 56px;
+      min-height: 50px;
       text-align: center;
-      border-radius: 18px;
-      padding: 13px 10px;
+      border-radius: 16px;
+      padding: 10px 8px;
       display: grid;
       place-items: center;
     }
 
     .member-name {
       display: block;
-      font-size: 16px;
-      line-height: 1.15;
-      font-weight: 780;
+      font-size: 15px;
+      line-height: 1.12;
+      font-weight: 720;
       letter-spacing: -0.02em;
     }
 
     .member-role { display: none; }
 
     .progress-area {
-      position: sticky;
-      top: calc(8px + env(safe-area-inset-top));
-      z-index: 5;
       display: grid;
       grid-template-columns: 1fr auto;
       align-items: center;
       gap: 10px;
-      margin: -4px -4px 22px;
-      padding: 8px 4px 10px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.90), rgba(255,255,255,0.58));
-      backdrop-filter: blur(14px);
-      border-radius: 20px;
+      margin: 0 0 16px;
     }
 
     .progress-track {
-      height: 9px;
-      background: color-mix(in srgb, var(--accent) 14%, white);
+      height: 7px;
+      background: color-mix(in srgb, var(--accent) 12%, white);
       border-radius: 999px;
       overflow: hidden;
     }
@@ -303,23 +297,24 @@
       width: 0%;
       background: linear-gradient(90deg, var(--accent), var(--accent-2));
       border-radius: 999px;
-      transition: width .26s ease;
+      transition: width .22s ease;
     }
 
     .progress-text {
-      min-width: 48px;
+      min-width: 38px;
       text-align: right;
       color: var(--accent);
-      font-size: 13px;
-      font-weight: 850;
+      font-size: 12px;
+      font-weight: 760;
     }
 
     .question {
-      margin: 4px 0 18px;
-      font-size: clamp(22px, 6.6vw, 31px);
-      line-height: 1.24;
-      letter-spacing: -0.045em;
-      font-weight: 900;
+      margin: 0 0 14px;
+      font-size: clamp(18px, 5.15vw, 24px);
+      line-height: 1.22;
+      letter-spacing: -0.035em;
+      font-weight: 830;
+      text-wrap: balance;
     }
 
     .question-sub {
@@ -328,55 +323,58 @@
 
     .answer-grid {
       grid-template-columns: 1fr;
-      gap: 11px;
+      gap: 9px;
       margin-top: auto;
     }
 
     .choice {
-      min-height: 58px;
-      border-radius: 20px;
+      min-height: 50px;
+      border-radius: 17px;
       text-align: left;
-      font-size: 17px;
-      line-height: 1.28;
-      padding: 15px 18px;
-      font-weight: 760;
+      font-size: 16px;
+      line-height: 1.24;
+      padding: 12px 16px;
+      font-weight: 720;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .choice::after {
       content: "›";
-      float: right;
+      flex: 0 0 auto;
       color: var(--accent);
+      font-size: 20px;
       font-weight: 900;
-      opacity: 0.55;
+      opacity: 0.42;
       margin-left: 12px;
     }
 
     .nav-row {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-top: 14px;
+      gap: 8px;
+      margin-top: 12px;
     }
 
     #quizScreen .nav-row {
       justify-content: flex-start;
     }
 
-    #nextBtn {
-      display: none;
-    }
+    #nextBtn { display: none; }
 
     .nav-btn {
-      min-height: 48px;
-      padding: 12px 16px;
+      min-height: 44px;
+      padding: 10px 15px;
       border-radius: 999px;
       font-size: 14px;
-      font-weight: 760;
+      font-weight: 700;
     }
 
     .nav-btn.primary {
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
       color: white;
+      border-color: transparent;
     }
 
     .nav-btn:disabled {
@@ -386,82 +384,88 @@
     }
 
     .result-card {
-      padding: 18px;
-      border-radius: 30px;
+      padding: 16px;
+      border-radius: 24px;
+      background: var(--glass-strong);
     }
 
     .result-song {
       display: block;
-      margin: 0 auto 18px;
-      padding: 18px;
-      border-radius: 24px;
-      background:
-        radial-gradient(circle at 18% 10%, color-mix(in srgb, var(--accent) 16%, transparent) 0 22%, transparent 48%),
-        rgba(255,255,255,0.74);
+      width: 100%;
+      margin: 0 auto 14px;
+      padding: 15px 14px;
+      border-radius: 20px;
+      background: color-mix(in srgb, var(--accent) 8%, white);
       color: var(--accent);
-      font-weight: 900;
+      font-weight: 820;
       line-height: 1.05;
-      word-break: keep-all;
       text-align: center;
-      border: 1.5px solid color-mix(in srgb, var(--accent) 28%, white);
-      box-shadow: 0 12px 30px rgba(40,40,90,0.08);
+      border: 1px solid color-mix(in srgb, var(--accent) 24%, white);
+      box-shadow: 0 8px 20px rgba(36,35,54,0.055);
+      overflow: hidden;
     }
 
     .result-group-name {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       color: var(--muted);
-      font-size: 11px;
-      font-weight: 850;
-      letter-spacing: 0.18em;
+      font-size: 10.5px;
+      font-weight: 760;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .result-song-name {
       display: block;
       color: var(--accent);
-      font-size: clamp(34px, 10.5vw, 56px);
-      line-height: 1.04;
-      letter-spacing: -0.06em;
+      font-size: clamp(25px, 8.2vw, 38px);
+      line-height: 1.05;
+      letter-spacing: -0.05em;
+      overflow-wrap: anywhere;
+      word-break: normal;
     }
 
     .result-title {
       display: inline-block;
-      margin: 0 auto 18px;
-      padding: 10px 16px;
+      margin: 0 auto 14px;
+      padding: 8px 13px;
       border-radius: 999px;
-      background: color-mix(in srgb, var(--accent) 10%, white);
-      border: 1.5px solid color-mix(in srgb, var(--accent) 26%, white);
+      background: rgba(255,255,255,0.70);
+      border: 1px solid color-mix(in srgb, var(--accent) 22%, white);
       color: color-mix(in srgb, var(--accent) 72%, var(--ink));
-      font-size: clamp(18px, 5.1vw, 24px);
-      line-height: 1.2;
-      letter-spacing: -0.035em;
-      font-weight: 760;
+      font-size: clamp(16px, 4.6vw, 20px);
+      line-height: 1.22;
+      letter-spacing: -0.025em;
+      font-weight: 700;
+      text-align: center;
     }
 
     .result-desc {
       white-space: pre-line;
       margin: 0 auto;
       color: #4f4a58;
-      font-size: 16px;
-      line-height: 1.78;
-      letter-spacing: -0.015em;
+      font-size: 15.5px;
+      line-height: 1.72;
+      letter-spacing: -0.01em;
       text-align: left;
     }
 
     .small-note {
-      margin-top: 18px;
+      margin-top: 15px;
       color: var(--muted);
-      font-size: 12px;
-      line-height: 1.55;
+      font-size: 11.5px;
+      line-height: 1.5;
       text-align: center;
     }
 
     .result-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 20px !important;
+      gap: 9px;
+      margin-top: 16px !important;
     }
 
     .result-actions .nav-btn {
@@ -471,56 +475,45 @@
 
     @media (max-width: 359px) {
       .wrap { padding-left: 10px; padding-right: 10px; }
+      .hero { grid-template-columns: 32px 1fr; column-gap: 9px; }
+      .hero::before { width: 32px; height: 32px; border-radius: 12px; font-size: 18px; }
+      h1 { font-size: 20px; }
       .member-group-grid { grid-template-columns: 1fr; }
-      .hero { grid-template-columns: 38px 1fr; column-gap: 10px; }
-      .hero::before { width: 38px; height: 38px; border-radius: 14px; }
-      .choice { font-size: 16px; }
+      .question { font-size: 17.5px; }
+      .choice { min-height: 47px; font-size: 15px; }
       .result-actions { grid-template-columns: 1fr; }
     }
 
-    @media (min-width: 600px) {
+    @media (min-width: 560px) {
       .wrap {
-        width: min(100%, 680px);
-        padding-top: 26px;
+        width: min(100%, 520px);
+        padding-top: 18px;
       }
 
       .hero {
-        grid-template-columns: 58px 1fr;
-        column-gap: 16px;
-        padding-bottom: 22px;
+        grid-template-columns: 44px 1fr;
+        column-gap: 12px;
       }
 
       .hero::before {
-        width: 58px;
-        height: 58px;
-        border-radius: 20px;
-        font-size: 28px;
+        width: 44px;
+        height: 44px;
+        border-radius: 15px;
+        font-size: 23px;
       }
 
       h1 {
-        font-size: clamp(34px, 5vw, 54px);
+        font-size: 31px;
       }
 
       .card,
       .result-card {
-        padding: 28px;
-        border-radius: 34px;
+        padding: 20px;
+        border-radius: 28px;
       }
 
       .language-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .member-group-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      }
-
-      .question {
-        font-size: clamp(30px, 4.7vw, 44px);
-      }
-
-      .result-desc {
-        font-size: 18px;
       }
     }
   </style>
@@ -842,6 +835,7 @@
       },
       {
         id: 4, song: "真夜中のシャドーボーイ", era: 1,
+        memberBoost: { yamada: 0.55, chinen: 0.55, nakajima: 0.55, arioka: 0.55 },
         tags: { 情緒:2.4, 都市:1, 王道:0.8 },
         title: { zh:"让夜色替你说出那句喜欢", ja:"夜に好きと言わせる", en:"Let the night say “I like you” for you" },
         desc: {
@@ -852,6 +846,7 @@
       },
       {
         id: 5, song: "瞳のスクリーン", era: 1,
+        memberBoost: { yamada: 0.55 },
         tags: { 情緒:1.7, 前進:1.5, 王道:1.3, 記憶:0.8 },
         title: { zh:"把悲伤之后的光看清楚", ja:"悲しみの先の光を見る", en:"See the light beyond sadness" },
         desc: {
@@ -892,6 +887,7 @@
       },
       {
         id: 9, song: "SUPER DELICATE", era: 2,
+        memberBoost: { yamada: 0.55, nakajima: 0.55 },
         tags: { 情緒:2.5, 都市:0.8, 温度:0.7 },
         title: { zh:"把不能给别人看的那一面留下来", ja:"人には見せない顔を残しておく", en:"Keep the side you cannot show everyone" },
         desc: {
@@ -913,6 +909,7 @@
       },
       {
         id: 11, song: "Ride With Me", era: 2,
+        memberBoost: { yamada: 0.55, arioka: 0.55 },
         tags: { 前進:2.5, 都市:1.2, 王道:0.8 },
         title: { zh:"把犹豫切进更快的节奏里", ja:"迷いを速いリズムへ切り替える", en:"Cut hesitation into a faster beat" },
         desc: {
@@ -923,6 +920,7 @@
       },
       {
         id: 12, song: "AinoArika", era: 2,
+        memberBoost: { yaotome: 0.55, inoo: 0.45 },
         tags: { 情緒:1.8, 記憶:1.3, 都市:0.9, 温度:0.7 },
         title: { zh:"把找不到的喜欢重新握在手里", ja:"見失った好きの在処をもう一度たどる", en:"Find where that feeling went" },
         desc: {
@@ -933,6 +931,7 @@
       },
       {
         id: 13, song: "ウィークエンダー", era: 2,
+        memberBoost: { yamada: 0.55, arioka: 0.45 },
         tags: { 都市:2.2, 可愛:1, 情緒:1, 元気:0.8 },
         title: { zh:"把心跳藏进一场谜案", ja:"ときめきを謎の中に隠す", en:"Hide your heartbeat inside a mystery" },
         desc: {
@@ -943,6 +942,7 @@
       },
       {
         id: 14, song: "明日へのYELL", era: 2,
+        memberBoost: { nakajima: 0.55, takaki: 0.45 },
         tags: { 前進:2, 元気:1.5, 王道:0.8, 団体:0.5 },
         title: { zh:"把快要低下去的头再抬起来", ja:"うつむきそうな顔をもう一度上げる", en:"Lift your head again" },
         desc: {
@@ -973,6 +973,7 @@
       },
       {
         id: 17, song: "Give Me Love", era: 2,
+        memberBoost: { yamada: 0.55 },
         tags: { 情緒:1.8, 王道:1, 温度:0.7 },
         title: { zh:"把想要回应的心情放到台面上", ja:"応えてほしい気持ちを表に出す", en:"Put the wish for an answer on the table" },
         desc: {
@@ -993,6 +994,7 @@
       },
       {
         id: 19, song: "マエヲムケ", era: 2,
+        memberBoost: { yamada: 0.55 },
         tags: { 前進:2.3, 元気:1, 王道:0.5 },
         title: { zh:"先把今天的方向调过来", ja:"今日の向きを少し前へ変える", en:"Turn today slightly forward" },
         desc: {
@@ -1003,6 +1005,7 @@
       },
       {
         id: 20, song: "COSMIC☆HUMAN", era: 2,
+        memberBoost: { inoo: 0.55 },
         tags: { 都市:1.8, 温度:1.2, 団体:1, 可愛:0.5 },
         title: { zh:"在理解不了人类的时候继续爱人类", ja:"人間がわからないまま人間を愛する", en:"Love humans even when you do not understand them" },
         desc: {
@@ -1023,6 +1026,7 @@
       },
       {
         id: 22, song: "Your Song", era: 3,
+        memberBoost: { yamada: 0.55 },
         tags: { 温度:2.4, 記憶:1, 団体:0.6 },
         title: { zh:"让一句温柔先落在旁边", ja:"優しい一言をそばに置く", en:"Let one gentle line stay beside you" },
         desc: {
@@ -1033,6 +1037,7 @@
       },
       {
         id: 23, song: "ネガティブファイター", era: 3,
+        memberBoost: { arioka: 0.55 },
         tags: { 元気:2.2, 可愛:1.5, 前進:1, 情緒:0.8 },
         title: { zh:"ビビリバビディブー", ja:"ビビリバビディブー", en:"Bibiri Babbidi Boo" },
         desc: {
@@ -1043,6 +1048,7 @@
       },
       {
         id: 24, song: "群青ランナウェイ", era: 3,
+        memberBoost: { inoo: 0.55 },
         tags: { 変化:2.4, 前進:1.5, 情緒:1 },
         title: { zh:"从无法呼吸的设定里跑出去", ja:"息ができない役割から走り出す", en:"Run out of a role that makes it hard to breathe" },
         desc: {
@@ -1063,6 +1069,7 @@
       },
       {
         id: 26, song: "DEAR MY LOVER", era: 3,
+        memberBoost: { yamada: 0.45 },
         tags: { 可愛:1.7, 王道:1.5, 情緒:1 },
         title: { zh:"把偏爱说得不再拐弯", ja:"遠回しにせず特別を言う", en:"Say “you are the one” without going around" },
         desc: {
@@ -1073,6 +1080,7 @@
       },
       {
         id: 27, song: "ファンファーレ！", era: 3,
+        memberBoost: { yamada: 0.55 },
         tags: { 元気:1.5, 前進:1.5, 情緒:1, 王道:0.8 },
         title: { zh:"把短暂的相遇变热烈", ja:"短い出会いを熱くする", en:"Make a brief meeting burn bright" },
         desc: {
@@ -1110,7 +1118,163 @@
           ja:"人は離れ、関係は変わり、並び方も変わっていく。\nでも、一緒に歩いた時間は消えません。\n\nこの曲は、過去を未来へつないでくれます。\n共に歩いた跡は、これから先へ続く線になります。",
           en:"People leave, relationships change, formations shift.\nBut the time walked together does not stop mattering.\n\nThis song connects the past to the future. The traces of walking together become a line that keeps going."
         }
+      },
+      {
+        id: 31, song: "Do it again", artist: "山田涼介", era: 3,
+        memberOnly: ["yamada"],
+        memberBoost: { yamada: 3.4 },
+        tags: { 王道:2.0, 情緒:1.4, 都市:0.9, 前進:0.8 },
+        title: { zh:"让夜里的心跳再响一次", ja:"夜の鼓動をもう一度鳴らす", en:"Let the night heartbeat ring again" },
+        desc: {
+          zh:"有些靠近不是一次就能结束。\n明明已经听见秘密的声音，心还是会想再往前一点。\n\n这首歌陪你把那一瞬间重新点亮。\n不用装作冷静，想再确认一次，就让心跳再响一次。",
+          ja:"一度では終わらない近づき方があります。\n秘密の声をもう聞いてしまったのに、心はまだ少し先へ行きたがる。\n\nこの曲は、その一瞬をもう一度灯してくれます。\n冷静なふりをしなくていい。もう一度確かめたいなら、鼓動をもう一度鳴らせばいい。",
+          en:"Some kinds of closeness do not end after one time.\nEven after hearing the secret voice, your heart still wants to move a little closer.\n\nThis song lights that moment again.\nYou do not have to pretend to be calm. If you want to confirm it once more, let the heartbeat ring again."
+        }
+      },
+      {
+        id: 32, song: "Oh! my darling", artist: "山田涼介", era: 3,
+        memberOnly: ["yamada"],
+        memberBoost: { yamada: 3.2 },
+        tags: { 王道:1.8, 可愛:1.3, 情緒:0.8 },
+        title: { zh:"把心动带进热闹的夜晚", ja:"ときめきを賑やかな夜へ連れていく", en:"Bring your crush into a lively night" },
+        desc: {
+          zh:"有些喜欢适合被放大一点。\n不要太冷静，也不要把心情藏得太深。\n\n这首歌陪你把那份心动带进夜晚。\n灯光亮起来，音乐响起来，喜欢也可以变得很直接。",
+          ja:"少し大きくしていい好きがあります。\n冷静すぎなくていいし、気持ちを深く隠しすぎなくてもいい。\n\nこの曲は、そのときめきを夜へ連れていきます。\nライトが点いて、音楽が鳴ったら、好きはもっとまっすぐでいい。",
+          en:"Some feelings are meant to be made a little louder.\nYou do not have to stay too calm or hide them too deeply.\n\nThis song brings that crush into the night.\nWhen the lights come on and the music starts, liking someone can be direct."
+        }
+      },
+      {
+        id: 33, song: "RED", artist: "Ryosuke Yamada", era: 4,
+        memberOnly: ["yamada"],
+        memberBoost: { yamada: 3.6 },
+        tags: { 王道:2.2, 情緒:1.2, 前進:1.0 },
+        title: { zh:"把自己染成更鲜明的颜色", ja:"自分をもっと鮮やかな色に染める", en:"Dye yourself in a sharper color" },
+        desc: {
+          zh:"现在的你不想只待在背景里。\n你想把存在感调高，让心里的热度被看见。\n\n这首歌陪你把颜色加深。\n不用解释为什么，先更鲜明地站在那里。",
+          ja:"いまのあなたは、背景にいるだけではいたくない。\n存在感を少し上げて、心の熱を見せたい。\n\nこの曲は、色を濃くしてくれます。\n理由を説明しなくてもいい。まず、もっと鮮やかにそこに立てばいい。",
+          en:"Right now, you do not want to stay in the background.\nYou want to turn up your presence and let the heat inside you be seen.\n\nThis song deepens your color.\nYou do not have to explain why. Just stand there more vividly first."
+        }
+      },
+      {
+        id: 34, song: "Bloomin'", artist: "Ryosuke Yamada", era: 4,
+        memberOnly: ["yamada"],
+        memberBoost: { yamada: 3.2 },
+        tags: { 王道:1.3, 情緒:1.4, 温度:1.0 },
+        title: { zh:"让靠近的心情慢慢开花", ja:"近づく気持ちをゆっくり咲かせる", en:"Let closeness bloom slowly" },
+        desc: {
+          zh:"有些距离看起来很近，心里却还隔着一层没说破的空气。\n再往前一步，很多东西都会改变。\n\n这首歌陪你停在花要开的前一刻。\n紧张也好，期待也好，都已经开始有了颜色。",
+          ja:"近く見える距離でも、心にはまだ言えない空気が一枚あります。\nもう一歩進めば、きっと多くのものが変わる。\n\nこの曲は、花が開く直前の時間に寄り添ってくれます。\n緊張も期待も、もう色を持ち始めています。",
+          en:"Some distances look close, but a quiet layer still keeps the feeling unsaid.\nOne more step forward, and many things will change.\n\nThis song stays with you just before the flower opens.\nNervousness and hope have already begun to take on color."
+        }
+      },
+      {
+        id: 35, song: "159", artist: "知念侑李", era: 3,
+        memberOnly: ["chinen"],
+        memberBoost: { chinen: 3.5 },
+        tags: { 可愛:1.8, 都市:1.2, 元気:0.9 },
+        title: { zh:"把规则拿回自己手里", ja:"ルールを自分の手に取り戻す", en:"Take the rules back into your own hands" },
+        desc: {
+          zh:"别人以为已经看懂你了。\n可你偏偏最会利用这种误判。\n\n这首歌陪你把视线反过来。\n被怎么期待、被怎么定义，都不必照单全收。\n你可以笑着接住，再按自己的方式出牌。",
+          ja:"相手はもうあなたを分かったつもりでいる。\nでも、あなたはその誤解をいちばん上手に使える人です。\n\nこの曲は、向けられた視線をひっくり返してくれます。\nどう期待されても、どう決めつけられても、そのまま受け取らなくていい。\n笑って受け止めて、自分のやり方でカードを切ればいい。",
+          en:"People may think they have already figured you out.\nBut you are especially good at using that misunderstanding.\n\nThis song helps you turn the gaze back around.\nYou do not have to accept every expectation or definition placed on you.\nYou can smile, take it in, and play your own card."
+        }
+      },
+      {
+        id: 36, song: "題名の無い物語", artist: "髙木雄也", era: 3,
+        memberOnly: ["takaki"],
+        memberBoost: { takaki: 3.6 },
+        tags: { 情緒:2.1, 温度:1.5, 記憶:0.8 },
+        title: { zh:"在看不清的轮廓里继续相信", ja:"見えない輪郭の中で信じ続ける", en:"Keep believing in the unclear outline" },
+        desc: {
+          zh:"有些幸福像真的一样靠近。\n声音和温度都清楚，只有最重要的那个人始终看不清。\n\n这首歌陪你留住那份不肯散掉的想念。\n哪怕故事还没有题名，哪怕轮廓还没有出现，\n也还是想相信：总有一天，会真正遇见。",
+          ja:"本物みたいに近づいてくる幸せがあります。\n声も温度もはっきりしているのに、いちばん大切な人だけが見えないまま。\n\nこの曲は、消えてくれない想いを残してくれます。\n物語にまだ題名がなくても、輪郭がまだ現れていなくても、\nいつか本当に出会えると信じていたい。",
+          en:"Some happiness comes close enough to feel real.\nThe voice and warmth are clear, but the most important person remains impossible to see.\n\nThis song keeps the longing that will not fade.\nEven if the story still has no title, even if the outline has not appeared yet,\nyou still want to believe that one day, you will truly meet."
+        }
+      },
+      {
+        id: 37, song: "俺たちの青春", artist: "髙木雄也", era: 1,
+        memberOnly: ["takaki"],
+        memberBoost: { takaki: 3.4 },
+        tags: { 元気:1.5, 記憶:1.3, 前進:1.2 },
+        title: { zh:"把此刻能做的事用力做完", ja:"いまできることを思いきりやりきる", en:"Do what only now can do" },
+        desc: {
+          zh:"有些日子回头看会显得笨拙，正在经历的时候却很烫。\n你不想让别人把它说成无意义。\n\n这首歌陪你抓住现在。\n青春不一定漂亮，但一定真切地燃过。",
+          ja:"振り返れば不器用に見える日々でも、その最中にはちゃんと熱があります。\n誰かに無駄だと言われたくない時間がある。\n\nこの曲は、いまをつかませてくれます。\n青春はきれいとは限らない。でも確かに燃えていた。",
+          en:"Some days may look clumsy in hindsight, but they are hot while you are living them.\nYou do not want anyone to call that time meaningless.\n\nThis song helps you hold onto now.\nYouth is not always beautiful, but it did burn for real."
+        }
+      },
+      {
+        id: 38, song: "条件反射", artist: "伊野尾慧", era: 3,
+        memberOnly: ["inoo"],
+        memberBoost: { inoo: 3.5 },
+        tags: { 都市:2.2, 情緒:1.4, 可愛:0.6 },
+        title: { zh:"让理性追不上本能", ja:"理性が本能に追いつかない", en:"Let instinct outrun reason" },
+        desc: {
+          zh:"有些反应来得太快。\n还没想好该不该靠近，身体和心已经先给了答案。\n\n这首歌陪你承认那种不受控制的吸引。\n不端正，不安全，却让人一下子醒过来。",
+          ja:"反応が速すぎる瞬間があります。\n近づいていいか考える前に、身体と心がもう答えを出している。\n\nこの曲は、制御できない引力を認めさせてくれます。\n正しくなくて、安全でもない。でも一瞬で目が覚める。",
+          en:"Some reactions arrive too quickly.\nBefore you can decide whether to move closer, your body and heart have already answered.\n\nThis song lets you admit that uncontrollable attraction.\nIt is not proper, not safe, but it wakes you up all at once."
+        }
+      },
+      {
+        id: 39, song: "流星の詩", artist: "薮宏太", era: 3,
+        memberOnly: ["yabu"],
+        memberBoost: { yabu: 3.6 },
+        tags: { 温度:1.8, 記憶:1.6, 情緒:1.0 },
+        title: { zh:"把想念写进夜空里", ja:"想いを夜空に映す", en:"Write longing into the night sky" },
+        desc: {
+          zh:"现在的你可能需要一首把声音放远的歌。\n想念不一定要喊出来，也可以慢慢投向夜空。\n\n这首歌陪你把感情拉长。\n像流星一样，短暂，却足够被看见。",
+          ja:"いまのあなたには、声を遠くへ置ける歌が必要なのかもしれません。\n想いは叫ばなくてもいい。夜空へゆっくり映せばいい。\n\nこの曲は、感情を長く伸ばしてくれます。\n流星のように短くても、ちゃんと見える光になります。",
+          en:"You may need a song that lets your voice travel far.\nLonging does not always have to be shouted; it can be cast slowly into the night sky.\n\nThis song stretches your feelings out.\nLike a shooting star, it may be brief, but it can still be seen."
+        }
+      },
+      {
+        id: 40, song: "ただ前へ", artist: "Hey! Say! 7", era: 2,
+        memberOnly: ["yamada","chinen","nakajima","okamoto"],
+        memberBoost: { yamada: 1.7, chinen: 1.7, nakajima: 1.7, okamoto: 1.7 },
+        tags: { 前進:2.2, 記憶:1.0, 情緒:0.8 },
+        title: { zh:"带着没有消失的烦恼再走一步", ja:"消えない悩みを抱えたまま、もう一歩進む", en:"Take one more step with the worries still there" },
+        desc: {
+          zh:"问题不会因为一首歌就突然变少。\n烦恼也不会因为想通了，就马上从心里搬走。\n\n这首歌陪你做的事很简单：\n再走一步。\n\n喜悦也好，悲伤也好，\n先不要急着整理成答案。\n带着它们往前走，后来它们会在路边开成花。",
+          ja:"問題は、一曲で急に減るわけではありません。\n悩みも、少し分かったからといってすぐ心から出ていくわけではない。\n\nこの曲が寄り添ってくれることは、とてもシンプルです。\nもう一歩進むこと。\n\n喜びも悲しみも、\n急いで答えにしなくていい。\n抱えたまま前へ進めば、いつか道端に花として咲くでしょう。",
+          en:"Problems will not suddenly become fewer because of one song.\nWorries will not immediately move out of your heart just because you understand them.\n\nWhat this song helps you do is simple:\ntake one more step.\n\nJoy or sadness,\nyou do not have to turn them into answers right away.\nWalk forward with them, and later they may bloom by the roadside."
+        }
+      },
+      {
+        id: 41, song: "ガンバレッツゴー!", artist: "Hey! Say! 7", era: 1,
+        memberOnly: ["yamada","chinen","nakajima","okamoto","morimoto"],
+        memberBoost: { yamada: 1.6, chinen: 1.6, nakajima: 1.6, okamoto: 1.6, morimoto: 1.6 },
+        tags: { 元気:2.1, 団体:1.0, 前進:0.8 },
+        title: { zh:"把收到的元气全力喊回去", ja:"もらった元気を全力で返す", en:"Shout back the energy you received" },
+        desc: {
+          zh:"有时候你不是一个人在努力。\n你看见对方的认真、汗水和坚持，自己也会跟着被点燃。\n\n这首歌陪你把那份元气喊回去。\n谢谢你给我的勇气，所以我也想用全力为你加油。",
+          ja:"頑張っているのは、自分一人だけではない時があります。\n相手の本気や汗、続けてきた努力を見ると、自分も火がつく。\n\nこの曲は、もらった元気を声にして返してくれます。\n勇気をくれてありがとう。だから自分も全力で応援したい。",
+          en:"Sometimes you are not the only one trying hard.\nWhen you see someone's seriousness, sweat, and persistence, you get lit up too.\n\nThis song helps you shout that energy back.\nThank you for giving me courage, so I want to cheer for you with everything I have."
+        }
+      },
+      {
+        id: 42, song: "ス・リ・ル", artist: "Hey! Say! BEST", era: 1,
+        memberOnly: ["arioka","takaki","inoo","yaotome","yabu"],
+        memberBoost: { arioka: 1.5, takaki: 1.5, inoo: 1.5, yaotome: 1.5, yabu: 1.5 },
+        tags: { 都市:1.8, 情緒:1.2, 前進:0.8 },
+        title: { zh:"把理智交给那一下刺激", ja:"理性をその刺激に預ける", en:"Hand reason over to that thrill" },
+        desc: {
+          zh:"有些瞬间，不是想清楚以后才心动。\n是节奏先靠近，空气先变热，身体先知道自己被带走了。\n\n这首歌陪你进入那种危险边缘的清醒。\n不用立刻判断该不该，\n先让感官打开，先承认那一下刺激是真的。",
+          ja:"考えきってから心が動くわけではない瞬間があります。\nリズムが先に近づいて、空気が熱くなり、身体が先に連れていかれたことを知る。\n\nこの曲は、危うさの縁にある冴えた感覚へ連れていきます。\nすぐに正しいかどうか判断しなくていい。\nまず感覚を開いて、その刺激が本物だと認めればいい。",
+          en:"Some moments do not move your heart after you have thought them through.\nThe rhythm comes closer first, the air turns hot, and your body knows it has already been carried away.\n\nThis song brings you into that clear feeling on the edge of danger.\nYou do not have to judge right away whether you should or should not.\nOpen your senses first, and admit that the thrill is real."
+        }
+      },
+      {
+        id: 43, song: "勇気100%", artist: "Hey! Say! JUMP", era: 1,
+        memberBoost: { yamada: 1.1, chinen: 1.1, arioka: 1.1, takaki: 1.1, inoo: 1.1, yaotome: 1.1, yabu: 1.1, morimoto: 1.1, okamoto: 1.1, nakajima: 1.1, all: 1.1 },
+        tags: { 元気:2.2, 前進:1.5, 団体:0.8 },
+        title: { zh:"把想做的事先做起来", ja:"やりたいことをまず始める", en:"Start doing what you want to do" },
+        desc: {
+          zh:"有些答案不会等你准备完美才出现。\n越是犹豫，越容易把真正想做的事拖到很远。\n\n这首歌陪你把勇气拿出来用。\n想做的事就先去做，跌倒了也没关系，往前的力气会在行动里长出来。",
+          ja:"完璧に準備できるまで、答えは待ってくれないことがあります。\n迷うほど、本当にやりたいことは遠くへ延びていく。\n\nこの曲は、勇気を使わせてくれます。\nやりたいことは、まずやってみればいい。転んでも大丈夫。前へ進む力は、動く中で育っていきます。",
+          en:"Some answers will not wait until you are perfectly ready.\nThe more you hesitate, the farther your real wish can drift away.\n\nThis song helps you put your courage to use.\nIf you want to do it, start first. It is okay to fall; the strength to move forward grows through action."
+        }
       }
+
     ];
 
     const app = {
@@ -1396,159 +1560,4 @@ ${winner.desc[app.lang]}`;
     renderLanguages();
   </script>
 </body>
-</html>,
-      {
-        id: 31, song: "Do it again", artist: "山田涼介", era: 3,
-        memberOnly: ["yamada"],
-        memberBoost: { yamada: 3.4 },
-        tags: { 王道:2.0, 情緒:1.4, 都市:0.9, 前進:0.8 },
-        title: { zh:"让夜里的心跳再响一次", ja:"夜の鼓動をもう一度鳴らす", en:"Let the night heartbeat ring again" },
-        desc: {
-          zh:"有些靠近不是一次就能结束。\n明明已经听见秘密的声音，心还是会想再往前一点。\n\n这首歌陪你把那一瞬间重新点亮。\n不用装作冷静，想再确认一次，就让心跳再响一次。",
-          ja:"一度では終わらない近づき方があります。\n秘密の声をもう聞いてしまったのに、心はまだ少し先へ行きたがる。\n\nこの曲は、その一瞬をもう一度灯してくれます。\n冷静なふりをしなくていい。もう一度確かめたいなら、鼓動をもう一度鳴らせばいい。",
-          en:"Some kinds of closeness do not end after one time.\nEven after hearing the secret voice, your heart still wants to move a little closer.\n\nThis song lights that moment again.\nYou do not have to pretend to be calm. If you want to confirm it once more, let the heartbeat ring again."
-        }
-      },
-      {
-        id: 32, song: "Oh! my darling", artist: "山田涼介", era: 3,
-        memberOnly: ["yamada"],
-        memberBoost: { yamada: 3.2 },
-        tags: { 王道:1.8, 可愛:1.3, 情緒:0.8 },
-        title: { zh:"把心动带进热闹的夜晚", ja:"ときめきを賑やかな夜へ連れていく", en:"Bring your crush into a lively night" },
-        desc: {
-          zh:"有些喜欢适合被放大一点。\n不要太冷静，也不要把心情藏得太深。\n\n这首歌陪你把那份心动带进夜晚。\n灯光亮起来，音乐响起来，喜欢也可以变得很直接。",
-          ja:"少し大きくしていい好きがあります。\n冷静すぎなくていいし、気持ちを深く隠しすぎなくてもいい。\n\nこの曲は、そのときめきを夜へ連れていきます。\nライトが点いて、音楽が鳴ったら、好きはもっとまっすぐでいい。",
-          en:"Some feelings are meant to be made a little louder.\nYou do not have to stay too calm or hide them too deeply.\n\nThis song brings that crush into the night.\nWhen the lights come on and the music starts, liking someone can be direct."
-        }
-      },
-      {
-        id: 33, song: "RED", artist: "Ryosuke Yamada", era: 4,
-        memberOnly: ["yamada"],
-        memberBoost: { yamada: 3.6 },
-        tags: { 王道:2.2, 情緒:1.2, 前進:1.0 },
-        title: { zh:"把自己染成更鲜明的颜色", ja:"自分をもっと鮮やかな色に染める", en:"Dye yourself in a sharper color" },
-        desc: {
-          zh:"现在的你不想只待在背景里。\n你想把存在感调高，让心里的热度被看见。\n\n这首歌陪你把颜色加深。\n不用解释为什么，先更鲜明地站在那里。",
-          ja:"いまのあなたは、背景にいるだけではいたくない。\n存在感を少し上げて、心の熱を見せたい。\n\nこの曲は、色を濃くしてくれます。\n理由を説明しなくてもいい。まず、もっと鮮やかにそこに立てばいい。",
-          en:"Right now, you do not want to stay in the background.\nYou want to turn up your presence and let the heat inside you be seen.\n\nThis song deepens your color.\nYou do not have to explain why. Just stand there more vividly first."
-        }
-      },
-      {
-        id: 34, song: "Bloomin'", artist: "Ryosuke Yamada", era: 4,
-        memberOnly: ["yamada"],
-        memberBoost: { yamada: 3.2 },
-        tags: { 王道:1.3, 情緒:1.4, 温度:1.0 },
-        title: { zh:"让靠近的心情慢慢开花", ja:"近づく気持ちをゆっくり咲かせる", en:"Let closeness bloom slowly" },
-        desc: {
-          zh:"有些距离看起来很近，心里却还隔着一层没说破的空气。\n再往前一步，很多东西都会改变。\n\n这首歌陪你停在花要开的前一刻。\n紧张也好，期待也好，都已经开始有了颜色。",
-          ja:"近く見える距離でも、心にはまだ言えない空気が一枚あります。\nもう一歩進めば、きっと多くのものが変わる。\n\nこの曲は、花が開く直前の時間に寄り添ってくれます。\n緊張も期待も、もう色を持ち始めています。",
-          en:"Some distances look close, but a quiet layer still keeps the feeling unsaid.\nOne more step forward, and many things will change.\n\nThis song stays with you just before the flower opens.\nNervousness and hope have already begun to take on color."
-        }
-      },
-      {
-        id: 35, song: "159", artist: "知念侑李", era: 3,
-        memberOnly: ["chinen"],
-        memberBoost: { chinen: 3.5 },
-        tags: { 可愛:1.8, 都市:1.2, 元気:0.9 },
-        title: { zh:"把规则拿回自己手里", ja:"ルールを自分の手に取り戻す", en:"Take the rules back into your own hands" },
-        desc: {
-          zh:"别人以为已经看懂你了。\n可你偏偏最会利用这种误判。\n\n这首歌陪你把视线反过来。\n被怎么期待、被怎么定义，都不必照单全收。\n你可以笑着接住，再按自己的方式出牌。",
-          ja:"相手はもうあなたを分かったつもりでいる。\nでも、あなたはその誤解をいちばん上手に使える人です。\n\nこの曲は、向けられた視線をひっくり返してくれます。\nどう期待されても、どう決めつけられても、そのまま受け取らなくていい。\n笑って受け止めて、自分のやり方でカードを切ればいい。",
-          en:"People may think they have already figured you out.\nBut you are especially good at using that misunderstanding.\n\nThis song helps you turn the gaze back around.\nYou do not have to accept every expectation or definition placed on you.\nYou can smile, take it in, and play your own card."
-        }
-      },
-      {
-        id: 36, song: "題名の無い物語", artist: "髙木雄也", era: 3,
-        memberOnly: ["takaki"],
-        memberBoost: { takaki: 3.6 },
-        tags: { 情緒:2.1, 温度:1.5, 記憶:0.8 },
-        title: { zh:"在看不清的轮廓里继续相信", ja:"見えない輪郭の中で信じ続ける", en:"Keep believing in the unclear outline" },
-        desc: {
-          zh:"有些幸福像真的一样靠近。\n声音和温度都清楚，只有最重要的那个人始终看不清。\n\n这首歌陪你留住那份不肯散掉的想念。\n哪怕故事还没有题名，哪怕轮廓还没有出现，\n也还是想相信：总有一天，会真正遇见。",
-          ja:"本物みたいに近づいてくる幸せがあります。\n声も温度もはっきりしているのに、いちばん大切な人だけが見えないまま。\n\nこの曲は、消えてくれない想いを残してくれます。\n物語にまだ題名がなくても、輪郭がまだ現れていなくても、\nいつか本当に出会えると信じていたい。",
-          en:"Some happiness comes close enough to feel real.\nThe voice and warmth are clear, but the most important person remains impossible to see.\n\nThis song keeps the longing that will not fade.\nEven if the story still has no title, even if the outline has not appeared yet,\nyou still want to believe that one day, you will truly meet."
-        }
-      },
-      {
-        id: 37, song: "俺たちの青春", artist: "髙木雄也", era: 1,
-        memberOnly: ["takaki"],
-        memberBoost: { takaki: 3.4 },
-        tags: { 元気:1.5, 記憶:1.3, 前進:1.2 },
-        title: { zh:"把此刻能做的事用力做完", ja:"いまできることを思いきりやりきる", en:"Do what only now can do" },
-        desc: {
-          zh:"有些日子回头看会显得笨拙，正在经历的时候却很烫。\n你不想让别人把它说成无意义。\n\n这首歌陪你抓住现在。\n青春不一定漂亮，但一定真切地燃过。",
-          ja:"振り返れば不器用に見える日々でも、その最中にはちゃんと熱があります。\n誰かに無駄だと言われたくない時間がある。\n\nこの曲は、いまをつかませてくれます。\n青春はきれいとは限らない。でも確かに燃えていた。",
-          en:"Some days may look clumsy in hindsight, but they are hot while you are living them.\nYou do not want anyone to call that time meaningless.\n\nThis song helps you hold onto now.\nYouth is not always beautiful, but it did burn for real."
-        }
-      },
-      {
-        id: 38, song: "条件反射", artist: "伊野尾慧", era: 3,
-        memberOnly: ["inoo"],
-        memberBoost: { inoo: 3.5 },
-        tags: { 都市:2.2, 情緒:1.4, 可愛:0.6 },
-        title: { zh:"让理性追不上本能", ja:"理性が本能に追いつかない", en:"Let instinct outrun reason" },
-        desc: {
-          zh:"有些反应来得太快。\n还没想好该不该靠近，身体和心已经先给了答案。\n\n这首歌陪你承认那种不受控制的吸引。\n不端正，不安全，却让人一下子醒过来。",
-          ja:"反応が速すぎる瞬間があります。\n近づいていいか考える前に、身体と心がもう答えを出している。\n\nこの曲は、制御できない引力を認めさせてくれます。\n正しくなくて、安全でもない。でも一瞬で目が覚める。",
-          en:"Some reactions arrive too quickly.\nBefore you can decide whether to move closer, your body and heart have already answered.\n\nThis song lets you admit that uncontrollable attraction.\nIt is not proper, not safe, but it wakes you up all at once."
-        }
-      },
-      {
-        id: 39, song: "流星の詩", artist: "薮宏太", era: 3,
-        memberOnly: ["yabu"],
-        memberBoost: { yabu: 3.6 },
-        tags: { 温度:1.8, 記憶:1.6, 情緒:1.0 },
-        title: { zh:"把想念写进夜空里", ja:"想いを夜空に映す", en:"Write longing into the night sky" },
-        desc: {
-          zh:"现在的你可能需要一首把声音放远的歌。\n想念不一定要喊出来，也可以慢慢投向夜空。\n\n这首歌陪你把感情拉长。\n像流星一样，短暂，却足够被看见。",
-          ja:"いまのあなたには、声を遠くへ置ける歌が必要なのかもしれません。\n想いは叫ばなくてもいい。夜空へゆっくり映せばいい。\n\nこの曲は、感情を長く伸ばしてくれます。\n流星のように短くても、ちゃんと見える光になります。",
-          en:"You may need a song that lets your voice travel far.\nLonging does not always have to be shouted; it can be cast slowly into the night sky.\n\nThis song stretches your feelings out.\nLike a shooting star, it may be brief, but it can still be seen."
-        }
-      },
-      {
-        id: 40, song: "ただ前へ", artist: "Hey! Say! 7", era: 2,
-        memberOnly: ["yamada","chinen","nakajima","okamoto"],
-        memberBoost: { yamada: 1.7, chinen: 1.7, nakajima: 1.7, okamoto: 1.7 },
-        tags: { 前進:2.2, 記憶:1.0, 情緒:0.8 },
-        title: { zh:"带着没有消失的烦恼再走一步", ja:"消えない悩みを抱えたまま、もう一歩進む", en:"Take one more step with the worries still there" },
-        desc: {
-          zh:"问题不会因为一首歌就突然变少。\n烦恼也不会因为想通了，就马上从心里搬走。\n\n这首歌陪你做的事很简单：\n再走一步。\n\n喜悦也好，悲伤也好，\n先不要急着整理成答案。\n带着它们往前走，后来它们会在路边开成花。",
-          ja:"問題は、一曲で急に減るわけではありません。\n悩みも、少し分かったからといってすぐ心から出ていくわけではない。\n\nこの曲が寄り添ってくれることは、とてもシンプルです。\nもう一歩進むこと。\n\n喜びも悲しみも、\n急いで答えにしなくていい。\n抱えたまま前へ進めば、いつか道端に花として咲くでしょう。",
-          en:"Problems will not suddenly become fewer because of one song.\nWorries will not immediately move out of your heart just because you understand them.\n\nWhat this song helps you do is simple:\ntake one more step.\n\nJoy or sadness,\nyou do not have to turn them into answers right away.\nWalk forward with them, and later they may bloom by the roadside."
-        }
-      },
-      {
-        id: 41, song: "ガンバレッツゴー!", artist: "Hey! Say! 7", era: 1,
-        memberOnly: ["yamada","chinen","nakajima","okamoto","morimoto"],
-        memberBoost: { yamada: 1.6, chinen: 1.6, nakajima: 1.6, okamoto: 1.6, morimoto: 1.6 },
-        tags: { 元気:2.1, 団体:1.0, 前進:0.8 },
-        title: { zh:"把收到的元气全力喊回去", ja:"もらった元気を全力で返す", en:"Shout back the energy you received" },
-        desc: {
-          zh:"有时候你不是一个人在努力。\n你看见对方的认真、汗水和坚持，自己也会跟着被点燃。\n\n这首歌陪你把那份元气喊回去。\n谢谢你给我的勇气，所以我也想用全力为你加油。",
-          ja:"頑張っているのは、自分一人だけではない時があります。\n相手の本気や汗、続けてきた努力を見ると、自分も火がつく。\n\nこの曲は、もらった元気を声にして返してくれます。\n勇気をくれてありがとう。だから自分も全力で応援したい。",
-          en:"Sometimes you are not the only one trying hard.\nWhen you see someone's seriousness, sweat, and persistence, you get lit up too.\n\nThis song helps you shout that energy back.\nThank you for giving me courage, so I want to cheer for you with everything I have."
-        }
-      },
-      {
-        id: 42, song: "ス・リ・ル", artist: "Hey! Say! BEST", era: 1,
-        memberOnly: ["arioka","takaki","inoo","yaotome","yabu"],
-        memberBoost: { arioka: 1.5, takaki: 1.5, inoo: 1.5, yaotome: 1.5, yabu: 1.5 },
-        tags: { 都市:1.8, 情緒:1.2, 前進:0.8 },
-        title: { zh:"把理智交给那一下刺激", ja:"理性をその刺激に預ける", en:"Hand reason over to that thrill" },
-        desc: {
-          zh:"有些瞬间，不是想清楚以后才心动。\n是节奏先靠近，空气先变热，身体先知道自己被带走了。\n\n这首歌陪你进入那种危险边缘的清醒。\n不用立刻判断该不该，\n先让感官打开，先承认那一下刺激是真的。",
-          ja:"考えきってから心が動くわけではない瞬間があります。\nリズムが先に近づいて、空気が熱くなり、身体が先に連れていかれたことを知る。\n\nこの曲は、危うさの縁にある冴えた感覚へ連れていきます。\nすぐに正しいかどうか判断しなくていい。\nまず感覚を開いて、その刺激が本物だと認めればいい。",
-          en:"Some moments do not move your heart after you have thought them through.\nThe rhythm comes closer first, the air turns hot, and your body knows it has already been carried away.\n\nThis song brings you into that clear feeling on the edge of danger.\nYou do not have to judge right away whether you should or should not.\nOpen your senses first, and admit that the thrill is real."
-        }
-      },
-      {
-        id: 43, song: "勇気100%", artist: "Hey! Say! JUMP", era: 1,
-        memberBoost: { yamada: 1.1, chinen: 1.1, arioka: 1.1, takaki: 1.1, inoo: 1.1, yaotome: 1.1, yabu: 1.1, morimoto: 1.1, okamoto: 1.1, nakajima: 1.1, all: 1.1 },
-        tags: { 元気:2.2, 前進:1.5, 団体:0.8 },
-        title: { zh:"把想做的事先做起来", ja:"やりたいことをまず始める", en:"Start doing what you want to do" },
-        desc: {
-          zh:"有些答案不会等你准备完美才出现。\n越是犹豫，越容易把真正想做的事拖到很远。\n\n这首歌陪你把勇气拿出来用。\n想做的事就先去做，跌倒了也没关系，往前的力气会在行动里长出来。",
-          ja:"完璧に準備できるまで、答えは待ってくれないことがあります。\n迷うほど、本当にやりたいことは遠くへ延びていく。\n\nこの曲は、勇気を使わせてくれます。\nやりたいことは、まずやってみればいい。転んでも大丈夫。前へ進む力は、動く中で育っていきます。",
-          en:"Some answers will not wait until you are perfectly ready.\nThe more you hesitate, the farther your real wish can drift away.\n\nThis song helps you put your courage to use.\nIf you want to do it, start first. It is okay to fall; the strength to move forward grows through action."
-        }
-      }
+</html>

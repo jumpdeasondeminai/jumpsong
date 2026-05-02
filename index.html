@@ -1251,10 +1251,10 @@
         resultStateLabel: "いまのあなた",
         resultNote: "",
         shareQrTitle: "スクショでシェア",
-        shareQrCopy: "QRから診断できます",
+        shareQrCopy: "QRコードから診断できます",
         copyResult: "結果をコピー",
         copied: "コピーしました",
-        principle: {"summary": "診断の仕組みを見る", "paragraphs": ["GPT先生にcodeを読んでもらい、この診断の仕組みを説明してもらいました。（以下、GPT先生による説明です）", "この診断の中心になっている要素は全部で10個あります。具体的には「王道感、かわいさ、明るさ、温かさ、都会感、情緒、前向きさ、記憶、変化、グループ感」です。これは、目には見えない感情や雰囲気のスロットのようなものだと考えると分かりやすいです。各設問は、急に出かけられるか、長いメッセージをその日のうちに返せるか、ライブや舞台の細部を覚えているか、予定変更にどう対応するか、といった日常の行動を聞いているように見えます。ただし、その裏側には、それぞれの要素ごとの重み付けが入っています。", "結果にまず影響するのは<strong>メンバー選択</strong>です。codeの中では、メンバーが現メンバー、元メンバー、全員入口に分かれています。各メンバーには初期の性格スコアが設定されていて、たとえば山田涼介くんは「王道感、情緒、記憶」寄り、有岡大貴くんは「明るさ、かわいさ、前向きさ」寄りです。このメンバースコアは、診断の最初の下地になります。ユーザーがまだ設問に答える前から、選んだ入口によって少しだけ方向性が付く仕組みです。", "選択肢の倍率は固定されています。1つ目の選択肢が <code>1</code>、2つ目が <code>0.55</code>、3つ目が <code>-0.35</code>、4つ目が <code>-0.8</code> です。つまり、「はい」はその設問の傾向をそのままユーザー画像に加え、「ややはい」は半分くらいの強さで加えます。「ややいいえ」は反対方向に動き始め、「いいえ」はよりはっきり反対側へ寄る選択になります。たとえば、ある設問の重みが「温かさ +1.1、記憶 +0.3、明るさ -1.1、前向きさ -0.8」だった場合、「はい」を選ぶと温かさと記憶に近づき、同時に明るさと前向きさからは少し離れます。「いいえ」を選ぶと、その向きが逆になり、明るさと前向きさに近づきます。", "すべての設問に答えると、システムはまずユーザーの総合的な画像を計算します。この画像は2つの要素でできています。1つ目は、最初に選んだメンバーによる初期スコアです。2つ目は、すべての設問回答を選択肢倍率に合わせて足し合わせたスコアです。最終的に出てくるのは単純な一言ラベルではなく、10個の要素に分かれたスコア群です。たとえば「温かさ」「情緒」「記憶」が高い人もいれば、「明るさ」「前向きさ」「グループ感」が高い人もいます。", "楽曲結果も単一のラベルではありません。各曲にはcode内で <code>tags</code> が設定されていて、これが“楽曲画像”になります。たとえば、ある曲は「王道感、記憶、グループ感」寄り、別の曲は「都会感、情緒、変化」寄り、さらに「温かさ、前向きさ」や「かわいさ、明るさ」寄りの曲もあります。システムは、ユーザーの10要素のスコアと各曲の <code>tags</code> を照らし合わせます。ユーザーが高く出ている要素を、その曲も強く持っていれば、その曲の得点が上がります。", "ここにはもう一つ大事な制限があり、これを<strong>時代フィルター</strong>と呼べます。各メンバー入口には <code>maxEra</code> があり、各曲にも <code>era</code> があります。システムは、ユーザーが選んだメンバーに応じて、候補に入るべきではない曲を先に除外します。たとえば森本龍太郎くんを選んだ場合は、より早い時代範囲の曲だけが候補になります。岡本圭人くん、中島裕翔くんを選んだ場合も、それぞれの時間軸に合わせて候補が制限されます。現メンバーや全員入口を選んだ場合は、候補範囲がより広くなります。", "時代フィルターのほかに、codeにはさらに細かい制御が2つあります。1つ目は <code>memberBoost</code> です。これは、特定の曲が特定のメンバー入口で少し得点を上げる仕組みです。結果を完全に決めるものではありませんが、そのメンバーに関係の深い曲が少し出やすくなります。たとえば、メンバー主演ドラマの主題歌、ソロ／ユニット関連曲、そのメンバーの雰囲気に強く合う曲などを、ここで少し近づけています。2つ目は <code>memberOnly</code> です。これは、特定の曲を特定のメンバー入口からしか出さない制限です。たとえば《RED》は山田涼介くん入口限定、《Are You There?》はA.Y.Tに対応するメンバー入口限定なので、全員入口や関係のないメンバー入口からは出てきません。", "最後の判定では、システムがまずユーザーの10要素の画像を計算し、次に現在のメンバー入口で使える曲だけを候補として残し、その後で各候補曲に得点を付けます。得点は、ユーザー画像の各要素のスコアと、楽曲画像の各要素の重みを掛け合わせ、それを合計して出します。さらに、その曲に現在のメンバーの <code>memberBoost</code> があれば、その分を追加します。すべての候補曲を並べたあと、最も得点が高い曲が最終結果になります。codeには、ごく小さな乱数 <code>Math.random() * 0.0001</code> も入っています。この乱数は非常に小さく、ほぼ同点になった場合の処理用なので、通常の結果の方向性を変えるものではありません。", "つまり、この診断は、まずメンバーでユーザー画像に下地を作り、次に20問の日常的な設問でその画像をさまざまな方向へ動かし、最後に49曲それぞれの隠れた楽曲画像と照合しています。メンバー入口は初期傾向と出現範囲を決め、設問回答は現在の状態を形作り、楽曲タグは結果との相性を見ます。メンバー加点と限定ルールは、特別な関連性をより正確に扱うための調整です。全体のロジックは、<strong>誰を好きかが診断の出発点を決め、どう答えるかがいまの状態を決め、その状態に最も近い画像を持つ曲が結果になる</strong>、というものです。"]}
+        principle: {"summary": "診断の仕組みを見る", "paragraphs": ["GPT先生にコードを読んでもらい、この診断の仕組みを説明してもらいました。（以下、GPT先生による説明です）", "この診断の中心になる要素は全部で10個あります。具体的には「王道感、かわいさ、明るさ、温かさ、都会感、情緒、前向きさ、記憶、変化、グループ感」です。これは、表には見えない感情や雰囲気の枠のようなものだと考えると分かりやすいです。各設問は、急に出かけられるか、長いメッセージをその日のうちに返せるか、ライブや舞台の細部を覚えているか、予定変更にどう対応するか、といった日常の行動を聞いているように見えます。ただし、その裏側には、それぞれの要素ごとの重み付けが入っています。", "結果に最初に影響するのは<strong>メンバー選択</strong>です。codeの中では、メンバーが現メンバー、元メンバー、全員用の入口に分かれています。各メンバーには初期の性格スコアが設定されていて、たとえば山田涼介くんは「王道感、情緒、記憶」寄り、有岡大貴くんは「明るさ、かわいさ、前向きさ」寄りです。このメンバースコアは、診断の最初の下地になります。ユーザーがまだ設問に答える前から、選んだ入口によって少しだけ方向性が少し決まる仕組みです。", "選択肢の倍率は固定されています。1つ目の選択肢が <code>1</code>、2つ目が <code>0.55</code>、3つ目が <code>-0.35</code>、4つ目が <code>-0.8</code> です。つまり、「はい」はその設問の傾向をそのままユーザープロフィールに加え、「ややはい」は半分くらいの強さで加えます。「ややいいえ」は反対方向に動き始め、「いいえ」はよりはっきり反対側へ寄る選択になります。たとえば、ある設問の重みが「温かさ +1.1、記憶 +0.3、明るさ -1.1、前向きさ -0.8」だった場合、「はい」を選ぶと温かさと記憶に近づき、同時に明るさと前向きさからは少し離れます。「いいえ」を選ぶと、その向きが逆になり、明るさと前向きさに近づきます。", "すべての設問に答えると、システムはまずユーザーの総合的な画像を計算します。この画像は2つの要素でできています。1つ目は、最初に選んだメンバーによる初期スコアです。2つ目は、すべての設問回答を選択肢倍率に合わせて足し合わせたスコアです。最終的に出てくるのは単純な一言ラベルではなく、10個の要素に分かれたスコア群です。たとえば「温かさ」「情緒」「記憶」が高い人もいれば、「明るさ」「前向きさ」「グループ感」が高い人もいます。", "楽曲結果も単一のラベルではありません。各曲にはcode内で <code>tags</code> が設定されていて、これが“楽曲プロフィール”になります。たとえば、ある曲は「王道感、記憶、グループ感」寄り、別の曲は「都会感、情緒、変化」寄り、さらに「温かさ、前向きさ」や「かわいさ、明るさ」寄りの曲もあります。システムは、ユーザーの10要素のスコアと各曲の <code>tags</code> を照らし合わせます。ユーザーが高く出ている要素を、その曲も強く持っていれば、その曲の得点が上がります。", "ここにはもう一つ大事な制限があり、これを<strong>時代フィルター</strong>と呼べます。各メンバー入口には <code>maxEra</code> があり、各曲にも <code>era</code> があります。システムは、ユーザーが選んだメンバーに応じて、候補に入らない曲を先に除外します。たとえば森本龍太郎くんを選んだ場合は、より初期の時代の曲だけが候補になります。岡本圭人くん、中島裕翔くんを選んだ場合も、それぞれの時間軸に合わせて候補が制限されます。現メンバーや全員用の入口を選んだ場合は、候補範囲がより広くなります。", "時代フィルターのほかに、codeにはさらに細かい制御が2つあります。1つ目は <code>memberBoost</code> です。これは、特定の曲が特定のメンバー入口で少し得点を上げる仕組みです。結果を完全に決めるものではありませんが、そのメンバーに関係の深い曲が少し出やすくなります。たとえば、メンバー主演ドラマの主題歌、ソロ／ユニット関連曲、そのメンバーの雰囲気に強く合う曲などを、ここで少し近づけています。2つ目は <code>memberOnly</code> です。これは、特定の曲を特定のメンバー入口からしか出さない制限です。たとえば《RED》は山田涼介くん入口限定、《Are You There?》はA.Y.Tに対応するメンバー入口限定なので、全員用の入口や関係のないメンバーの入口からは出てきません。", "最後の判定では、システムがまずユーザーの10要素の画像を計算し、次に現在のメンバー入口で使える曲だけを候補として残し、その後で各候補曲に得点を付けます。得点は、ユーザープロフィールの各要素のスコアと、楽曲プロフィールの各要素の重みを掛け合わせ、それを合計して出します。さらに、その曲に現在のメンバーの <code>memberBoost</code> があれば、その分を追加します。すべての候補曲を並べたあと、最も得点が高い曲が最終結果になります。codeには、ごく小さな乱数 <code>Math.random() * 0.0001</code> も入っています。この乱数は非常に小さく、ほぼ同点になった場合の処理用なので、通常の結果の方向性を変えるものではありません。", "つまり、この診断は、まずメンバーでユーザープロフィールに下地を作り、次に20問の日常に関する設問でその画像をさまざまな方向へ動かし、最後に49曲それぞれの隠れた楽曲プロフィールと照合しています。メンバー入口は初期傾向と出現範囲を決め、設問回答は現在の状態を形作り、楽曲タグは結果との相性を見ます。メンバー加点と限定ルールは、特別な関連性をより正確に扱うための調整です。全体のロジックは、<strong>誰を好きかが診断の出発点を決め、どう答えるかがいまの状態を決め、その状態に最も近い画像を持つ曲が結果になる</strong>、というものです。"]}
       },
       en: {
         htmlLang: "en",
@@ -1274,18 +1274,18 @@
         restart: "Try again",
         resultStateLabel: "YOUR MOMENT",
         resultNote: "",
-        shareQrTitle: "Share by screenshot",
+        shareQrTitle: "Share with a screenshot",
         shareQrCopy: "Scan to take the test",
         copyResult: "Copy result",
         copied: "Copied",
-        principle: {"summary": "How this test works", "paragraphs": ["I asked GPT-sensei to read the code and explain how this test works. The explanation below is from GPT-sensei.", "This test is built around 10 core dimensions: classic-idol energy, cuteness, brightness, warmth, city mood, emotional depth, forward motion, memory, change, and group feeling. You can think of them as ten hidden emotional or atmospheric slots. Each question may look like it is asking about everyday behavior, such as whether you can go out on short notice, whether you reply to a long message on the same day, whether you remember small details from a concert or stage play, or how you respond when plans change. Behind each question, there is a set of weighted dimensions.", "What starts shaping the result first is the <strong>member choice</strong>. In the code, members are divided into current members, former members, and the all-member entry. Each member has a set of initial personality scores. For example, Ryosuke Yamada leans toward classic-idol energy, emotional depth, and memory, while Daiki Arioka leans toward brightness, cuteness, and forward motion. This member score works as the first layer of the test. Before the user answers any question, the chosen entry point already gives the profile a slight direction.", "The option multipliers in the code are fixed: the first option is <code>1</code>, the second is <code>0.55</code>, the third is <code>-0.35</code>, and the fourth is <code>-0.8</code>. In other words, “Yes” adds the question’s tendency fully to the user profile, “Maybe yes” adds it at about half strength, “Maybe no” starts moving in the opposite direction, and “No” is a clearer opposite choice. For example, if one question has the weights “warmth +1.1, memory +0.3, brightness -1.1, forward motion -0.8,” choosing “Yes” moves the user closer to warmth and memory while moving them away from brightness and forward motion. Choosing “No” reverses that direction and moves the user closer to brightness and forward motion.", "After all questions are answered, the system calculates the user’s overall profile. This profile has two parts: the initial score from the selected member, and the dimension scores accumulated from all answers through the option multipliers. The final profile is not a simple one-word label. It is a set of ten-dimensional scores. One person may score high in warmth, emotional depth, and memory, while another may score high in brightness, forward motion, and group feeling.", "The song results are not single-label results either. Each song has its own <code>tags</code> in the code, which act as the song’s hidden profile. One song may lean toward classic-idol energy, memory, and group feeling; another may lean toward city mood, emotional depth, and change; and others may lean toward warmth and forward motion or cuteness and brightness. The system compares the user’s ten-dimensional score with each song’s <code>tags</code>. If the user is high in certain dimensions and a song also values those dimensions, that song’s score goes up.", "There is also an important restriction called the <strong>era filter</strong>. Each member entry has a <code>maxEra</code>, and each song has an <code>era</code>. Based on the member selected by the user, the system filters out songs that should not be included in that candidate pool. For example, choosing Ryutaro Morimoto only allows songs from an earlier era range. Choosing Keito Okamoto or Yuto Nakajima also limits the candidates according to each member’s timeline. Choosing a current member or the all-member entry gives access to a broader candidate range.", "Besides the era filter, the code has two more detailed controls. The first is <code>memberBoost</code>, which gives some songs an extra score for specific member entries. It does not completely decide the result, but it makes certain songs slightly more likely to appear for related members. This can cover drama theme songs starring a member, solo/unit-related songs, or songs whose mood fits a member especially well. The second is <code>memberOnly</code>, which means some songs can only appear from specific member entries. For example, “RED” is limited to the Ryosuke Yamada entry, and “Are You There?” is limited to the members connected to A.Y.T, so they will not appear from the all-member entry or unrelated member entries.", "In the final calculation, the system first creates the user’s ten-dimensional profile, then keeps only the songs available for the current member entry, and then scores every candidate song. The score is calculated by multiplying the user profile’s dimension scores by the corresponding weights in the song profile, then adding everything together. If the song also has a <code>memberBoost</code> for the current member, that bonus is added too. After all candidate songs are ranked, the song with the highest score becomes the final result. The code also adds a tiny random value, <code>Math.random() * 0.0001</code>. This number is extremely small and is mainly used for rare tie-like cases, so it normally does not change the overall direction of the result.", "So this test first uses the selected member to give the user profile a base color, then uses 20 everyday questions to move that profile across different dimensions, and finally compares it with the hidden profiles of 49 songs. The member entry decides the initial tendency and possible result range. The answers shape the user’s current state. The song tags match that state to a result. Member boosts and member-only rules fine-tune special relationships. The overall logic is: <strong>who you like decides where the test starts; how you answer decides what state you are close to right now; and the song whose profile is closest to that state becomes your result.</strong>"]}
+        principle: {"summary": "How this test works", "paragraphs": ["I asked GPT-sensei to read the code and explain how this test works. The explanation below is from GPT-sensei.", "This test is built around 10 core dimensions: classic idol feel, cuteness, brightness, warmth, urban mood, emotional depth, forward motion, memory, change, and group feeling. You can think of them as ten hidden emotional or atmospheric slots. Each question may look like it is asking about everyday behavior, such as whether you can go out on short notice, whether you reply to a long message on the same day, whether you remember small details from a concert or stage play, or how you respond when plans change. Behind each question, there is a set of weighted dimensions.", "The first thing that shapes the result is the <strong>member choice</strong>. In the code, members are divided into current members, former members, and the all-members entry. Each member has a set of initial personality scores. For example, Ryosuke Yamada leans toward classic idol feel, emotional depth, and memory, while Daiki Arioka leans toward brightness, cuteness, and forward motion. This member score works as the first layer of the test. Before the user answers any question, the chosen entry point already gives the profile a slight direction.", "The option multipliers in the code are fixed: the first option is <code>1</code>, the second is <code>0.55</code>, the third is <code>-0.35</code>, and the fourth is <code>-0.8</code>. In other words, “Yes” adds the question’s tendency fully to the user profile, “Maybe yes” adds it at about half strength, “Maybe no” starts moving in the opposite direction, and “No” is a clearer opposite choice. For example, if one question has the weights “warmth +1.1, memory +0.3, brightness -1.1, forward motion -0.8,” choosing “Yes” moves the user closer to warmth and memory while moving them away from brightness and forward motion. Choosing “No” reverses that direction and moves the user closer to brightness and forward motion.", "After all questions are answered, the system calculates the user’s overall profile. This profile has two parts: the initial score from the selected member, and the dimension scores accumulated from all answers through the option multipliers. The final profile is not a simple one-word label. It is a set of ten-dimensional scores. One person may score high in warmth, emotional depth, and memory, while another may score high in brightness, forward motion, and group feeling.", "The song results are not single-label results either. Each song has its own <code>tags</code> in the code, which act as the song’s hidden profile. One song may lean toward classic idol feel, memory, and group feeling; another may lean toward urban mood, emotional depth, and change; and others may lean toward warmth and forward motion or cuteness and brightness. The system compares the user’s ten-dimensional score with each song’s <code>tags</code>. If the user is high in certain dimensions and a song also values those dimensions, that song’s score goes up.", "There is also an important restriction called the <strong>era filter</strong>. Each member entry has a <code>maxEra</code>, and each song has an <code>era</code>. Based on the member selected by the user, the system filters out songs that should not be included in that candidate pool. For example, choosing Ryutaro Morimoto only allows songs from an earlier era range. Choosing Keito Okamoto or Yuto Nakajima also limits the candidates according to each member’s timeline. Choosing a current member or the all-members entry gives access to a broader candidate range.", "Besides the era filter, the code has two more detailed controls. The first is <code>memberBoost</code>, which gives some songs an extra score for specific member entries. It does not completely decide the result, but it makes certain songs slightly more likely to appear for related members. This can cover drama theme songs starring a member, solo/unit-related songs, or songs whose mood fits a member especially well. The second is <code>memberOnly</code>, which means some songs can only appear from specific member entries. For example, “RED” is limited to the Ryosuke Yamada entry, and “Are You There?” is limited to the members connected to A.Y.T, so they will not appear from the all-members entry or unrelated member entries.", "In the final calculation, the system first creates the user’s ten-dimensional profile, then keeps only the songs available for the current member entry, and then scores every candidate song. The score is calculated by multiplying the user profile’s dimension scores by the corresponding weights in the song profile, then adding everything together. If the song also has a <code>memberBoost</code> for the current member, that bonus is added too. After all candidate songs are ranked, the song with the highest score becomes the final result. The code also adds a tiny random value, <code>Math.random() * 0.0001</code>. This number is extremely small and is mainly used for rare near-tie cases, so it normally does not change the overall direction of the result.", "So this test first uses the selected member to give the user profile its first layer, then uses 20 everyday questions to move that profile across different dimensions, and finally compares it with the hidden profiles of 49 songs. The member entry decides the initial tendency and possible result range. The answers shape the user’s current state. The song tags match that state to a result. Member boosts and member-only rules fine-tune those special connections. The overall logic is: <strong>who you like decides where the test starts; how you answer decides what state you are close to right now; and the song whose profile is closest to that state becomes your result.</strong>"]}
       }
     };
 
     const languages = [
       { key: "zh", label: "中文", sub: "此刻与你相伴的JUMP的歌" },
       { key: "ja", label: "日本語", sub: "今に寄り添うJUMPの一曲" },
-      { key: "en", label: "ENGLISH", sub: "The JUMP Song Beside You Now" }
+      { key: "en", label: "ENGLISH", sub: "A JUMP Song for Where You Are Now" }
     ];
 
     const dimensions = ["王道","可愛","元気","温度","都市","情緒","前進","記憶","変化","団体"];
@@ -1317,7 +1317,7 @@
       {
         zh: "排队很久终于轮到你时，店员说卖完了，你会当场改买别的。",
         ja: "長く並んで自分の番が来た時、売り切れと言われたら、その場で別のものを選ぶ。",
-        en: "After waiting in line, if the item is sold out, I choose something else on the spot.",
+        en: "If something sells out right when my turn finally comes after waiting in line, I choose something else on the spot.",
         sub: { zh: "", ja: "", en: "" },
         weights: { 前進:1.05, 変化:0.75, 元気:0.55, 可愛:0.25, 情緒:-0.55 }
       },
@@ -1337,8 +1337,8 @@
       },
       {
         zh: "看到曾经很喜欢的东西有新动态，你会先看评论区，再决定要不要点开正文。",
-        ja: "昔好きだったものの新しい話題を見たら、本文より先にコメント欄を見てから開くか決める。",
-        en: "When I see updates about something I once loved, I check the comments before deciding whether to open the post.",
+        ja: "昔好きだったものの新しい話題を見かけたら、本文を開く前にコメント欄を見て、読むかどうか決める。",
+        en: "When I see a new post about something I used to love, I check the comments before deciding whether to read it.",
         sub: { zh: "", ja: "", en: "" },
         weights: { 都市:0.85, 情緒:0.65, 変化:0.55, 記憶:0.35, 王道:-0.35 }
       },
@@ -1358,7 +1358,7 @@
       },
       {
         zh: "看完一场演出后，你更常记住舞台上某个细节，而不是整体氛围。",
-        ja: "公演を見た後、全体の雰囲気よりも舞台上の細かい一瞬を覚えていることが多い。",
+        ja: "公演を見た後、全体の雰囲気よりも、舞台上の細かな一瞬を覚えていることが多い。",
         en: "After watching a performance, I often remember one small detail on stage more than the overall atmosphere.",
         sub: { zh: "", ja: "", en: "" },
         weights: { 情緒:0.85, 記憶:0.78, 王道:0.45, 温度:0.18, 都市:0.28, 団体:-0.12 }
@@ -1428,14 +1428,14 @@
       },
       {
         zh: "别人问你最近怎么样，你会先说“还可以”，等对方追问才讲真实状态。",
-        ja: "最近どう？と聞かれたら、まず「まあまあ」と答えて、相手が聞いてくれたら本当のことを話す。",
-        en: "When someone asks how I have been, I first say “I’m okay,” and only open up if they ask again.",
+        ja: "最近どう？と聞かれたら、まず「まあまあ」と答えて、相手がもう少し聞いてくれたら本当のことを話す。",
+        en: "When someone asks how I have been, I first say “I’m okay,” and only open up if they ask a little more.",
         sub: { zh: "", ja: "", en: "" },
         weights: { 情緒:0.68, 都市:0.72, 温度:0.48, 記憶:0.16, 変化:0.22, 王道:-0.2 }
       },
       {
         zh: "已经结束的事情，你会主动给它一个收尾动作，比如归档、清单或短短记录。",
-        ja: "終わったことには、保存したり、リストに入れたり、短く記録したりして、自分なりに区切りをつける。",
+        ja: "終わったことは、保存したり、リストに入れたり、短く記録したりして、自分なりに区切りをつける。",
         en: "When something ends, I give it some kind of closure, like archiving it, adding it to a list, or writing a short note.",
         sub: { zh: "", ja: "", en: "" },
         weights: { 前進:1.0, 変化:1.0, 記憶:-0.5, 情緒:-0.4 }
@@ -1624,8 +1624,8 @@
         title: { zh:"把迟到的声音递到远方", ja:"遅れた声を遠くへ届ける", en:"Send a late voice far away" },
         desc: {
           zh:"有些话，错过了最容易说出口的时候。\n后来越远，越不知道该怎么开始。\n\n这首歌陪你把声音放进Dear.后面。\n到不了也写下来，写下来的那一刻，它已经在路上了。",
-          ja:"言いやすい時期を過ぎてしまった言葉があります。\n遠くなるほど、始め方がわからなくなる。\n\nこの曲は、その声を「Dear.」という宛名のあとに置かせてくれます。\n届かなくても書いていい。書いた瞬間、もう向かい始めています。",
-          en:"Some words miss the easiest time to be said.\nThe farther things get, the harder it is to begin.\n\nThis song lets you place that voice after the word “Dear.” Even if it cannot arrive, writing it means it has already started moving."
+          ja:"言いやすい時期を過ぎてしまった言葉があります。\n遠くなるほど、始め方がわからなくなる。\n\nこの曲は、その声を「Dear.」という宛名のあとに置かせてくれます。\n届かなくても書いていい。書いた瞬間、その気持ちはもう相手へ向かい始めています。",
+          en:"Some words miss the easiest time to be said.\nThe farther things get, the harder it is to begin.\n\nThis song lets you place that voice after the word “Dear.” Even if it never arrives, the moment you write it, that feeling has already started moving."
         }
       },
       {
@@ -1646,8 +1646,8 @@
         title: { zh:"把喜欢说到没有退路", ja:"好きと言い切る", en:"Say love without turning back" },
         desc: {
           zh:"习惯了绕的人，也会想听一次直白的喜欢。\n\n这首歌陪你把心动推到最亮的位置。\n喜欢可以干净、彻底、没有退路。",
-          ja:"遠回しにすることに慣れた人も、一度くらいまっすぐな好きが聞きたくなる。\n\nこの曲は、ときめきを一番明るい場所へ押し出します。\n好きは、澄んでいて、まっすぐで、戻れなくてもいい。",
-          en:"Even someone used to circling around may want to hear love said plainly once.\n\nThis song pushes your heartbeat into the brightest place. Love can be clear, complete, and impossible to take back."
+          ja:"遠回しにすることに慣れた人も、一度くらいまっすぐな好きが聞きたくなる。\n\nこの曲は、ときめきを一番明るい場所へ押し出します。\n好きは、澄んでいて、まっすぐで、取り消せなくてもいい。",
+          en:"Even someone used to circling around may want to hear love said plainly once.\n\nThis song pushes your heartbeat into the brightest place. Love can be clear, direct, and impossible to take back."
         }
       },
       {
@@ -1778,7 +1778,7 @@
         title: { zh:"在告别之前再靠近一点", ja:"さよならの前にもう少し近づく", en:"Move a little closer before goodbye" },
         desc: {
           zh:"你知道有些告别迟早会来，\n所以才更想在那之前，再向对方靠近一点。\n不是为了改变结局，也不是为了把时间留住，\n只是想让最后看向彼此的距离，不要那么远。\n\n这首歌陪你把那份舍不得说得更坦白。\n哪怕明天没有保证，哪怕手心已经有过伤口，\n此刻仍然想再靠近一点，听见对方的声音，也让自己的心被听见。",
-          ja:"いつか別れが来ることを知っているからこそ、\nその前に、もう少しだけ相手へ近づきたくなる。\n結末を変えるためでも、時間を引き止めるためでもなく、\n最後に見つめ合う距離を、少しでも遠ざけたくないから。\n\nこの曲は、その名残惜しさをまっすぐ言葉にしてくれます。\n明日の保証がなくても、つないだ手が傷ついていても、\n今だけはもう少し近づいて、相手の声を聞き、自分の心も届かせたい。",
+          ja:"いつか別れが来ることを知っているからこそ、\nその前に、もう少しだけ相手へ近づきたくなる。\n結末を変えるためでも、時間を引き止めるためでもなく、\n最後に見つめ合う距離を、少しでも遠ざけたくないから。\n\nこの曲は、その名残惜しさをまっすぐ言葉にしてくれます。\n明日の保証がなくても、つないだ手が傷ついていても、\n今だけはもう少し近づいて、相手の声を聞き、自分の心も届けたい。",
           en:"You know that some goodbyes may come sooner or later,\nand that is exactly why you want to move a little closer before then.\nNot to change the ending, and not to stop time,\nbut to make the last distance between you feel a little less far.\n\nThis song gives that reluctance a more honest voice.\nEven without any promise of tomorrow, even after the hands you held have been hurt,\nthis moment still asks you to come a little closer, hear their voice, and let your own heart be heard."
         }
       },
@@ -1789,8 +1789,8 @@
         title: { zh:"把一起走过的时间接到下一站", ja:"共に歩いた時間を次の場所へつなぐ", en:"Connect the time you walked together to the next stop" },
         desc: {
           zh:"有些时间已经走远了，\n却没有真正从你身上离开。\n它会藏在一句话、一段旋律、某个突然想起的瞬间里。\n\n这首歌陪你把那些同行过的日子留成一条线。\n不是回到原来的地方，\n而是带着它们，走向下一段光里。",
-          ja:"遠くなった時間でも、\n本当にあなたから離れてしまうわけではありません。\n言葉やメロディ、ふと思い出す瞬間の中に残っている。\n\nこの曲は、共に歩いた日々を一本の線として残してくれます。\n元の場所へ戻るのではなく、\nその日々を抱えたまま、次の光へ進んでいく。",
-          en:"Some time has already moved far away,\nbut it has not truly left you.\nIt remains inside a phrase, a melody, or a moment that suddenly comes back.\n\nThis song leaves the days you walked together as one continuous line.\nIt is not about returning to where you were.\nIt is about carrying those days into the next light."
+          ja:"遠くなった時間も、\n本当にあなたから離れてしまうわけではありません。\n言葉やメロディ、ふと思い出す瞬間の中に残っている。\n\nこの曲は、共に歩いた日々を一本の線として残してくれます。\n元の場所へ戻るのではなく、\nその日々を抱えたまま、次の光へ進んでいく。",
+          en:"Some time may already feel far away,\nbut it has not truly left you.\nIt remains inside a phrase, a melody, or a moment that suddenly comes back.\n\nThis song leaves the days you walked together as one continuous line.\nIt is not about returning to where you were.\nIt is about carrying those days into the next light."
         }
       },
       {
@@ -1825,8 +1825,8 @@
         title: { zh:"把自己染成更鲜明的颜色", ja:"自分をもっと鮮やかな色に染める", en:"Dye yourself in a sharper color" },
         desc: {
           zh:"现在的你不想只待在背景里。\n你想把存在感调高，让心里的热度被看见。\n\n这首歌陪你把颜色加深。\n不用解释为什么，先更鲜明地站在那里。",
-          ja:"いまのあなたは、背景にいるだけではいたくない。\n存在感を少し上げて、心の熱を見せたい。\n\nこの曲は、色を濃くしてくれます。\n理由を説明しなくてもいい。まず、もっと鮮やかにそこに立てばいい。",
-          en:"Right now, you do not want to stay in the background.\nYou want to turn up your presence and let the heat inside you be seen.\n\nThis song deepens your color.\nYou do not have to explain why. Just stand there more vividly first."
+          ja:"いまのあなたは、背景にいるだけではいたくない。\n存在感を少し強めて、心の熱を見せたい。\n\nこの曲は、色を濃くしてくれます。\n理由を説明しなくてもいい。まず、もっと鮮やかにそこに立てばいい。",
+          en:"Right now, you do not want to stay in the background.\nYou want to make your presence a little stronger and let the heat inside you be seen.\n\nThis song deepens your color.\nYou do not have to explain why. Just stand there more vividly first."
         }
       },
       {
@@ -1861,8 +1861,8 @@
         title: { zh:"把梦醒后的想念继续留住", ja:"夢から覚めても想いを手放さない", en:"Hold on to the feeling after the dream" },
         desc: {
           zh:"有些人像只在梦里出现。\n声音和温度都那么清楚，可一睁开眼，伸手碰到的却只有空气。\n\n这首歌陪你留下那份无法抹掉的想念。\n就算它没有名字、没有结局，也仍然可以成为支撑你活下去的理由。",
-          ja:"夢の中でしか会えない人がいます。\n声も温もりもこんなにはっきりしているのに、目を覚まして手を伸ばすと、触れられるのは空気だけ。\n\nこの曲は、消せない想いをそっと残してくれます。\n名前も結末もない物語でも、それはあなたを生かす理由になり得ます。",
-          en:"Some people only appear in dreams.\nTheir voice and warmth feel so clear, but when you wake up and reach out, all you touch is air.\n\nThis song lets you keep the feeling you cannot erase.\nEven if the story has no name and no ending, it can still become a reason that keeps you alive."
+          ja:"夢の中でしか会えない人がいます。\n声も温もりもこんなにはっきりしているのに、目を覚まして手を伸ばすと、触れられるのは空気だけ。\n\nこの曲は、消せない想いをそっと残してくれます。\n名前も結末もない物語でも、それはあなたを生かす理由になることがあります。",
+          en:"Some people only appear in dreams.\nTheir voice and warmth feel so clear, but when you wake up and reach out, all you touch is air.\n\nThis song lets you keep the feeling you cannot erase.\nEven if the story has no name and no ending, it can still become something that helps you keep living."
         }
       },
       {
@@ -1873,8 +1873,8 @@
         title: { zh:"把此刻能做的事用力做完", ja:"今できることを思いきりやりきる", en:"Do what only this moment allows" },
         desc: {
           zh:"有些日子回头看会显得笨拙，正在经历的时候却很烫。\n你不想让别人把它说成无意义。\n\n这首歌陪你抓住现在。\n青春不一定漂亮，但一定真切地燃过。",
-          ja:"振り返れば不器用に見える日々でも、その最中にはちゃんと熱があります。\n誰かに無駄だと言われたくない時間がある。\n\nこの曲は、いまをつかませてくれます。\n青春はきれいとは限らない。でも確かに燃えていた。",
-          en:"Some days may look clumsy in hindsight, but they are hot while you are living them.\nYou do not want anyone to call that time meaningless.\n\nThis song helps you hold onto now.\nYouth is not always beautiful, but it did burn for real."
+          ja:"振り返れば不器用に見える日々でも、その最中にはちゃんと熱があります。\n誰かに無駄だと言われたくない時間がある。\n\nこの曲は、いまをつかむ力をくれます。\n青春はきれいとは限らない。でも確かに燃えていた。",
+          en:"Some days may look clumsy when you look back, but they are hot while you are living them.\nYou do not want anyone to call that time meaningless.\n\nThis song helps you hold onto now.\nYouth is not always beautiful, but it did burn for real."
         }
       },
       {
@@ -1897,8 +1897,8 @@
         title: { zh:"把想念写进夜空里", ja:"想いを夜空に映す", en:"Write longing into the night sky" },
         desc: {
           zh:"现在的你可能需要一首把声音放远的歌。\n想念不一定要喊出来，也可以慢慢投向夜空。\n\n这首歌陪你把感情拉长。\n像流星一样，短暂，却足够被看见。",
-          ja:"いまのあなたには、声を遠くへ置ける歌が必要なのかもしれません。\n想いは叫ばなくてもいい。夜空へゆっくり映せばいい。\n\nこの曲は、感情を長く伸ばしてくれます。\n流星のように短くても、ちゃんと見える光になります。",
-          en:"You may need a song that lets your voice travel far.\nLonging does not always have to be shouted; it can be cast slowly into the night sky.\n\nThis song stretches your feelings out.\nLike a shooting star, it may be brief, but it can still be seen."
+          ja:"いまのあなたには、声を遠くへ届けられる歌が必要なのかもしれません。\n想いは叫ばなくてもいい。夜空へゆっくり映せばいい。\n\nこの曲は、感情を長く伸ばしてくれます。\n流星のように短くても、ちゃんと見える光になります。",
+          en:"You may need a song that lets your voice reach far away.\nLonging does not always have to be shouted; it can be cast slowly into the night sky.\n\nThis song stretches your feelings out.\nLike a shooting star, it may be brief, but it can still be seen."
         }
       },
       {
@@ -1909,8 +1909,8 @@
         title: { zh:"带着没有消失的烦恼再走一步", ja:"消えない悩みを抱えたまま、もう一歩進む", en:"Take one more step with the worries still there" },
         desc: {
           zh:"问题不会因为一首歌就突然变少。\n烦恼也不会因为想通了，就马上从心里搬走。\n\n这首歌陪你做的事很简单：\n再走一步。\n\n喜悦也好，悲伤也好，\n先不要急着整理成答案。\n带着它们往前走，后来它们会在路边开成花。",
-          ja:"問題は、一曲で急に減るわけではありません。\n悩みも、少し分かったからといってすぐ心から出ていくわけではない。\n\nこの曲が寄り添ってくれることは、とてもシンプルです。\nもう一歩進むこと。\n\n喜びも悲しみも、\n急いで答えにしなくていい。\n抱えたまま前へ進めば、いつか道端に花として咲くでしょう。",
-          en:"Problems will not suddenly become fewer because of one song.\nWorries will not leave your heart right away just because you understand them a little.\n\nWhat this song helps you do is simple:\ntake one more step.\n\nWhether it is joy or sadness,\nyou do not have to turn it into an answer right away.\nWalk forward with them, and later they may bloom by the roadside."
+          ja:"問題が、一曲で急に消えるわけではありません。\n悩みも、少し分かったからといってすぐ心から出ていくわけではない。\n\nこの曲が寄り添ってくれることは、とてもシンプルです。\nもう一歩進むこと。\n\n喜びも悲しみも、\n急いで答えにしなくていい。\n抱えたまま前へ進めば、いつか道端に花として咲くでしょう。",
+          en:"Problems will not suddenly disappear because of one song.\nWorries will not leave your heart right away just because you understand them a little.\n\nWhat this song helps you do is simple:\ntake one more step.\n\nWhether it is joy or sadness,\nyou do not have to turn it into an answer right away.\nWalk forward with them, and later they may bloom by the roadside."
         }
       },
       {
@@ -1985,10 +1985,10 @@
         id: 48, song: "パレードは終わらない -Life is an Adventure-", era: 4,
         memberBoost: { all: 1.65, yabu: 1.05, yaotome: 0.95, arioka: 0.90, nakajima: 0.55, takaki: 0.45, chinen: 0.35 },
         tags: { 団体:2.2, 元気:1.55, 前進:1.55, 可愛:0.65, 記憶:0.55 },
-        title: { zh:"把偶然和期待一起带上路", ja:"偶然と期待を、旅に連れていく", en:"Taking chance and hope along the way" },
+        title: { zh:"把偶然和期待一起带上路", ja:"偶然と期待を、旅に連れていく", en:"Taking coincidences and hope along for the journey" },
         desc: {
           zh:"你不是不会害怕，\n只是总能在某个声音响起的时候，\n重新相信自己还可以往前走。\n\n这首歌陪你把路上的偶然、笑声，\n和那句像魔法一样的“没关系”一起带走。\n就算还不知道会到哪里，\n也可以先跟着心里的热闹，再走一步。",
-          ja:"怖くならないわけじゃない。\nそれでも、どこかで声が聞こえたら、\nもう一度進める気がする。\n\nこの曲は、道の途中の偶然も、笑い声も、\n魔法みたいな「大丈夫」も一緒に連れていく。\n行き先がまだ見えなくても、\n胸の奥の賑わいに合わせて、もう一歩歩き出せる。",
+          ja:"怖くないわけじゃない。\nそれでも、どこかで声が聞こえたら、\nもう一度進める気がする。\n\nこの曲は、道の途中の偶然も、笑い声も、\n魔法みたいな「大丈夫」も一緒に連れていく。\n行き先がまだ見えなくても、\n胸の奥の賑わいに合わせて、もう一歩歩き出せる。",
           en:"It is not that you never feel afraid.\nBut when a voice reaches you,\nyou start to believe you can move forward again.\n\nThis song carries the chances, laughter,\nand that almost magical “it’s okay” along the road.\nEven without knowing where it leads,\nyou can take one more step with the brightness inside you."
         }
 
@@ -1998,7 +1998,7 @@
         memberOnly: ["arioka","yaotome","takaki"],
         memberBoost: { arioka: 1.45, yaotome: 1.45, takaki: 1.45 },
         tags: { 元気:1.65, 温度:1.55, 前進:1.05, 団体:0.9, 可愛:0.75, 記憶:0.35, 情緒:0.25 },
-        title: { zh:"把饭吃好，把今天过好", ja:"ちゃんと食べて、今日を過ごす", en:"Eat well, and get through today" },
+        title: { zh:"把饭吃好，把今天过好", ja:"ちゃんと食べて、今日を無事に過ごす", en:"Eat properly, and get through today safely" },
         desc: {
           zh:"现在的你需要的，不一定是很大的鼓励。\n先好好吃饭，先把自己照顾回来，先让今天平平安安地结束。\n\n这首歌提醒你：再忙的一天，也要先把自己照顾好。",
           ja:"いまのあなたに必要なのは、大きな励ましだけではない。\nまずはごはんを食べて、自分を少し整えて、今日を無事に終えること。\n\nこの曲は、忙しい一日の中でも自分を大事にすることを思い出させてくれる。",

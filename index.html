@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>「今」に寄り添うJUMPの一曲</title>
+  <title>今に寄り添うJUMPの一曲</title>
   
   <style>
     :root {
@@ -1074,7 +1074,7 @@
       <div class="hero-icon" aria-hidden="true">♪</div>
       <div class="hero-text">
         <div class="eyebrow" id="eyebrow">Hey! Say! JUMP Song Test</div>
-        <h1 id="mainTitle"><span class="title-line title-line-top"><span class="title-bracket">「</span><span class="title-now">今</span><span class="title-bracket">」</span><span class="title-rest">に寄り添う</span></span><span class="title-line title-line-main">JUMPの一曲</span></h1>
+        <h1 id="mainTitle"><span class="title-line title-line-top">今に寄り添う</span><span class="title-line title-line-main">JUMPの一曲</span></h1>
         <p class="subtitle" id="mainSubtitle"></p>
       </div>
     </header>
@@ -1136,7 +1136,7 @@
       zh: {
         htmlLang: "zh-CN",
         eyebrow: "Hey! Say! JUMP楽曲診断",
-        mainTitle: "「今」に寄り添うJUMPの一曲",
+        mainTitle: "今に寄り添うJUMPの一曲",
         mainSubtitle: "",
         languageTitle: "",
         languageCopy: "",
@@ -1159,7 +1159,7 @@
       ja: {
         htmlLang: "ja",
         eyebrow: "Hey! Say! JUMP楽曲診断",
-        mainTitle: "「今」に寄り添うJUMPの一曲",
+        mainTitle: "今に寄り添うJUMPの一曲",
         mainSubtitle: "",
         languageTitle: "",
         languageCopy: "",
@@ -1182,7 +1182,7 @@
       en: {
         htmlLang: "en",
         eyebrow: "Hey! Say! JUMP楽曲診断",
-        mainTitle: "「今」に寄り添うJUMPの一曲",
+        mainTitle: "今に寄り添うJUMPの一曲",
         mainSubtitle: "",
         languageTitle: "",
         languageCopy: "",
@@ -1206,7 +1206,7 @@
 
     const languages = [
       { key: "zh", label: "中文", sub: "此刻与你相伴的JUMP的歌" },
-      { key: "ja", label: "日本語", sub: "「今」に寄り添うJUMPの一曲" },
+      { key: "ja", label: "日本語", sub: "今に寄り添うJUMPの一曲" },
       { key: "en", label: "ENGLISH", sub: "The JUMP Song Beside You Now" }
     ];
 
@@ -1942,8 +1942,8 @@
     }
 
     function formatMainTitle(text) {
-      if (text === "「今」に寄り添うJUMPの一曲") {
-        return `<span class="title-line title-line-top"><span class="title-bracket">「</span><span class="title-now">今</span><span class="title-bracket">」</span><span class="title-rest">に寄り添う</span></span><span class="title-line title-line-main">JUMPの一曲</span>`;
+      if (text === "今に寄り添うJUMPの一曲") {
+        return `<span class="title-line title-line-top">今に寄り添う</span><span class="title-line title-line-main">JUMPの一曲</span>`;
       }
       return text;
     }
@@ -2198,7 +2198,7 @@
     document.getElementById("copyBtn").onclick = async () => {
       if (!app.lastResult) return;
       const winner = app.lastResult;
-      const testTitle = "「今」に寄り添うJUMPの一曲";
+      const testTitle = "今に寄り添うJUMPの一曲";
       const shareUrl = "https://jumpdeasondeminai.github.io/jumpsong/";
       const hashtags = [
         "#HeySayJUMP",

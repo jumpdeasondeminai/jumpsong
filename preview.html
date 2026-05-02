@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>“今”に寄り添うJUMPの一曲</title>
+  <style>
+    :root {
+      --accent: #7a747d;
+      --accent-2: #b6b0b8;
+      --accent-soft: rgba(122, 116, 125, 0.12);
+      --ink: #232236;
+      --gold: var(--accent);
+      --paper: #fffdfd;
+      --paper-2: #f8f4ff;
+      --bg: linear-gradient(135deg,
+        rgba(233,66,74,0.16) 0%,
+        rgba(245,163,191,0.14) 16%,
+        rgba(242,140,40,0.14) 31%,
+        rgba(139,92,246,0.14) 47%,
+        rgba(107,183,255,0.11) 62%,
+        rgba(244,208,63,0.16) 78%,
+        rgba(124,207,122,0.15) 100%);
+      --card: rgba(255,255,255,0.88);
+      --text: #232236;
+      --muted: #69697b;
+      --line: rgba(132, 126, 136, 0.28);
+      --shadow: 0 24px 70px rgba(40, 40, 90, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      transition: background 0.6s ease;
+    }
+
+    body.member-theme {
+      background:
+        radial-gradient(circle at 18% 8%, rgba(255,255,255,0.92) 0 16%, transparent 42%),
+        radial-gradient(circle at 88% 10%, color-mix(in srgb, var(--accent) 34%, transparent) 0 18%, transparent 42%),
+        linear-gradient(135deg, color-mix(in srgb, var(--accent) 18%, white) 0%, #ffffff 48%, color-mix(in srgb, var(--accent-2) 22%, white) 100%);
+    }
+
+    body.white-theme {
+      background:
+        radial-gradient(circle at 18% 8%, rgba(255,255,255,0.96) 0 16%, transparent 42%),
+        radial-gradient(circle at 88% 10%, rgba(210,216,230,0.48) 0 18%, transparent 42%),
+        linear-gradient(135deg, #ffffff 0%, #f8f8fb 48%, #eef1f7 100%);
+    }
+
+    .wrap {
+      width: min(1040px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: clamp(28px, 5vw, 56px) 0 72px;
+    }
+
+    .hero {
+      position: relative;
+      text-align: left;
+      padding: 0 0 clamp(28px, 5vw, 48px);
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      column-gap: 26px;
+      align-items: center;
+    }
+
+    .hero::before {
+      content: "♪";
+      grid-row: 1 / span 3;
+      width: 92px;
+      height: 92px;
+      border-radius: 28px;
+      display: grid;
+      place-items: center;
+      background: var(--ink);
+      color: var(--accent);
+      font-size: 42px;
+      box-shadow: 0 20px 44px rgba(34,29,24,0.14);
+    }
+
+    .eyebrow {
+      display: block;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      backdrop-filter: none;
+      color: var(--accent);
+      font-size: clamp(14px, 2.3vw, 24px);
+      font-weight: 900;
+      letter-spacing: 0.36em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 10px 0 0;
+      font-size: clamp(42px, 7vw, 76px);
+      line-height: 1.02;
+      letter-spacing: -0.06em;
+      font-weight: 900;
+    }
+
+    .subtitle {
+      margin: 0 auto;
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .subtitle:empty,
+    .section-title:empty,
+    .section-copy:empty {
+      display: none;
+    }
+
+    .card {
+      margin: clamp(22px, 4vw, 42px) auto;
+      padding: clamp(34px, 6vw, 72px);
+      border-radius: 46px;
+      background: var(--card);
+      backdrop-filter: blur(18px);
+      border: 2px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    #quizScreen.card,
+    #resultScreen .result-card {
+      border-radius: 48px;
+      background: rgba(255,255,255,0.88);
+      border: 2px solid var(--line);
+    }
+
+    .screen { display: none; }
+    .screen.active { display: block; animation: fadeUp .38s ease both; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .language-grid, .answer-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .language-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .member-grid { display: flex; flex-direction: column; gap: 26px; }
+    .member-section { display: flex; flex-direction: column; gap: 12px; }
+    .member-group-title {
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      padding-left: 4px;
+    }
+    .member-group-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+    }
+    .member-section-all .member-group-grid {
+      grid-template-columns: minmax(220px, 1fr);
+    }
+    .answer-grid {
+      grid-template-columns: 1fr;
+      margin-top: clamp(30px, 5vw, 52px);
+      gap: 18px;
+    }
+
+    button {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .choice, .member-btn, .lang-btn, .nav-btn {
+      border-radius: 999px;
+      padding: 20px 28px;
+      background: rgba(255,255,255,0.9);
+      border: 2px solid color-mix(in srgb, var(--accent) 46%, white);
+      color: var(--text);
+      box-shadow: 0 12px 30px rgba(40,40,90,0.08);
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      font-weight: 900;
+    }
+
+    .choice:hover, .member-btn:hover, .lang-btn:hover, .nav-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(40,40,90,0.14);
+      background: #fffef8;
+    }
+
+    .choice.selected, .member-btn.selected, .lang-btn.selected {
+      outline: 0;
+      background: color-mix(in srgb, var(--accent) 26%, white);
+      border-color: var(--accent);
+    }
+
+    .choice {
+      min-height: 82px;
+      text-align: left;
+      font-size: clamp(19px, 2.4vw, 28px);
+      padding-left: clamp(26px, 5vw, 58px);
+    }
+
+    .section-title {
+      margin: 0 0 18px;
+      font-size: clamp(22px, 4vw, 34px);
+      letter-spacing: -0.03em;
+    }
+
+    .section-copy {
+      margin: 0 0 24px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .member-btn {
+      text-align: left;
+      min-height: 74px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .member-name { font-weight: 800; display: block; }
+    .member-role { display: none; }
+
+    .progress-area {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: clamp(36px, 6vw, 70px);
+    }
+
+    .progress-track {
+      height: 20px;
+      flex: 1;
+      background: color-mix(in srgb, var(--accent) 18%, white);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--ink);
+      border-radius: 999px;
+      transition: width .28s ease;
+    }
+
+    .progress-text {
+      min-width: 118px;
+      text-align: right;
+      color: var(--accent);
+      font-size: clamp(18px, 2.3vw, 28px);
+      font-weight: 900;
+    }
+
+    .question {
+      font-size: clamp(34px, 5.8vw, 60px);
+      line-height: 1.18;
+      letter-spacing: -0.06em;
+      font-weight: 900;
+      margin: 0 0 8px;
+    }
+
+    .question-sub {
+      display: none;
+    }
+
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .nav-btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      font-weight: 800;
+    }
+
+    .nav-btn:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .result-card {
+      text-align: center;
+      padding: clamp(34px, 6vw, 76px);
+      border-radius: 48px;
+      background: rgba(255,255,255,0.88);
+      border: 2px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .result-song {
+      display: block;
+      max-width: 880px;
+      margin: 0 auto clamp(28px, 5vw, 48px);
+      padding: clamp(26px, 5vw, 48px);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 18% 10%, color-mix(in srgb, var(--accent) 18%, transparent) 0 22%, transparent 48%),
+        rgba(255,255,255,0.72);
+      color: var(--accent);
+      font-weight: 900;
+      line-height: 1.05;
+      word-break: keep-all;
+      text-align: center;
+      border: 2px solid color-mix(in srgb, var(--accent) 32%, white);
+      box-shadow: 0 18px 46px rgba(40,40,90,0.10);
+    }
+
+    .result-group-name {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: clamp(14px, 1.8vw, 20px);
+      font-weight: 900;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    .result-song-name {
+      display: block;
+      color: var(--accent);
+      font-size: clamp(50px, 7.2vw, 90px);
+      letter-spacing: -0.06em;
+    }
+
+    .result-title {
+      display: inline-block;
+      margin: 0 auto clamp(26px, 4vw, 44px);
+      padding: 16px 28px;
+      border-radius: 999px;
+      background: var(--accent);
+      font-size: clamp(22px, 4.2vw, 36px);
+      line-height: 1.18;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      font-weight: 900;
+    }
+
+    .result-desc {
+      white-space: pre-line;
+      margin: 0 auto;
+      max-width: 760px;
+      font-size: clamp(22px, 3.4vw, 42px);
+      line-height: 1.82;
+      color: #5a503c;
+      text-align: left;
+      letter-spacing: -0.03em;
+    }
+
+    .small-note {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .result-card .small-note {
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+
+    #nextBtn {
+      display: none;
+    }
+
+    #quizScreen .nav-row {
+      justify-content: flex-start;
+    }
+
+    .result-actions {
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 720px) {
+      .language-grid, .answer-grid, .member-group-grid, .member-section-all .member-group-grid { grid-template-columns: 1fr; }
+      .wrap { width: min(100% - 22px, 980px); padding-top: 18px; }
+      .hero { padding-top: 24px; }
+      .card { border-radius: 24px; }
+      .nav-row { flex-direction: column; }
+      .nav-btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="eyebrow" id="eyebrow">Hey! Say!JUMPSong Test</div>
+      <h1 id="mainTitle">“今”に寄り添うJUMPの一曲</h1>
+      <p class="subtitle" id="mainSubtitle">Choose a language first, then answer the questions to find theJUMPsong that fits your current mood.</p>
+    </header>
+
+    <main>
+      <section id="languageScreen" class="screen active card">
+        <h2 class="section-title" id="languageTitle">Select Language</h2>
+        <p class="section-copy" id="languageCopy">请选择测试语言。后续题目和结果文案会按语言显示。</p>
+        <div class="language-grid" id="languageGrid"></div>
+      </section>
+
+      <section id="memberScreen" class="screen card">
+        <h2 class="section-title" id="memberTitle"></h2>
+        <p class="section-copy" id="memberCopy"></p>
+        <div class="member-grid" id="memberGrid"></div>
+      </section>
+
+      <section id="quizScreen" class="screen card">
+        <div class="progress-area">
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="progress-text" id="progressText"></div>
+        </div>
+        <div class="question" id="questionText"></div>
+        <div class="question-sub" id="questionSub"></div>
+        <div class="answer-grid" id="answerGrid"></div>
+        <div class="nav-row">
+          <button class="nav-btn" id="backBtn"></button>
+          <button class="nav-btn primary" id="nextBtn" disabled></button>
+        </div>
+      </section>
+
+      <section id="resultScreen" class="screen">
+        <div class="result-card">
+          <div class="result-song" id="resultSong"></div>
+          <h2 class="result-title" id="resultTitle"></h2>
+          <p class="result-desc" id="resultDesc"></p>
+          <div class="small-note" id="resultNote"></div>
+          <div class="nav-row result-actions" style="justify-content:center; margin-top:30px;">
+            <button class="nav-btn primary" id="restartBtn"></button>
+            <button class="nav-btn" id="copyBtn"></button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const i18n = {
+      zh: {
+        htmlLang: "zh-CN",
+        eyebrow: "Hey! Say!JUMP楽曲診断",
+        mainTitle: "“今”に寄り添うJUMPの一曲",
+        mainSubtitle: "",
+        languageTitle: "",
+        languageCopy: "",
+        memberTitle: "现在心最容易偏向谁？",
+        memberCopy: "",
+        memberRoles: { current: "现成员", former: "前成员", all: "全员" },
+        groupLabels: { all: "全员", current: "现成员", former: "前成员" },
+        answers: ["是", "也许是", "也许否", "否"],
+        back: "← 返回上一题",
+        next: "下一题",
+        seeResult: "查看结果",
+        restart: "再测一次",
+        resultNote: "结果由成员属性、题目回答和组合体制时间线共同计算。",
+        copyResult: "复制结果",
+        copied: "已复制"
+      },
+      ja: {
+        htmlLang: "ja",
+        eyebrow: "Hey! Say!JUMP楽曲診断",
+        mainTitle: "“今”に寄り添うJUMPの一曲",
+        mainSubtitle: "",
+        languageTitle: "",
+        languageCopy: "",
+        memberTitle: "いま、心がいちばん向くメンバーは？",
+        memberCopy: "",
+        memberRoles: { current: "現メンバー", former: "元メンバー", all: "全員" },
+        groupLabels: { all: "全員", current: "現メンバー", former: "元メンバー" },
+        answers: ["はい", "たぶんはい", "たぶんいいえ", "いいえ"],
+        back: "← 前へ",
+        next: "次へ",
+        seeResult: "結果を見る",
+        restart: "もう一度診断する",
+        resultNote: "結果はメンバー属性、回答、グループ体制の時間軸をもとに算出されます。",
+        copyResult: "結果をコピー",
+        copied: "コピーしました"
+      },
+      en: {
+        htmlLang: "en",
+        eyebrow: "Hey! Say!JUMP楽曲診断",
+        mainTitle: "“今”に寄り添うJUMPの一曲",
+        mainSubtitle: "",
+        languageTitle: "",
+        languageCopy: "",
+        memberTitle: "Which member does your heart lean toward now?",
+        memberCopy: "",
+        memberRoles: { current: "Current member", former: "Former member", all: "All members" },
+        groupLabels: { all: "All members", current: "Current members", former: "Former members" },
+        answers: ["Yes", "Maybe yes", "Maybe no", "No"],
+        back: "← Back",
+        next: "Next",
+        seeResult: "See result",
+        restart: "Try again",
+        resultNote: "The result is calculated from member traits, your answers, and the group lineup timeline.",
+        copyResult: "Copy result",
+        copied: "Copied"
+      }
+    };
+
+    const languages = [
+      { key: "zh", label: "中文", sub: "此刻与你相伴的JUMP的歌" },
+      { key: "ja", label: "日本語", sub: "“今”に寄り添うJUMPの一曲" },
+      { key: "en", label: "English", sub: "The JUMP song beside you now" }
+    ];
+
+    const dimensions = ["王道","可愛","元気","温度","都市","情緒","前進","記憶","変化","団体"];
+
+    const members = [
+      { id: "yamada", name: "山田涼介", role: "current", color: "#e9424a", scores: { 王道:0.6, 情緒:0.4, 記憶:0.2 }, maxEra: "all" },
+      { id: "chinen", name: "知念侑李", role: "current", color: "#f5a3bf", scores: { 可愛:0.6, 王道:0.4, 元気:0.2 }, maxEra: "all" },
+      { id: "arioka", name: "有岡大貴", role: "current", color: "#f28c28", scores: { 元気:0.6, 可愛:0.4, 前進:0.2 }, maxEra: "all" },
+      { id: "takaki", name: "髙木雄也", role: "current", color: "#8b5cf6", scores: { 温度:0.6, 情緒:0.4, 前進:0.2 }, maxEra: "all" },
+      { id: "inoo", name: "伊野尾慧", role: "current", color: "#6bb7ff", scores: { 都市:0.6, 可愛:0.4, 情緒:0.2 }, maxEra: "all" },
+      { id: "yaotome", name: "八乙女光", role: "current", color: "#f4d03f", scores: { 元気:0.6, 団体:0.4, 記憶:0.2 }, maxEra: "all" },
+      { id: "yabu", name: "薮宏太", role: "current", color: "#7ccf7a", scores: { 団体:0.6, 記憶:0.4, 温度:0.2 }, maxEra: "all" },
+      { id: "morimoto", name: "森本龍太郎", role: "former", color: "#ffffff", scores: { 記憶:0.6, 王道:0.4, 団体:0.2 }, maxEra: "morimoto" },
+      { id: "okamoto", name: "岡本圭人", role: "former", color: "#3fbf6f", scores: { 変化:0.6, 記憶:0.4, 前進:0.2 }, maxEra: "okamoto" },
+      { id: "nakajima", name: "中島裕翔", role: "former", color: "#7fd4ff", scores: { 変化:0.6, 情緒:0.4, 前進:0.2 }, maxEra: "nakajima" },
+      { id: "all", name: "Hey! Say!JUMP全員", role: "all", color: "gradient", scores: { 団体:0.6, 記憶:0.4, 温度:0.2 }, maxEra: "all" }
+    ];
+
+    const eras = { morimoto: 1, okamoto: 2, nakajima: 3, all: 4 };
+
+    const questions = [
+      {
+        zh: "临时被朋友约出门，如果你已经洗完澡换好睡衣，大概率不会再出门。",
+        ja: "急に友だちに誘われても、もうシャワーを浴びて部屋着に着替えていたら、たぶん出かけない。",
+        en: "If a friend invites me out after I have showered and changed into loungewear, I probably will not go.",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 温度:1.1, 記憶:0.3, 元気:-1.1, 前進:-0.8 }
+      },
+      {
+        zh: "排队很久终于轮到你时，店员说卖完了，你会当场改买别的。",
+        ja: "長く並んで自分の番が来た時、売り切れと言われたら、その場で別のものを選ぶ。",
+        en: "After waiting in line, if the item is sold out, I choose something else on the spot.",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 前進:1.2, 変化:0.9, 元気:0.4, 情緒:-0.6 }
+      },
+      {
+        zh: "出门前发现衣服不太合适，你会重新换到满意为止，哪怕因此晚一点。",
+        ja: "出かける前に服がしっくりこないと、少し遅れても納得するまで着替える。",
+        en: "If my outfit feels off before going out, I change until I am satisfied, even if it makes me a little late.",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 都市:1.1, 王道:0.8, 情緒:0.5, 温度:-0.2 }
+      },
+      {
+        zh: "收到很长的消息时，你会当天回完，不太会拖到第二天。",
+        ja: "長いメッセージが来ても、その日のうちに返すことが多い。",
+        en: "When I receive a long message, I usually reply the same day instead of leaving it until tomorrow.",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 前進:0.9, 温度:0.6, 記憶:-0.4, 情緒:-0.4 }
+      },
+      {
+        zh: "看到曾经很喜欢的东西有新动态，你会先看评论区，再决定要不要点开正文。",
+        ja: "昔好きだったものの新しい話題を見たら、本文より先にコメント欄を見てから開くか決める。",
+        en: "When I see updates about something I once loved, I check the comments before deciding whether to open the post.",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 都市:1.0, 情緒:0.9, 変化:0.7, 王道:-0.4 }
+      },
+      {
+        zh: "周末晚上如果突然没有安排，你会趁机处理一直拖着的小事。",
+        ja: "週末の夜に予定が急になくなったら、後回しにしていた小さな用事を片づける。",
+        en: "If my weekend night suddenly becomes free, I use it to handle small things I have been putting off.",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 前進:0.8, 温度:0.7, 記憶:0.4, 元気:-0.4 }
+      },
+      {
+        zh: "和朋友聊天时，话题突然跑偏，你会接着聊那个新话题，原本要说什么可以之后再想。",
+        ja: "友だちとの話が急に脱線したら、新しい話題の方を続ける。元の話は後で思い出せばいい。",
+        en: "When a chat with friends goes off topic, I continue with the new topic and let the original one wait.",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 可愛:1.0, 元気:0.8, 団体:0.6, 王道:-0.3 }
+      },
+      {
+        zh: "看完一场演出后，你更常记住舞台上某个细节，而不是整体氛围。",
+        ja: "公演を見た後、全体の雰囲気よりも舞台上の細かい一瞬を覚えていることが多い。",
+        en: "After watching a performance, I often remember one small detail on stage more than the overall atmosphere.",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 情緒:1.2, 記憶:1.0, 王道:0.4, 団体:-0.5 }
+      },
+      {
+        zh: "计划被打乱时，你会很快把目标改小，比如“今天至少完成一件”。",
+        ja: "予定が崩れた時、『今日は一つだけ終わらせる』くらいに目標を小さく変える。",
+        en: "When plans fall apart, I quickly shrink the goal, like 'finish at least one thing today.'",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 前進:1.1, 変化:0.8, 温度:0.4, 情緒:-0.4 }
+      },
+      {
+        zh: "刷到可爱的东西时，你通常看看就过去，不一定会保存或转发。",
+        ja: "かわいいものを見つけても、見て終わりにすることが多く、保存や共有まではしない。",
+        en: "When I see something cute, I usually just look at it and move on, without saving or sharing it.",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 都市:0.8, 可愛:-1.0, 元気:-0.4, 情緒:0.3 }
+      },
+      {
+        zh: "真的很喜欢的时候，你会直接说出来，怕对方没接收到。",
+        ja: "本当に好きな時は、相手に伝わらないのが嫌で、わりとまっすぐ言う。",
+        en: "When I really like something, I say it clearly because I do not want it to go unnoticed.",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 王道:1.1, 情緒:0.7, 可愛:0.4, 都市:-0.7 }
+      },
+      {
+        zh: "被人夸奖时，你会先客气一下，但心里其实能收下那份好意。",
+        ja: "褒められた時、少し遠慮はするけれど、心の中ではその好意を受け取れる。",
+        en: "When complimented, I may be modest at first, but inside I can accept the kindness.",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 温度:0.8, 可愛:0.5, 情緒:0.4, 王道:0.2 }
+      },
+      {
+        zh: "重要关系发生变化后，你会先把相关东西放进一个文件夹，不急着打开。",
+        ja: "大事な関係が変わった後、関連するものはまず一つのフォルダに入れて、すぐには開かない。",
+        en: "After an important relationship changes, I put related things into one folder and do not open it right away.",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 記憶:1.2, 変化:1.0, 温度:0.6, 情緒:0.4 }
+      },
+      {
+        zh: "只剩几个小时能见面时，你会先确认吃饭、交通和结束时间，再决定要不要加别的安排。",
+        ja: "会える時間が数時間しかない時、食事・移動・終わる時間を先に確認してから、他の予定を足すか決める。",
+        en: "When I only have a few hours with someone, I check food, transport, and the ending time before adding anything else.",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 温度:0.7, 前進:0.6, 記憶:0.4, 元気:-0.3 }
+      },
+      {
+        zh: "日程表如果排得太满，你会不太安心，想给自己留一点临时调整的空间。",
+        ja: "予定が詰まりすぎていると落ち着かず、少し調整できる余白を残したくなる。",
+        en: "If my schedule is too packed, I feel uneasy and want to leave some room to adjust.",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 温度:1.0, 都市:0.5, 前進:-0.5, 王道:-0.4 }
+      },
+      {
+        zh: "听歌时，你会先注意编曲和旋律，再慢慢听清歌词在说什么。",
+        ja: "曲を聴く時、歌詞の意味より先に、編曲やメロディに意識が向くことがある。",
+        en: "When listening to a song, I may notice the arrangement and melody before fully catching the lyrics.",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 都市:0.9, 元気:0.4, 団体:0.4, 情緒:-0.2 }
+      },
+      {
+        zh: "压力大的时候，你会先把最小的一件事做完，用它把状态带起来。",
+        ja: "プレッシャーがある時、まず一番小さなことを終わらせて、そこから調子を戻す。",
+        en: "Under pressure, I finish the smallest task first and use it to get myself moving.",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 前進:1.2, 元気:0.5, 温度:0.4, 情緒:-0.3 }
+      },
+      {
+        zh: "别人问你最近怎么样，你会先说“还可以”，等对方追问才讲真实状态。",
+        ja: "最近どう？と聞かれたら、まず『まあまあ』と言って、聞かれたら本当の状態を話す。",
+        en: "When someone asks how I have been, I first say 'okay' and only explain honestly if they ask again.",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 情緒:1.1, 都市:0.7, 温度:0.4, 王道:-0.3 }
+      },
+      {
+        zh: "已经结束的事情，你会主动给它一个收尾动作，比如归档、清单或短短记录。",
+        ja: "終わったことには、保存、リスト化、短い記録など、自分なりの区切りをつける。",
+        en: "When something ends, I give it a closing action, like archiving, listing, or writing a short note.",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 前進:1.0, 変化:1.0, 記憶:-0.5, 情緒:-0.4 }
+      },
+      {
+        zh: "一件事拖了很久还没定下来时，你会想先定一个临时方案，之后再慢慢调整。",
+        ja: "長く決まらないことがある時、まず仮の案を決めて、後から調整したくなる。",
+        en: "When something remains undecided for a long time, I want to choose a temporary plan first and adjust later.",
+        sub: { zh: "", ja: "", en: "" },
+        weights: { 前進:1.0, 変化:0.5, 王道:0.4, 記憶:-0.3 }
+      }
+    ];
+
+    
+    const answerMultipliers = [1, 0.55, -0.35, -0.8];
+
+    const results = [
+      {
+        id: 1, song: "Ultra Music Power", era: 1,
+        tags: { 王道:2.5, 記憶:2, 団体:1.5 },
+        title: { zh:"把最初的入口重新打开", ja:"最初の入口をもう一度開く", en:"Open the first doorway again" },
+        desc: {
+          zh:"有些光，后来会变得复杂。\n可它曾经照亮过你，这件事不会消失。\n\n这首歌陪你回到最开始心动的地方。\n不用回到从前，只要记得自己是从哪里出发的。",
+          ja:"あとから複雑になった光でも、かつてあなたを照らしたことは消えません。\n\nこの曲は、最初に心が動いた場所へ連れていきます。\n昔に戻るためではなく、自分がどこから始まったのかを思い出すために。",
+          en:"Some light becomes complicated with time, but the fact that it once lit you up does not disappear.\n\nThis song takes you back to the place where your heart first moved, not to return to the past, but to remember where you began."
+        }
+      },
+      {
+        id: 2, song: "Dreams come true", era: 1,
+        tags: { 王道:1.5, 元気:1, 前進:1, 記憶:0.8 },
+        title: { zh:"给愿望一个还没关上的出口", ja:"願いにまだ閉じていない出口を残す", en:"Leave one open door for your wish" },
+        desc: {
+          zh:"现实越具体，愿望越容易被放到一边。\n可还没熄掉的东西，不必急着关上。\n\n这首歌陪你留住一点期待。\n看不见结果的时候，也可以先让愿望继续亮着。",
+          ja:"現実が具体的になるほど、願いは端に置かれがちです。\nでも、まだ消えていないものを急いで閉じなくていい。\n\nこの曲は、小さな期待を残してくれます。\n結果が見えない時も、願いを少しだけ灯しておけるように。",
+          en:"The more concrete reality gets, the easier it is to put wishes aside.\nBut what has not gone out yet does not need to be shut down.\n\nThis song keeps a little hope with you, even when the result is still out of sight."
+        }
+      },
+      {
+        id: 3, song: "冒険ライダー", era: 1,
+        tags: { 前進:2.3, 元気:1.5, 可愛:0.7 },
+        title: { zh:"把答案交给身体去确认", ja:"答えを身体で確かめる", en:"Let your body find the answer" },
+        desc: {
+          zh:"想太多的时候，答案反而会越来越远。\n\n这首歌陪你先跨出去。\n风吹到脸上之后，方向才会慢慢出现。",
+          ja:"考えすぎるほど、答えは遠くなっていく。\n\nこの曲は、まず一歩外へ連れ出してくれます。\n風が頬に当たってから、進む方向が見えてくることもあります。",
+          en:"When you think too much, the answer can drift farther away.\n\nThis song helps you step out first. Once the wind hits your face, the direction may begin to appear."
+        }
+      },
+      {
+        id: 4, song: "真夜中のシャドーボーイ", era: 1,
+        tags: { 情緒:2.4, 都市:1, 王道:0.8 },
+        title: { zh:"让夜色替你说出那句喜欢", ja:"夜色に好きと言わせる", en:"Let the night say what you cannot" },
+        desc: {
+          zh:"白天说不出口的心情，夜里会变得清楚。\n\n这首歌陪你把喜欢藏进影子里。\n先不用解释，先让心动悄悄成形。",
+          ja:"昼間は言えない気持ちが、夜になるとはっきりする。\n\nこの曲は、好きという言葉を影の中に隠してくれます。\n説明する前に、ときめきが静かに形になるように。",
+          en:"Feelings you cannot say in daylight become clearer at night.\n\nThis song lets you hide that liking in the shadows, letting the heartbeat quietly take shape before you explain it."
+        }
+      },
+      {
+        id: 5, song: "瞳のスクリーン", era: 1,
+        tags: { 情緒:1.7, 前進:1.5, 王道:1.3, 記憶:0.8 },
+        title: { zh:"把悲伤之后的光看清楚", ja:"悲しみの先の光を見る", en:"See the light beyond sadness" },
+        desc: {
+          zh:"眼前的画面可能让你难过，也让你不甘心。\n\n这首歌陪你继续看下去。\n悲伤只是其中一幕，光也许就在下一幕。",
+          ja:"目の前の景色は、悲しくて悔しいものかもしれない。\n\nこの曲は、その先を見つめる力をくれます。\n悲しみは一場面で、次の場面には光があるかもしれません。",
+          en:"The scene in front of you may hurt and frustrate you.\n\nThis song helps you keep looking. Sadness is one scene; the light may be in the next."
+        }
+      },
+      {
+        id: 6, song: "「ありがとう」～世界のどこにいても～", era: 1,
+        tags: { 記憶:2.2, 団体:1.7, 元気:1 },
+        title: { zh:"把说不出口的感谢送远一点", ja:"言えなかったありがとうを遠くへ送る", en:"Send the thanks you could not say" },
+        desc: {
+          zh:"感谢不一定要说得漂亮。\n迟到、绕远、笨拙一点，也没关系。\n\n这首歌陪你把那句“谢谢”送出去。\n记得谁给过你光，就已经足够。",
+          ja:"ありがとうは、きれいに言えなくてもいい。\n遅れても、遠回りでも、不器用でもいい。\n\nこの曲は、その一言を外へ送ってくれます。\n誰が光をくれたのかを覚えているだけで、十分です。",
+          en:"Thanks do not have to sound perfect.\nLate, roundabout, awkward is fine.\n\nThis song helps you send out that thank you. Remembering who gave you light is already enough."
+        }
+      },
+      {
+        id: 7, song: "OVER", era: 2,
+        tags: { 前進:1.9, 変化:1.5, 情緒:1, 記憶:0.7 },
+        title: { zh:"把结束慢慢唱成翻过去", ja:"終わりを越えていく歌にする", en:"Turn an ending into crossing over" },
+        desc: {
+          zh:"有些结束，不会一下子变轻。\n它会卡在心里，等你慢慢越过。\n\n这首歌陪你把那一段放到身后。\n不急着释怀，先往前一点。",
+          ja:"終わりは、すぐ軽くなるものではありません。\n心に引っかかったまま、少しずつ越えていくこともあります。\n\nこの曲は、その一段を背中の後ろへ置く手伝いをしてくれます。\n急いで手放さず、まず少し前へ。",
+          en:"Some endings do not become light all at once.\nThey stay caught inside you until you slowly cross over.\n\nThis song helps you place that part behind you, one small step forward at a time."
+        }
+      },
+      {
+        id: 8, song: "Magic Power", era: 2,
+        tags: { 元気:2.4, 団体:1.5, 可愛:1.2 },
+        title: { zh:"让一起胡闹也变成魔法", ja:"一緒に笑うことを魔法にする", en:"Turn shared silliness into magic" },
+        desc: {
+          zh:"有些日子很糟，但一起笑一下，就会没那么难。\n\n这首歌陪你从低气压里出来。\n幼稚也好，吵闹也好，心能松一点就好。",
+          ja:"ひどい日でも、一緒に笑えたら少し楽になる。\n\nこの曲は、低気圧みたいな気分から連れ出してくれます。\n幼くても、賑やかでも、心が少しゆるめばそれでいい。",
+          en:"Some days are awful, but laughing together makes them less heavy.\n\nThis song pulls you out of the low pressure. Childish or noisy is fine, as long as your heart loosens a little."
+        }
+      },
+      {
+        id: 9, song: "SUPER DELICATE", era: 2,
+        tags: { 情緒:2.5, 都市:0.8, 温度:0.7 },
+        title: { zh:"把不能给别人看的那一面留下来", ja:"人には見せない顔を残しておく", en:"Keep the side you cannot show everyone" },
+        desc: {
+          zh:"你会笑，会点头，会让别人觉得你还可以。\n可撑得住，不代表没有裂缝。\n\n这首歌陪你留下那个柔软的自己。\n不必给所有人看，只要有一处能放下。",
+          ja:"笑えるし、頷けるし、大丈夫そうにも見せられる。\nでも、耐えられることと傷がないことは同じではありません。\n\nこの曲は、柔らかい自分を残しておいてくれます。\n全員に見せなくていい。置ける場所が一つあればいい。",
+          en:"You can smile, nod, and seem fine.\nBut being able to hold it together does not mean you have no cracks.\n\nThis song keeps the softer side of you safe. You do not have to show it to everyone, just have one place to put it down."
+        }
+      },
+      {
+        id: 10, song: "Come On A My House", era: 2,
+        tags: { 可愛:2.4, 元気:1, 温度:0.7 },
+        title: { zh:"把喜欢说得笨一点、近一点", ja:"好きな気持ちを少し不器用に近づける", en:"Make liking a little clumsy and closer" },
+        desc: {
+          zh:"喜欢有时候不用分析得太复杂。\n\n想靠近，想确认，想被看见。\n这首歌陪你把心情拉近一点，笨一点也可爱。",
+          ja:"好きな気持ちは、あまり難しく考えなくてもいい。\n\n近づきたい、確かめたい、見てほしい。\nこの曲は、その気持ちを少し近くへ連れていきます。不器用でもかわいい。",
+          en:"Liking someone does not always need deep analysis.\n\nWanting to get closer, to confirm, to be seen—this song brings that feeling a little nearer. Clumsy can be cute."
+        }
+      },
+      {
+        id: 11, song: "Ride With Me", era: 2,
+        tags: { 前進:2.5, 都市:1.2, 王道:0.8 },
+        title: { zh:"把犹豫切进更快的节奏里", ja:"迷いを速いリズムへ切り替える", en:"Cut hesitation into a faster beat" },
+        desc: {
+          zh:"想太久，就会站在原地。\n\n这首歌陪你先上车。\n音乐跑起来之后，犹豫就追不上你了。",
+          ja:"考えすぎると、その場から動けなくなる。\n\nこの曲は、まず乗り込むところまで連れていきます。\n音が走り出せば、迷いは追いつけません。",
+          en:"If you think too long, you stay where you are.\n\nThis song helps you get on first. Once the music starts running, hesitation cannot catch up."
+        }
+      },
+      {
+        id: 12, song: "AinoArika", era: 2,
+        tags: { 情緒:1.8, 記憶:1.3, 都市:0.9, 温度:0.7 },
+        title: { zh:"把找不到的喜欢重新握在手里", ja:"見失った好きの在処をもう一度握る", en:"Hold the lost place of love again" },
+        desc: {
+          zh:"有些喜欢，会被距离、时间和沉默弄得模糊。\n\n这首歌陪你重新摸索一遍。\n说不清也没关系，先把那份在意握回手里。",
+          ja:"好きという気持ちは、距離や時間や沈黙でぼやけていくことがあります。\n\nこの曲は、もう一度たどる時間をくれます。\nうまく言えなくてもいい。まず、その在意を手の中へ戻して。",
+          en:"Some love gets blurred by distance, time, and silence.\n\nThis song lets you feel around for it again. Even if you cannot explain it, hold that care in your hands first."
+        }
+      },
+      {
+        id: 13, song: "ウィークエンダー", era: 2,
+        tags: { 都市:2.2, 可愛:1, 情緒:1, 元気:0.8 },
+        title: { zh:"把心跳藏进一场谜案", ja:"ときめきを謎の中に隠す", en:"Hide your heartbeat inside a mystery" },
+        desc: {
+          zh:"有些心情，说清楚就没那么好玩了。\n\n这首歌陪你把心跳藏进夜晚。\n先跟着节奏走，谜题留到明天再解。",
+          ja:"はっきり言うと、少しつまらなくなる気持ちもあります。\n\nこの曲は、ときめきを夜の中へ隠してくれます。\nまずリズムに乗って、謎は明日解けばいい。",
+          en:"Some feelings become less fun once you explain them.\n\nThis song hides your heartbeat in the night. Follow the rhythm first; solve the mystery tomorrow."
+        }
+      },
+      {
+        id: 14, song: "明日へのYELL", era: 2,
+        tags: { 前進:2, 元気:1.5, 王道:0.8, 団体:0.5 },
+        title: { zh:"把快要低下去的头再抬起来", ja:"下がりそうな顔をもう一度上げる", en:"Lift your head before it drops" },
+        desc: {
+          zh:"你可能已经很累了。\n可心里还有一点不甘心。\n\n这首歌陪你把头抬起来。\n声音会发抖也没关系，喊出去就还没输。",
+          ja:"もう疲れているのかもしれない。\nでも、心の中にはまだ少し悔しさが残っている。\n\nこの曲は、顔を上げる力をくれます。\n声が震えてもいい。叫べるなら、まだ負けていない。",
+          en:"You may already be tired, but a little frustration still remains.\n\nThis song helps you lift your head. Even if your voice shakes, if you can shout, you have not lost yet."
+        }
+      },
+      {
+        id: 15, song: "キミアトラクション", era: 2,
+        tags: { 王道:1.8, 可愛:1.5, 元気:1, 情緒:0.5 },
+        title: { zh:"让心动变成一场闪亮反应", ja:"ときめきをきらめく反応にする", en:"Turn attraction into a sparkling reaction" },
+        desc: {
+          zh:"有些喜欢不需要解释。\n被吸引到的那一秒，心已经先亮了。\n\n这首歌陪你承认那份心动。\n简单、夸张、闪闪发光，也很好。",
+          ja:"説明しなくてもいい好きがあります。\n惹かれた瞬間、心はもう光っています。\n\nこの曲は、そのときめきを認めさせてくれます。\nシンプルで、大げさで、きらきらしていてもいい。",
+          en:"Some liking needs no explanation.\nThe second you are drawn in, your heart has already lit up.\n\nThis song lets you admit that sparkle. Simple, dramatic, shining—that is fine."
+        }
+      },
+      {
+        id: 16, song: "DEAR.", era: 2,
+        tags: { 記憶:2, 温度:1.5, 情緒:1.2 },
+        title: { zh:"把迟到的声音递到远方", ja:"遅れた声を遠くへ届ける", en:"Send a late voice far away" },
+        desc: {
+          zh:"有些话，错过了最容易说出口的时候。\n后来越远，越不知道该怎么开始。\n\n这首歌陪你把声音放进Dear.后面。\n到不了也写下来，写下来的那一刻，它已经在路上了。",
+          ja:"言いやすい時期を過ぎてしまった言葉があります。\n遠くなるほど、始め方がわからなくなる。\n\nこの曲は、その声をDear.の後ろに置かせてくれます。\n届かなくても書いていい。書いた瞬間、もう向かい始めています。",
+          en:"Some words miss the easiest time to be said.\nThe farther things get, the harder it is to begin.\n\nThis song lets you place that voice afterDear.Even if it cannot arrive, writing it means it has already started moving."
+        }
+      },
+      {
+        id: 17, song: "Give Me Love", era: 2,
+        tags: { 情緒:1.8, 王道:1, 温度:0.7 },
+        title: { zh:"把想要回应的心情放到台面上", ja:"応えてほしい気持ちを表に出す", en:"Put the wish for an answer on the table" },
+        desc: {
+          zh:"你可能不想再猜了。\n不想靠暗号和脑补维持心情。\n\n这首歌陪你承认：\n想被选择，想被回应，想要一句明确的话。",
+          ja:"もう推測したくないのかもしれません。\n合図や想像で気持ちを保つのも、少し疲れた。\n\nこの曲は認めさせてくれます。\n選ばれたい。応えてほしい。はっきりした言葉がほしい。",
+          en:"You may be tired of guessing, of holding yourself together with hints and imagination.\n\nThis song lets you admit it: you want to be chosen, answered, and given clear words."
+        }
+      },
+      {
+        id: 18, song: "White Love", era: 2,
+        tags: { 王道:2.2, 情緒:1, 温度:0.8 },
+        title: { zh:"把喜欢说到没有退路", ja:"好きと言い切る", en:"Say love with no way back" },
+        desc: {
+          zh:"习惯了绕的人，也会想听一次直白的喜欢。\n\n这首歌陪你把心动推到最亮的位置。\n喜欢可以干净、彻底、没有退路。",
+          ja:"遠回しにすることに慣れた人も、一度くらいまっすぐな好きが聞きたくなる。\n\nこの曲は、ときめきを一番明るい場所へ押し出します。\n好きは、澄んでいて、まっすぐで、戻れなくてもいい。",
+          en:"Even someone used to circling around may want to hear love said plainly once.\n\nThis song pushes your heartbeat into the brightest place. Love can be clean, complete, and with no way back."
+        }
+      },
+      {
+        id: 19, song: "マエヲムケ", era: 2,
+        tags: { 前進:2.3, 元気:1, 王道:0.5 },
+        title: { zh:"先把今天的方向调过来", ja:"今日の向きを少し前へ変える", en:"Turn today slightly forward" },
+        desc: {
+          zh:"变好可以慢一点。\n先把脸转向前方，就已经是在开始。\n\n这首歌陪你调整方向。\n不用跑，先别一直背对明天。",
+          ja:"良くなるのはゆっくりでいい。\nまず顔を前へ向けるだけで、もう始まっています。\n\nこの曲は、向きを整えてくれます。\n走らなくていい。明日に背を向け続けなければいい。",
+          en:"Getting better can be slow.\nTurning your face forward is already a beginning.\n\nThis song helps you adjust direction. You do not have to run; just stop keeping your back to tomorrow."
+        }
+      },
+      {
+        id: 20, song: "COSMIC☆HUMAN", era: 2,
+        tags: { 都市:1.8, 温度:1.2, 団体:1, 可愛:0.5 },
+        title: { zh:"在理解不了人类的时候继续爱人类", ja:"人間がわからないまま人間を愛す", en:"Love humans even when you do not understand them" },
+        desc: {
+          zh:"你可能理解不了别人，也理解不了自己。\n失望、喜欢、生气、舍不得，全都挤在一起。\n\n这首歌陪你把矛盾放大到宇宙里。\n人类复杂又笨拙，但还是值得爱一点。",
+          ja:"他人も自分も、よくわからない時があります。\n失望、好き、怒り、名残惜しさが一緒に押し寄せる。\n\nこの曲は、その矛盾を宇宙まで広げてくれます。\n人間は複雑で不器用。でも、少し愛してもいい。",
+          en:"Sometimes you cannot understand others, or yourself.\nDisappointment, love, anger, and reluctance all crowd together.\n\nThis song expands those contradictions to a cosmic scale. Humans are complicated and clumsy, but still worth loving a little."
+        }
+      },
+      {
+        id: 21, song: "BANGER NIGHT", era: 3,
+        tags: { 都市:2, 前進:1.7, 王道:1.2 },
+        title: { zh:"把情绪切换到更锋利的灯光下", ja:"感情を鋭いライトへ切り替える", en:"Switch your mood into sharper lights" },
+        desc: {
+          zh:"有时候不想被安慰，只想切换状态。\n\n这首歌陪你站进更强的节奏里。\n灯一亮，气场就回来。",
+          ja:"慰めよりも、状態を切り替えたい時があります。\n\nこの曲は、強いリズムの中へ連れていきます。\nライトが点けば、気配も戻ってくる。",
+          en:"Sometimes you do not want comfort; you want a reset.\n\nThis song places you inside a stronger beat. When the lights turn on, your presence returns."
+        }
+      },
+      {
+        id: 22, song: "Your Song", era: 3,
+        tags: { 温度:2.4, 記憶:1, 団体:0.6 },
+        title: { zh:"让一句温柔先落在旁边", ja:"優しい一言をそばに置く", en:"Let one gentle line sit beside you" },
+        desc: {
+          zh:"你可能不想听“加油”。\n你只是需要有人安静待在旁边。\n\n这首歌陪你慢一点。\n今天不用解释，先被温柔放过。",
+          ja:"頑張ってと言われたい日ばかりではありません。\nただ静かにそばにいてほしい時もある。\n\nこの曲は、少しゆっくりさせてくれます。\n今日は説明しなくていい。まず優しさに許されていい。",
+          en:"You may not want to hear 'keep going.'\nYou may just need someone sitting quietly beside you.\n\nThis song lets you slow down. You do not have to explain today; let gentleness release you first."
+        }
+      },
+      {
+        id: 23, song: "ネガティブファイター", era: 3,
+        tags: { 元気:2.2, 可愛:1.5, 前進:1, 情緒:0.8 },
+        title: { zh:"ビビリバビディブー", ja:"ビビリバビディブー", en:"Bibiri Babbidi Boo" },
+        desc: {
+          zh:"你会怕，会退，会先想到失败。\n这些都可以一起带上场。\n\nビビリバビディブー。\n\n念完之后，害怕还在也没关系。\n不漂亮、不勇敢，也能继续往前挪一点。",
+          ja:"怖がっても、下がっても、失敗を先に考えてもいい。\nそのまま連れていけばいい。\n\nビビリバビディブー。\n\n唱えたあとも怖さは残っていていい。\nかっこよくなくても、勇敢じゃなくても、少し前へ進めます。",
+          en:"You can be scared, step back, and imagine failure first.\nBring all of that with you.\n\nBibiri Babbidi Boo.\n\nEven after saying it, fear can stay. You do not have to be pretty or brave to move forward a little."
+        }
+      },
+      {
+        id: 24, song: "群青ランナウェイ", era: 3,
+        tags: { 変化:2.4, 前進:1.5, 情緒:1 },
+        title: { zh:"从无法呼吸的设定里跑出去", ja:"息ができない設定から走り出す", en:"Run out of a role you cannot breathe in" },
+        desc: {
+          zh:"有些角色演太久，会让人喘不过气。\n\n这首歌陪你先跑出去。\n终点可以之后再找，先离开那个困住你的地方。",
+          ja:"長く演じすぎた役は、息苦しくなることがあります。\n\nこの曲は、まず走り出させてくれます。\n行き先はあとで探せばいい。先に、あなたを閉じ込める場所から離れて。",
+          en:"Some roles become hard to breathe in when you play them too long.\n\nThis song helps you run first. You can find the destination later; leave the place that traps you first."
+        }
+      },
+      {
+        id: 25, song: "春玄鳥", era: 3,
+        tags: { 温度:2, 記憶:1.6, 変化:1.1, 団体:0.8 },
+        title: { zh:"把飞过的春天留在身后", ja:"飛び越えた春を背中に残す", en:"Carry the spring you flew through behind you" },
+        desc: {
+          zh:"春天快要翻页了。\n回头看，才发现已经飞过这么多地方。\n\n这首歌陪你收好那段同行。\n风吹过，夜冷过，一起越过的痕迹会留下来。",
+          ja:"春はもうページをめくろうとしています。\n振り返ると、ずいぶん遠くまで飛んできたことに気づく。\n\nこの曲は、その同行をしまっておいてくれます。\n風が吹いて、夜が冷えて、それでも一緒に越えた跡は残ります。",
+          en:"Spring is about to turn the page.\nLooking back, you realize how far you have flown.\n\nThis song helps you keep that shared path. The wind blew, the night was cold, and the traces of crossing it together remain."
+        }
+      },
+      {
+        id: 26, song: "DEAR MY LOVER", era: 3,
+        tags: { 可愛:1.7, 王道:1.5, 情緒:1 },
+        title: { zh:"把偏爱说得不再拐弯", ja:"遠回しにせず偏愛を言う", en:"Say preference without going around" },
+        desc: {
+          zh:"你想要一句明白的话。\n是你，就是你，只选择你。\n\n这首歌陪你把偏爱说清楚。\n不靠猜，不靠暗号，甜得直接一点。",
+          ja:"はっきりした一言がほしい。\n君だよ、君だけだよ、という言葉。\n\nこの曲は、偏愛をまっすぐ言わせてくれます。\n推測でも合図でもなく、甘さを少し直接に。",
+          en:"You want clear words: it is you, only you, I choose you.\n\nThis song says preference plainly. No guessing, no secret signs, just sweetness made direct."
+        }
+      },
+      {
+        id: 27, song: "ファンファーレ！", era: 3,
+        tags: { 元気:1.5, 前進:1.5, 情緒:1, 王道:0.8 },
+        title: { zh:"把短暂的相遇变热烈", ja:"短い出会いを熱くする", en:"Make a brief meeting burn bright" },
+        desc: {
+          zh:"有些相遇不会一直持续。\n所以发生的那一刻，更要用力发光。\n\n这首歌陪你把心跳放大。\n不去预支分别，也不把喜欢压轻。\n\n短暂也可以很热烈。\n热烈到后来想起，仍然能听见那一声开始的响。",
+          ja:"ずっと続かない出会いもあります。\nだからこそ、起きているその瞬間に強く光らせたい。\n\nこの曲は、心音を大きくしてくれます。\n別れを先取りせず、好きという気持ちを軽く扱わずに。\n\n短くても熱くていい。\nあとから思い出しても、始まりの音が聞こえるくらいに。",
+          en:"Some meetings do not last forever.\nThat is why the moment itself should shine hard.\n\nThis song enlarges your heartbeat. Do not borrow the goodbye in advance, and do not make your liking smaller.\n\nBrief can still be intense, intense enough that later you can still hear the sound of it beginning."
+        }
+      },
+      {
+        id: 28, song: "UMP", era: 3,
+        tags: { 変化:2.3, 王道:2, 記憶:1.6, 団体:1 },
+        title: { zh:"把旧的名字唱成新的回答", ja:"古い名前を新しい答えとして歌う", en:"Sing an old name as a new answer" },
+        desc: {
+          zh:"有些东西很重要，却不能原样拿回来。\n\n这首歌陪你带着过去继续往前。\n旧的名字没有消失，只是被唱成了新的回答。",
+          ja:"大切なものでも、そのまま取り戻せないことがあります。\n\nこの曲は、過去を持ったまま進ませてくれます。\n古い名前は消えたのではなく、新しい答えとして歌われます。",
+          en:"Some things are important but cannot be brought back unchanged.\n\nThis song lets you move forward while carrying the past. The old name did not disappear; it became a new answer."
+        }
+      },
+      {
+        id: 29, song: "encore", era: 3,
+        tags: { 変化:1.8, 記憶:1.8, 情緒:1.5, 温度:0.6 },
+        title: { zh:"把错过的那一遍留给歌", ja:"逃した一回を歌に預ける", en:"Leave the missed take to the song" },
+        desc: {
+          zh:"心里有一遍没有放完。\n有些话差一点出口，有些告别差一点完成。\n\n这首歌陪你再听一次。\n现实往前走，歌声替那段心情响起encore。",
+          ja:"心の中に、まだ流れきっていない一回があります。\n言葉は少し届かず、別れも少し未完成のまま。\n\nこの曲は、もう一度聴かせてくれます。\n現実が前へ進んでも、その気持ちには歌がencoreを鳴らします。",
+          en:"Inside you, one version has not finished playing.\nSome words almost came out; some goodbyes almost completed.\n\nThis song lets you hear it once more. Reality moves forward, and the song ringsencorefor that feeling."
+        }
+      },
+      {
+        id: 30, song: "未来線", era: 3,
+        tags: { 記憶:2, 変化:1.8, 団体:1.4, 温度:0.8 },
+        title: { zh:"把一起走过的时间接到下一站", ja:"共に歩いた時間を次の場所へつなぐ", en:"Connect the time walked together to the next stop" },
+        desc: {
+          zh:"人会走，关系会变，队形也会变。\n可一起走过的时间不会失效。\n\n这首歌陪你把过去接向未来。\n同行过的痕迹，会变成继续往前的线。",
+          ja:"人は離れ、関係は変わり、並び方も変わっていく。\nでも、一緒に歩いた時間は無効になりません。\n\nこの曲は、過去を未来へつないでくれます。\n共に歩いた跡は、これから先へ続く線になります。",
+          en:"People leave, relationships change, formations shift.\nBut the time walked together does not become invalid.\n\nThis song connects the past to the future. The traces of walking together become a line that keeps going."
+        }
+      }
+    ];
+
+    const app = {
+      lang: "zh",
+      selectedMember: null,
+      questionIndex: 0,
+      answers: []
+    };
+
+    const languageScreen = document.getElementById("languageScreen");
+    const memberScreen = document.getElementById("memberScreen");
+    const quizScreen = document.getElementById("quizScreen");
+    const resultScreen = document.getElementById("resultScreen");
+
+    function t(key) { return i18n[app.lang][key]; }
+
+    function showScreen(id) {
+      [languageScreen, memberScreen, quizScreen, resultScreen].forEach(s => s.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function setCopy() {
+      const copy = i18n[app.lang];
+      document.documentElement.lang = copy.htmlLang;
+      document.getElementById("eyebrow").textContent = copy.eyebrow;
+      document.getElementById("mainTitle").textContent = copy.mainTitle;
+      document.getElementById("mainSubtitle").textContent = copy.mainSubtitle;
+      document.getElementById("languageTitle").textContent = copy.languageTitle;
+      document.getElementById("languageCopy").textContent = copy.languageCopy;
+      document.getElementById("memberTitle").textContent = copy.memberTitle;
+      document.getElementById("memberCopy").textContent = copy.memberCopy;
+      document.getElementById("backBtn").textContent = copy.back;
+      document.getElementById("restartBtn").textContent = copy.restart;
+      document.getElementById("copyBtn").textContent = copy.copyResult;
+    }
+
+    function renderLanguages() {
+      const grid = document.getElementById("languageGrid");
+      grid.innerHTML = "";
+      languages.forEach(lang => {
+        const btn = document.createElement("button");
+        btn.className = "lang-btn";
+        btn.innerHTML = `<strong>${lang.label}</strong><br><span style="color:var(--muted);font-size:13px;">${lang.sub}</span>`;
+        btn.onclick = () => {
+          app.lang = lang.key;
+          setCopy();
+          renderMembers();
+          showScreen("memberScreen");
+        };
+        grid.appendChild(btn);
+      });
+    }
+
+    function renderMembers() {
+      const grid = document.getElementById("memberGrid");
+      grid.innerHTML = "";
+
+      const groups = [
+        { key: "all", items: members.filter(member => member.role === "all") },
+        { key: "current", items: members.filter(member => member.role === "current") },
+        { key: "former", items: members.filter(member => member.role === "former") }
+      ];
+
+      groups.forEach(group => {
+        const section = document.createElement("div");
+        section.className = `member-section member-section-${group.key}`;
+
+        const title = document.createElement("div");
+        title.className = "member-group-title";
+        title.textContent = t("groupLabels")[group.key];
+        section.appendChild(title);
+
+        const innerGrid = document.createElement("div");
+        innerGrid.className = "member-group-grid";
+
+        group.items.forEach(member => {
+          const btn = document.createElement("button");
+          btn.className = "member-btn";
+          btn.innerHTML = `<span class="member-name">${member.name}</span>`;
+          btn.onclick = () => selectMember(member.id);
+          innerGrid.appendChild(btn);
+        });
+
+        section.appendChild(innerGrid);
+        grid.appendChild(section);
+      });
+    }
+
+    function selectMember(memberId) {
+      app.selectedMember = members.find(m => m.id === memberId);
+      app.answers = [];
+      app.questionIndex = 0;
+      applyTheme(app.selectedMember);
+      renderQuestion();
+      showScreen("quizScreen");
+    }
+
+    function applyTheme(member) {
+      document.body.classList.remove("member-theme", "white-theme");
+      if (!member || member.id === "all") {
+        document.documentElement.style.setProperty("--accent", "#7a747d");
+        document.documentElement.style.setProperty("--accent-2", "#b6b0b8");
+        document.documentElement.style.setProperty("--gold", "#7a747d");
+        document.documentElement.style.setProperty("--accent-soft", "rgba(122, 116, 125, 0.12)");
+        return;
+      }
+      if (member.id === "morimoto") {
+        document.body.classList.add("white-theme");
+        document.documentElement.style.setProperty("--accent", "#9aa3b2");
+        document.documentElement.style.setProperty("--accent-2", "#ffffff");
+        document.documentElement.style.setProperty("--gold", "#7b8493");
+        document.documentElement.style.setProperty("--accent-soft", "rgba(154, 163, 178, 0.18)");
+        return;
+      }
+      document.body.classList.add("member-theme");
+      document.documentElement.style.setProperty("--accent", member.color);
+      document.documentElement.style.setProperty("--accent-2", tintColor(member.color, 58));
+      document.documentElement.style.setProperty("--gold", member.color);
+      document.documentElement.style.setProperty("--accent-soft", hexToRgba(member.color, 0.16));
+    }
+
+    function tintColor(hex, amount) {
+      const n = parseInt(hex.replace('#',''), 16);
+      let r = (n >> 16) + amount;
+      let g = ((n >> 8) & 255) + amount;
+      let b = (n & 255) + amount;
+      r = Math.max(0, Math.min(255, r));
+      g = Math.max(0, Math.min(255, g));
+      b = Math.max(0, Math.min(255, b));
+      return `rgb(${r},${g},${b})`;
+    }
+
+    function hexToRgba(hex, alpha) {
+      const n = parseInt(hex.replace('#',''), 16);
+      const r = n >> 16;
+      const g = (n >> 8) & 255;
+      const b = n & 255;
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+
+    function renderQuestion() {
+      const q = questions[app.questionIndex];
+      document.getElementById("questionText").textContent = q[app.lang];
+      document.getElementById("questionSub").textContent = q.sub[app.lang];
+      document.getElementById("progressText").textContent = `${app.questionIndex + 1}/${questions.length}`;
+      document.getElementById("progressFill").style.width = `${((app.questionIndex + 1) / questions.length) * 100}%`;
+      document.getElementById("nextBtn").textContent = app.questionIndex === questions.length - 1 ? t("seeResult") : t("next");
+      document.getElementById("backBtn").disabled = false;
+      document.getElementById("nextBtn").disabled = app.answers[app.questionIndex] === undefined;
+
+      const grid = document.getElementById("answerGrid");
+      grid.innerHTML = "";
+      t("answers").forEach((label, index) => {
+        const btn = document.createElement("button");
+        btn.className = "choice" + (app.answers[app.questionIndex] === index ? " selected" : "");
+        btn.textContent = label;
+        btn.onclick = () => {
+          app.answers[app.questionIndex] = index;
+          renderQuestion();
+          setTimeout(() => {
+            if (app.questionIndex < questions.length - 1) {
+              app.questionIndex++;
+              renderQuestion();
+            } else {
+              showResult();
+            }
+          }, 170);
+        };
+        grid.appendChild(btn);
+      });
+    }
+
+    document.getElementById("backBtn").onclick = () => {
+      if (app.questionIndex > 0) {
+        app.questionIndex--;
+        renderQuestion();
+      } else {
+        document.body.classList.remove("member-theme", "white-theme");
+        document.documentElement.style.setProperty("--accent", "#7a747d");
+        document.documentElement.style.setProperty("--accent-2", "#b6b0b8");
+        document.documentElement.style.setProperty("--gold", "#7a747d");
+        document.documentElement.style.setProperty("--accent-soft", "rgba(122, 116, 125, 0.12)");
+        showScreen("memberScreen");
+      }
+    };
+
+    document.getElementById("nextBtn").onclick = () => {
+      if (app.answers[app.questionIndex] === undefined) return;
+      if (app.questionIndex < questions.length - 1) {
+        app.questionIndex++;
+        renderQuestion();
+      } else {
+        showResult();
+      }
+    };
+
+    document.getElementById("restartBtn").onclick = () => {
+      app.selectedMember = null;
+      app.questionIndex = 0;
+      app.answers = [];
+      document.body.classList.remove("member-theme", "white-theme");
+      document.documentElement.style.setProperty("--accent", "#7a747d");
+      document.documentElement.style.setProperty("--accent-2", "#b6b0b8");
+      document.documentElement.style.setProperty("--gold", "#7a747d");
+      document.documentElement.style.setProperty("--accent-soft", "rgba(122, 116, 125, 0.12)");
+      showScreen("languageScreen");
+    };
+
+    function showResult() {
+      const scores = calculateDimensionScores();
+      const eligible = results.filter(r => isEligible(r, app.selectedMember));
+      const ranked = eligible.map(result => ({ result, score: scoreResult(result, scores) }))
+        .sort((a, b) => b.score - a.score);
+      const winner = ranked[0].result;
+      app.lastResult = winner;
+      document.getElementById("resultSong").innerHTML = `<span class="result-group-name">Hey! Say!JUMP</span><span class="result-song-name">${winner.song}</span>`;
+      document.getElementById("resultTitle").textContent = winner.title[app.lang];
+      document.getElementById("resultDesc").textContent = winner.desc[app.lang];
+      document.getElementById("resultNote").textContent = t("resultNote");
+      showScreen("resultScreen");
+    }
+
+
+    document.getElementById("copyBtn").onclick = async () => {
+      if (!app.lastResult) return;
+      const winner = app.lastResult;
+      const copyText = `${document.getElementById("mainTitle").textContent}
+Hey! Say!JUMP｜${winner.song}
+${winner.title[app.lang]}
+
+${winner.desc[app.lang]}`;
+      try {
+        await navigator.clipboard.writeText(copyText);
+      } catch (err) {
+        const temp = document.createElement("textarea");
+        temp.value = copyText;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand("copy");
+        document.body.removeChild(temp);
+      }
+      const btn = document.getElementById("copyBtn");
+      const original = t("copyResult");
+      btn.textContent = t("copied");
+      setTimeout(() => { btn.textContent = original; }, 1200);
+    };
+
+    function calculateDimensionScores() {
+      const scores = Object.fromEntries(dimensions.map(d => [d, 0]));
+      Object.entries(app.selectedMember.scores).forEach(([dim, value]) => { scores[dim] += value; });
+      questions.forEach((q, qi) => {
+        const answerIndex = app.answers[qi];
+        const multiplier = answerMultipliers[answerIndex] ?? 0;
+        Object.entries(q.weights).forEach(([dim, value]) => {
+          scores[dim] += value * multiplier;
+        });
+      });
+      return scores;
+    }
+
+    function scoreResult(result, scores) {
+      let total = 0;
+      Object.entries(result.tags).forEach(([dim, weight]) => {
+        total += (scores[dim] || 0) * weight;
+      });
+      total += Math.random() * 0.0001;
+      return total;
+    }
+
+    function isEligible(result, member) {
+      const limit = eras[member.maxEra];
+      return result.era <= limit;
+    }
+
+    setCopy();
+    renderLanguages();
+  </script>
+</body>
+</html>

@@ -72,15 +72,19 @@
     .hero::before {
       content: "♪";
       grid-row: 1 / span 3;
-      width: 92px;
-      height: 92px;
-      border-radius: 28px;
+      width: 82px;
+      height: 82px;
+      border-radius: 26px;
       display: grid;
       place-items: center;
-      background: var(--ink);
+      background:
+        radial-gradient(circle at 28% 24%, rgba(255,255,255,0.9) 0 18%, transparent 42%),
+        color-mix(in srgb, var(--accent) 14%, white);
       color: var(--accent);
-      font-size: 42px;
-      box-shadow: 0 20px 44px rgba(34,29,24,0.14);
+      border: 2px solid color-mix(in srgb, var(--accent) 22%, white);
+      font-size: 36px;
+      font-weight: 700;
+      box-shadow: 0 14px 34px rgba(40,40,90,0.08);
     }
 
     .eyebrow {
@@ -184,11 +188,11 @@
       border-radius: 999px;
       padding: 20px 28px;
       background: rgba(255,255,255,0.9);
-      border: 2px solid color-mix(in srgb, var(--accent) 46%, white);
+      border: 2px solid color-mix(in srgb, var(--accent) 38%, white);
       color: var(--text);
       box-shadow: 0 12px 30px rgba(40,40,90,0.08);
       transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
-      font-weight: 900;
+      font-weight: 700;
     }
 
     .choice:hover, .member-btn:hover, .lang-btn:hover, .nav-btn:hover {
@@ -208,6 +212,20 @@
       text-align: left;
       font-size: clamp(19px, 2.4vw, 28px);
       padding-left: clamp(26px, 5vw, 58px);
+      font-weight: 850;
+    }
+
+    .lang-btn {
+      font-weight: 650;
+      letter-spacing: -0.01em;
+    }
+
+    .lang-btn strong {
+      font-weight: 760;
+    }
+
+    .lang-btn span {
+      font-weight: 500;
     }
 
     .section-title {
@@ -344,14 +362,15 @@
     .result-title {
       display: inline-block;
       margin: 0 auto clamp(26px, 4vw, 44px);
-      padding: 16px 28px;
+      padding: 13px 26px;
       border-radius: 999px;
-      background: var(--accent);
-      font-size: clamp(22px, 4.2vw, 36px);
-      line-height: 1.18;
-      letter-spacing: -0.04em;
-      color: var(--ink);
-      font-weight: 900;
+      background: color-mix(in srgb, var(--accent) 13%, white);
+      border: 2px solid color-mix(in srgb, var(--accent) 34%, white);
+      font-size: clamp(21px, 3.7vw, 34px);
+      line-height: 1.2;
+      letter-spacing: -0.035em;
+      color: color-mix(in srgb, var(--accent) 72%, var(--ink));
+      font-weight: 760;
     }
 
     .result-desc {
@@ -405,7 +424,7 @@
 <body>
   <div class="wrap">
     <header class="hero">
-      <div class="eyebrow" id="eyebrow">Hey! Say!JUMPSong Test</div>
+      <div class="eyebrow" id="eyebrow">Hey! Say! JUMP Song Test</div>
       <h1 id="mainTitle">“今”に寄り添うJUMPの一曲</h1>
       <p class="subtitle" id="mainSubtitle">Choose a language first, then answer the questions to find theJUMPsong that fits your current mood.</p>
     </header>
@@ -456,12 +475,12 @@
     const i18n = {
       zh: {
         htmlLang: "zh-CN",
-        eyebrow: "Hey! Say!JUMP楽曲診断",
+        eyebrow: "Hey! Say! JUMP 楽曲診断",
         mainTitle: "“今”に寄り添うJUMPの一曲",
         mainSubtitle: "",
         languageTitle: "",
         languageCopy: "",
-        memberTitle: "现在心最容易偏向谁？",
+        memberTitle: "选一位喜欢的成员",
         memberCopy: "",
         memberRoles: { current: "现成员", former: "前成员", all: "全员" },
         groupLabels: { all: "全员", current: "现成员", former: "前成员" },
@@ -476,12 +495,12 @@
       },
       ja: {
         htmlLang: "ja",
-        eyebrow: "Hey! Say!JUMP楽曲診断",
+        eyebrow: "Hey! Say! JUMP 楽曲診断",
         mainTitle: "“今”に寄り添うJUMPの一曲",
         mainSubtitle: "",
         languageTitle: "",
         languageCopy: "",
-        memberTitle: "いま、心がいちばん向くメンバーは？",
+        memberTitle: "好きなメンバーを選んでください",
         memberCopy: "",
         memberRoles: { current: "現メンバー", former: "元メンバー", all: "全員" },
         groupLabels: { all: "全員", current: "現メンバー", former: "元メンバー" },
@@ -496,12 +515,12 @@
       },
       en: {
         htmlLang: "en",
-        eyebrow: "Hey! Say!JUMP楽曲診断",
+        eyebrow: "Hey! Say! JUMP 楽曲診断",
         mainTitle: "“今”に寄り添うJUMPの一曲",
         mainSubtitle: "",
         languageTitle: "",
         languageCopy: "",
-        memberTitle: "Which member does your heart lean toward now?",
+        memberTitle: "Choose a member you like",
         memberCopy: "",
         memberRoles: { current: "Current member", former: "Former member", all: "All members" },
         groupLabels: { all: "All members", current: "Current members", former: "Former members" },
@@ -535,7 +554,7 @@
       { id: "morimoto", name: "森本龍太郎", role: "former", color: "#ffffff", scores: { 記憶:0.6, 王道:0.4, 団体:0.2 }, maxEra: "morimoto" },
       { id: "okamoto", name: "岡本圭人", role: "former", color: "#3fbf6f", scores: { 変化:0.6, 記憶:0.4, 前進:0.2 }, maxEra: "okamoto" },
       { id: "nakajima", name: "中島裕翔", role: "former", color: "#7fd4ff", scores: { 変化:0.6, 情緒:0.4, 前進:0.2 }, maxEra: "nakajima" },
-      { id: "all", name: "Hey! Say!JUMP全員", role: "all", color: "gradient", scores: { 団体:0.6, 記憶:0.4, 温度:0.2 }, maxEra: "all" }
+      { id: "all", name: "Hey! Say! JUMP 全員", role: "all", color: "gradient", scores: { 団体:0.6, 記憶:0.4, 温度:0.2 }, maxEra: "all" }
     ];
 
     const eras = { morimoto: 1, okamoto: 2, nakajima: 3, all: 4 };
@@ -585,8 +604,8 @@
       },
       {
         zh: "和朋友聊天时，话题突然跑偏，你会接着聊那个新话题，原本要说什么可以之后再想。",
-        ja: "友だちとの話が急に脱線したら、新しい話題の方を続ける。元の話は後で思い出せばいい。",
-        en: "When a chat with friends goes off topic, I continue with the new topic and let the original one wait.",
+        ja: "友だちとの話が急に脱線したら、そのまま別の話題で盛り上がる。元の話は後で思い出せばいい。",
+        en: "When a conversation with friends goes off track, I keep going with the new topic and leave the original one for later.",
         sub: { zh: "", ja: "", en: "" },
         weights: { 可愛:1.0, 元気:0.8, 団体:0.6, 王道:-0.3 }
       },
@@ -620,22 +639,22 @@
       },
       {
         zh: "被人夸奖时，你会先客气一下，但心里其实能收下那份好意。",
-        ja: "褒められた時、少し遠慮はするけれど、心の中ではその好意を受け取れる。",
-        en: "When complimented, I may be modest at first, but inside I can accept the kindness.",
+        ja: "褒められた時、少し遠慮はするけれど、心の中ではちゃんと受け止められる。",
+        en: "When someone compliments me, I may be modest at first, but inside I can still take it in.",
         sub: { zh: "", ja: "", en: "" },
         weights: { 温度:0.8, 可愛:0.5, 情緒:0.4, 王道:0.2 }
       },
       {
         zh: "重要关系发生变化后，你会先把相关东西放进一个文件夹，不急着打开。",
-        ja: "大事な関係が変わった後、関連するものはまず一つのフォルダに入れて、すぐには開かない。",
-        en: "After an important relationship changes, I put related things into one folder and do not open it right away.",
+        ja: "大事な関係が変わった後、関係するものはひとまず一つのフォルダに入れて、すぐには開かない。",
+        en: "After an important relationship changes, I put related things into a folder first and do not open them right away.",
         sub: { zh: "", ja: "", en: "" },
         weights: { 記憶:1.2, 変化:1.0, 温度:0.6, 情緒:0.4 }
       },
       {
         zh: "只剩几个小时能见面时，你会先确认吃饭、交通和结束时间，再决定要不要加别的安排。",
-        ja: "会える時間が数時間しかない時、食事・移動・終わる時間を先に確認してから、他の予定を足すか決める。",
-        en: "When I only have a few hours with someone, I check food, transport, and the ending time before adding anything else.",
+        ja: "会える時間が数時間しかない時、食事や移動、帰る時間を先に確認してから、他の予定を足すか決める。",
+        en: "When I only have a few hours with someone, I check meals, transport, and when we need to leave before adding anything else.",
         sub: { zh: "", ja: "", en: "" },
         weights: { 温度:0.7, 前進:0.6, 記憶:0.4, 元気:-0.3 }
       },
@@ -648,8 +667,8 @@
       },
       {
         zh: "听歌时，你会先注意编曲和旋律，再慢慢听清歌词在说什么。",
-        ja: "曲を聴く時、歌詞の意味より先に、編曲やメロディに意識が向くことがある。",
-        en: "When listening to a song, I may notice the arrangement and melody before fully catching the lyrics.",
+        ja: "曲を聴く時、歌詞の意味より先に、編曲やメロディーに意識が向くことがある。",
+        en: "When listening to a song, I may notice the arrangement and melody before I fully catch the lyrics.",
         sub: { zh: "", ja: "", en: "" },
         weights: { 都市:0.9, 元気:0.4, 団体:0.4, 情緒:-0.2 }
       },
@@ -662,22 +681,22 @@
       },
       {
         zh: "别人问你最近怎么样，你会先说“还可以”，等对方追问才讲真实状态。",
-        ja: "最近どう？と聞かれたら、まず『まあまあ』と言って、聞かれたら本当の状態を話す。",
-        en: "When someone asks how I have been, I first say 'okay' and only explain honestly if they ask again.",
+        ja: "最近どう？と聞かれたら、まず「まあまあ」と答えて、相手が聞いてくれたら本当のことを話す。",
+        en: "When someone asks how I have been, I first say “I’m okay,” and only open up if they ask again.",
         sub: { zh: "", ja: "", en: "" },
         weights: { 情緒:1.1, 都市:0.7, 温度:0.4, 王道:-0.3 }
       },
       {
         zh: "已经结束的事情，你会主动给它一个收尾动作，比如归档、清单或短短记录。",
-        ja: "終わったことには、保存、リスト化、短い記録など、自分なりの区切りをつける。",
-        en: "When something ends, I give it a closing action, like archiving, listing, or writing a short note.",
+        ja: "終わったことには、保存したり、リストに入れたり、短く記録したりして、自分なりに区切りをつける。",
+        en: "When something ends, I give it some kind of closure, like archiving it, adding it to a list, or writing a short note.",
         sub: { zh: "", ja: "", en: "" },
         weights: { 前進:1.0, 変化:1.0, 記憶:-0.5, 情緒:-0.4 }
       },
       {
         zh: "一件事拖了很久还没定下来时，你会想先定一个临时方案，之后再慢慢调整。",
-        ja: "長く決まらないことがある時、まず仮の案を決めて、後から調整したくなる。",
-        en: "When something remains undecided for a long time, I want to choose a temporary plan first and adjust later.",
+        ja: "なかなか決まらないことがある時、まず仮の案を決めて、後から調整したくなる。",
+        en: "When something stays undecided for too long, I want to choose a temporary plan first and adjust it later.",
         sub: { zh: "", ja: "", en: "" },
         weights: { 前進:1.0, 変化:0.5, 王道:0.4, 記憶:-0.3 }
       }
@@ -700,11 +719,11 @@
       {
         id: 2, song: "Dreams come true", era: 1,
         tags: { 王道:1.5, 元気:1, 前進:1, 記憶:0.8 },
-        title: { zh:"给愿望一个还没关上的出口", ja:"願いにまだ閉じていない出口を残す", en:"Leave one open door for your wish" },
+        title: { zh:"给愿望一个还没关上的出口", ja:"願いをまだ手放さずにいる", en:"Leave the door open for your wish" },
         desc: {
           zh:"现实越具体，愿望越容易被放到一边。\n可还没熄掉的东西，不必急着关上。\n\n这首歌陪你留住一点期待。\n看不见结果的时候，也可以先让愿望继续亮着。",
           ja:"現実が具体的になるほど、願いは端に置かれがちです。\nでも、まだ消えていないものを急いで閉じなくていい。\n\nこの曲は、小さな期待を残してくれます。\n結果が見えない時も、願いを少しだけ灯しておけるように。",
-          en:"The more concrete reality gets, the easier it is to put wishes aside.\nBut what has not gone out yet does not need to be shut down.\n\nThis song keeps a little hope with you, even when the result is still out of sight."
+          en:"The more concrete reality gets, the easier it is to put wishes aside.\nBut what has not gone out inside you does not need to be shut down.\n\nThis song keeps a little hope with you, even when the result is still out of sight."
         }
       },
       {
@@ -720,7 +739,7 @@
       {
         id: 4, song: "真夜中のシャドーボーイ", era: 1,
         tags: { 情緒:2.4, 都市:1, 王道:0.8 },
-        title: { zh:"让夜色替你说出那句喜欢", ja:"夜色に好きと言わせる", en:"Let the night say what you cannot" },
+        title: { zh:"让夜色替你说出那句喜欢", ja:"夜に好きと言わせる", en:"Let the night say “I like you” for you" },
         desc: {
           zh:"白天说不出口的心情，夜里会变得清楚。\n\n这首歌陪你把喜欢藏进影子里。\n先不用解释，先让心动悄悄成形。",
           ja:"昼間は言えない気持ちが、夜になるとはっきりする。\n\nこの曲は、好きという言葉を影の中に隠してくれます。\n説明する前に、ときめきが静かに形になるように。",
@@ -750,21 +769,21 @@
       {
         id: 7, song: "OVER", era: 2,
         tags: { 前進:1.9, 変化:1.5, 情緒:1, 記憶:0.7 },
-        title: { zh:"把结束慢慢唱成翻过去", ja:"終わりを越えていく歌にする", en:"Turn an ending into crossing over" },
+        title: { zh:"把结束慢慢唱成翻过去", ja:"終わりを歌いながら少しずつ越えていく", en:"Sing yourself past an ending" },
         desc: {
           zh:"有些结束，不会一下子变轻。\n它会卡在心里，等你慢慢越过。\n\n这首歌陪你把那一段放到身后。\n不急着释怀，先往前一点。",
-          ja:"終わりは、すぐ軽くなるものではありません。\n心に引っかかったまま、少しずつ越えていくこともあります。\n\nこの曲は、その一段を背中の後ろへ置く手伝いをしてくれます。\n急いで手放さず、まず少し前へ。",
+          ja:"終わりは、すぐ軽くなるものではありません。\n心に引っかかったまま、少しずつ越えていくこともあります。\n\nこの曲は、その時間を少しずつ後ろへ置く手伝いをしてくれます。\n急いで手放さず、まず少し前へ。",
           en:"Some endings do not become light all at once.\nThey stay caught inside you until you slowly cross over.\n\nThis song helps you place that part behind you, one small step forward at a time."
         }
       },
       {
         id: 8, song: "Magic Power", era: 2,
         tags: { 元気:2.4, 団体:1.5, 可愛:1.2 },
-        title: { zh:"让一起胡闹也变成魔法", ja:"一緒に笑うことを魔法にする", en:"Turn shared silliness into magic" },
+        title: { zh:"让一起胡闹也变成魔法", ja:"一緒に笑うことを魔法にする", en:"Turn laughing together into magic" },
         desc: {
           zh:"有些日子很糟，但一起笑一下，就会没那么难。\n\n这首歌陪你从低气压里出来。\n幼稚也好，吵闹也好，心能松一点就好。",
           ja:"ひどい日でも、一緒に笑えたら少し楽になる。\n\nこの曲は、低気圧みたいな気分から連れ出してくれます。\n幼くても、賑やかでも、心が少しゆるめばそれでいい。",
-          en:"Some days are awful, but laughing together makes them less heavy.\n\nThis song pulls you out of the low pressure. Childish or noisy is fine, as long as your heart loosens a little."
+          en:"Some days are awful, but laughing together makes them less heavy.\n\nThis song pulls you out of a heavy mood. Childish or noisy is fine, as long as your heart loosens a little."
         }
       },
       {
@@ -779,12 +798,13 @@
       },
       {
         id: 10, song: "Come On A My House", era: 2,
+        memberBoost: { chinen: 1.25 },
         tags: { 可愛:2.4, 元気:1, 温度:0.7 },
-        title: { zh:"把喜欢说得笨一点、近一点", ja:"好きな気持ちを少し不器用に近づける", en:"Make liking a little clumsy and closer" },
+        title: { zh:"把喜欢说得笨一点、近一点", ja:"好きな気持ちを少し不器用に近づける", en:"Make your feelings a little clumsy and closer" },
         desc: {
           zh:"喜欢有时候不用分析得太复杂。\n\n想靠近，想确认，想被看见。\n这首歌陪你把心情拉近一点，笨一点也可爱。",
           ja:"好きな気持ちは、あまり難しく考えなくてもいい。\n\n近づきたい、確かめたい、見てほしい。\nこの曲は、その気持ちを少し近くへ連れていきます。不器用でもかわいい。",
-          en:"Liking someone does not always need deep analysis.\n\nWanting to get closer, to confirm, to be seen—this song brings that feeling a little nearer. Clumsy can be cute."
+          en:"Your feelings do not always need deep analysis.\n\nWanting to get closer, to confirm, to be seen—this song brings that feeling a little nearer. Clumsy can be cute."
         }
       },
       {
@@ -800,10 +820,10 @@
       {
         id: 12, song: "AinoArika", era: 2,
         tags: { 情緒:1.8, 記憶:1.3, 都市:0.9, 温度:0.7 },
-        title: { zh:"把找不到的喜欢重新握在手里", ja:"見失った好きの在処をもう一度握る", en:"Hold the lost place of love again" },
+        title: { zh:"把找不到的喜欢重新握在手里", ja:"見失った好きの在処をもう一度たどる", en:"Find where that feeling went" },
         desc: {
           zh:"有些喜欢，会被距离、时间和沉默弄得模糊。\n\n这首歌陪你重新摸索一遍。\n说不清也没关系，先把那份在意握回手里。",
-          ja:"好きという気持ちは、距離や時間や沈黙でぼやけていくことがあります。\n\nこの曲は、もう一度たどる時間をくれます。\nうまく言えなくてもいい。まず、その在意を手の中へ戻して。",
+          ja:"好きという気持ちは、距離や時間や沈黙でぼやけていくことがあります。\n\nこの曲は、もう一度たどる時間をくれます。\nうまく言えなくてもいい。まず、その大事な気持ちを手の中へ戻して。",
           en:"Some love gets blurred by distance, time, and silence.\n\nThis song lets you feel around for it again. Even if you cannot explain it, hold that care in your hands first."
         }
       },
@@ -820,7 +840,7 @@
       {
         id: 14, song: "明日へのYELL", era: 2,
         tags: { 前進:2, 元気:1.5, 王道:0.8, 団体:0.5 },
-        title: { zh:"把快要低下去的头再抬起来", ja:"下がりそうな顔をもう一度上げる", en:"Lift your head before it drops" },
+        title: { zh:"把快要低下去的头再抬起来", ja:"うつむきそうな顔をもう一度上げる", en:"Lift your head again" },
         desc: {
           zh:"你可能已经很累了。\n可心里还有一点不甘心。\n\n这首歌陪你把头抬起来。\n声音会发抖也没关系，喊出去就还没输。",
           ja:"もう疲れているのかもしれない。\nでも、心の中にはまだ少し悔しさが残っている。\n\nこの曲は、顔を上げる力をくれます。\n声が震えてもいい。叫べるなら、まだ負けていない。",
@@ -843,8 +863,8 @@
         title: { zh:"把迟到的声音递到远方", ja:"遅れた声を遠くへ届ける", en:"Send a late voice far away" },
         desc: {
           zh:"有些话，错过了最容易说出口的时候。\n后来越远，越不知道该怎么开始。\n\n这首歌陪你把声音放进Dear.后面。\n到不了也写下来，写下来的那一刻，它已经在路上了。",
-          ja:"言いやすい時期を過ぎてしまった言葉があります。\n遠くなるほど、始め方がわからなくなる。\n\nこの曲は、その声をDear.の後ろに置かせてくれます。\n届かなくても書いていい。書いた瞬間、もう向かい始めています。",
-          en:"Some words miss the easiest time to be said.\nThe farther things get, the harder it is to begin.\n\nThis song lets you place that voice afterDear.Even if it cannot arrive, writing it means it has already started moving."
+          ja:"言いやすい時期を過ぎてしまった言葉があります。\n遠くなるほど、始め方がわからなくなる。\n\nこの曲は、その声をDear.のあとに置かせてくれます。\n届かなくても書いていい。書いた瞬間、もう向かい始めています。",
+          en:"Some words miss the easiest time to be said.\nThe farther things get, the harder it is to begin.\n\nThis song lets you place that voice after Dear. Even if it cannot arrive, writing it means it has already started moving."
         }
       },
       {
@@ -880,31 +900,31 @@
       {
         id: 20, song: "COSMIC☆HUMAN", era: 2,
         tags: { 都市:1.8, 温度:1.2, 団体:1, 可愛:0.5 },
-        title: { zh:"在理解不了人类的时候继续爱人类", ja:"人間がわからないまま人間を愛す", en:"Love humans even when you do not understand them" },
+        title: { zh:"在理解不了人类的时候继续爱人类", ja:"人間がわからないまま人間を愛する", en:"Love humans even when you do not understand them" },
         desc: {
           zh:"你可能理解不了别人，也理解不了自己。\n失望、喜欢、生气、舍不得，全都挤在一起。\n\n这首歌陪你把矛盾放大到宇宙里。\n人类复杂又笨拙，但还是值得爱一点。",
           ja:"他人も自分も、よくわからない時があります。\n失望、好き、怒り、名残惜しさが一緒に押し寄せる。\n\nこの曲は、その矛盾を宇宙まで広げてくれます。\n人間は複雑で不器用。でも、少し愛してもいい。",
-          en:"Sometimes you cannot understand others, or yourself.\nDisappointment, love, anger, and reluctance all crowd together.\n\nThis song expands those contradictions to a cosmic scale. Humans are complicated and clumsy, but still worth loving a little."
+          en:"Sometimes you cannot understand others, or yourself.\nDisappointment, love, anger, and not wanting to let go all crowd together.\n\nThis song expands those contradictions to a cosmic scale. Humans are complicated and clumsy, but still worth loving a little."
         }
       },
       {
         id: 21, song: "BANGER NIGHT", era: 3,
         tags: { 都市:2, 前進:1.7, 王道:1.2 },
-        title: { zh:"把情绪切换到更锋利的灯光下", ja:"感情を鋭いライトへ切り替える", en:"Switch your mood into sharper lights" },
+        title: { zh:"把情绪切换到更锋利的灯光下", ja:"感情を鋭いライトへ切り替える", en:"Switch your mood under sharper lights" },
         desc: {
           zh:"有时候不想被安慰，只想切换状态。\n\n这首歌陪你站进更强的节奏里。\n灯一亮，气场就回来。",
-          ja:"慰めよりも、状態を切り替えたい時があります。\n\nこの曲は、強いリズムの中へ連れていきます。\nライトが点けば、気配も戻ってくる。",
+          ja:"慰めよりも、状態を切り替えたい時があります。\n\nこの曲は、強いリズムの中へ連れていきます。\nライトが点けば、自分の気配も戻ってくる。",
           en:"Sometimes you do not want comfort; you want a reset.\n\nThis song places you inside a stronger beat. When the lights turn on, your presence returns."
         }
       },
       {
         id: 22, song: "Your Song", era: 3,
         tags: { 温度:2.4, 記憶:1, 団体:0.6 },
-        title: { zh:"让一句温柔先落在旁边", ja:"優しい一言をそばに置く", en:"Let one gentle line sit beside you" },
+        title: { zh:"让一句温柔先落在旁边", ja:"優しい一言をそばに置く", en:"Let one gentle line stay beside you" },
         desc: {
           zh:"你可能不想听“加油”。\n你只是需要有人安静待在旁边。\n\n这首歌陪你慢一点。\n今天不用解释，先被温柔放过。",
-          ja:"頑張ってと言われたい日ばかりではありません。\nただ静かにそばにいてほしい時もある。\n\nこの曲は、少しゆっくりさせてくれます。\n今日は説明しなくていい。まず優しさに許されていい。",
-          en:"You may not want to hear 'keep going.'\nYou may just need someone sitting quietly beside you.\n\nThis song lets you slow down. You do not have to explain today; let gentleness release you first."
+          ja:"頑張ってと言われたい日ばかりではありません。\nただ静かにそばにいてほしい時もある。\n\nこの曲は、少しゆっくりさせてくれます。\n今日は説明しなくていい。まず優しさに甘えていい。",
+          en:"You may not want to hear 'keep going.'\nYou may just need someone sitting quietly beside you.\n\nThis song lets you slow down. You do not have to explain today; let gentleness take care of you first."
         }
       },
       {
@@ -920,7 +940,7 @@
       {
         id: 24, song: "群青ランナウェイ", era: 3,
         tags: { 変化:2.4, 前進:1.5, 情緒:1 },
-        title: { zh:"从无法呼吸的设定里跑出去", ja:"息ができない設定から走り出す", en:"Run out of a role you cannot breathe in" },
+        title: { zh:"从无法呼吸的设定里跑出去", ja:"息ができない役割から走り出す", en:"Run out of a role that makes it hard to breathe" },
         desc: {
           zh:"有些角色演太久，会让人喘不过气。\n\n这首歌陪你先跑出去。\n终点可以之后再找，先离开那个困住你的地方。",
           ja:"長く演じすぎた役は、息苦しくなることがあります。\n\nこの曲は、まず走り出させてくれます。\n行き先はあとで探せばいい。先に、あなたを閉じ込める場所から離れて。",
@@ -930,21 +950,21 @@
       {
         id: 25, song: "春玄鳥", era: 3,
         tags: { 温度:2, 記憶:1.6, 変化:1.1, 団体:0.8 },
-        title: { zh:"把飞过的春天留在身后", ja:"飛び越えた春を背中に残す", en:"Carry the spring you flew through behind you" },
+        title: { zh:"把飞过的春天留在身后", ja:"飛び越えた春をそっと残す", en:"Keep the spring you flew through with you" },
         desc: {
           zh:"春天快要翻页了。\n回头看，才发现已经飞过这么多地方。\n\n这首歌陪你收好那段同行。\n风吹过，夜冷过，一起越过的痕迹会留下来。",
-          ja:"春はもうページをめくろうとしています。\n振り返ると、ずいぶん遠くまで飛んできたことに気づく。\n\nこの曲は、その同行をしまっておいてくれます。\n風が吹いて、夜が冷えて、それでも一緒に越えた跡は残ります。",
+          ja:"春はもうページをめくろうとしています。\n振り返ると、ずいぶん遠くまで飛んできたことに気づく。\n\nこの曲は、一緒に飛んだ時間をしまっておいてくれます。\n風が吹いて、夜が冷えて、それでも一緒に越えた跡は残ります。",
           en:"Spring is about to turn the page.\nLooking back, you realize how far you have flown.\n\nThis song helps you keep that shared path. The wind blew, the night was cold, and the traces of crossing it together remain."
         }
       },
       {
         id: 26, song: "DEAR MY LOVER", era: 3,
         tags: { 可愛:1.7, 王道:1.5, 情緒:1 },
-        title: { zh:"把偏爱说得不再拐弯", ja:"遠回しにせず偏愛を言う", en:"Say preference without going around" },
+        title: { zh:"把偏爱说得不再拐弯", ja:"遠回しにせず特別を言う", en:"Say “you are the one” without going around" },
         desc: {
           zh:"你想要一句明白的话。\n是你，就是你，只选择你。\n\n这首歌陪你把偏爱说清楚。\n不靠猜，不靠暗号，甜得直接一点。",
-          ja:"はっきりした一言がほしい。\n君だよ、君だけだよ、という言葉。\n\nこの曲は、偏愛をまっすぐ言わせてくれます。\n推測でも合図でもなく、甘さを少し直接に。",
-          en:"You want clear words: it is you, only you, I choose you.\n\nThis song says preference plainly. No guessing, no secret signs, just sweetness made direct."
+          ja:"はっきりした一言がほしい。\n君だよ、君だけだよ、という言葉。\n\nこの曲は、特別な気持ちをまっすぐ言わせてくれます。\n推測でも合図でもなく、甘さを少し直接に。",
+          en:"You want clear words: it is you, only you, I choose you.\n\nThis song says that special feeling plainly. No guessing, no secret signs, just sweetness made direct."
         }
       },
       {
@@ -953,8 +973,8 @@
         title: { zh:"把短暂的相遇变热烈", ja:"短い出会いを熱くする", en:"Make a brief meeting burn bright" },
         desc: {
           zh:"有些相遇不会一直持续。\n所以发生的那一刻，更要用力发光。\n\n这首歌陪你把心跳放大。\n不去预支分别，也不把喜欢压轻。\n\n短暂也可以很热烈。\n热烈到后来想起，仍然能听见那一声开始的响。",
-          ja:"ずっと続かない出会いもあります。\nだからこそ、起きているその瞬間に強く光らせたい。\n\nこの曲は、心音を大きくしてくれます。\n別れを先取りせず、好きという気持ちを軽く扱わずに。\n\n短くても熱くていい。\nあとから思い出しても、始まりの音が聞こえるくらいに。",
-          en:"Some meetings do not last forever.\nThat is why the moment itself should shine hard.\n\nThis song enlarges your heartbeat. Do not borrow the goodbye in advance, and do not make your liking smaller.\n\nBrief can still be intense, intense enough that later you can still hear the sound of it beginning."
+          ja:"ずっと続かない出会いもあります。\nだからこそ、その出会いが起きている瞬間に、強く光らせたい。\n\nこの曲は、心音を大きくしてくれます。\n別れを先取りせず、好きという気持ちを軽く扱わずに。\n\n短くても熱くていい。\nあとから思い出しても、始まりの音が聞こえるくらいに。",
+          en:"Some meetings do not last forever.\nThat is why the moment itself should shine hard.\n\nThis song enlarges your heartbeat. Do not think ahead to the goodbye, and do not make your liking smaller.\n\nBrief can still be intense, intense enough that later you can still hear the sound of it beginning."
         }
       },
       {
@@ -970,11 +990,11 @@
       {
         id: 29, song: "encore", era: 3,
         tags: { 変化:1.8, 記憶:1.8, 情緒:1.5, 温度:0.6 },
-        title: { zh:"把错过的那一遍留给歌", ja:"逃した一回を歌に預ける", en:"Leave the missed take to the song" },
+        title: { zh:"把错过的那一遍留给歌", ja:"聴き逃した一回を歌に預ける", en:"Leave the missed moment to the song" },
         desc: {
           zh:"心里有一遍没有放完。\n有些话差一点出口，有些告别差一点完成。\n\n这首歌陪你再听一次。\n现实往前走，歌声替那段心情响起encore。",
           ja:"心の中に、まだ流れきっていない一回があります。\n言葉は少し届かず、別れも少し未完成のまま。\n\nこの曲は、もう一度聴かせてくれます。\n現実が前へ進んでも、その気持ちには歌がencoreを鳴らします。",
-          en:"Inside you, one version has not finished playing.\nSome words almost came out; some goodbyes almost completed.\n\nThis song lets you hear it once more. Reality moves forward, and the song ringsencorefor that feeling."
+          en:"Inside you, one version has not finished playing.\nSome words almost came out; some goodbyes almost completed.\n\nThis song lets you hear it once more. Reality moves forward, and the song rings encore for that feeling."
         }
       },
       {
@@ -983,8 +1003,8 @@
         title: { zh:"把一起走过的时间接到下一站", ja:"共に歩いた時間を次の場所へつなぐ", en:"Connect the time walked together to the next stop" },
         desc: {
           zh:"人会走，关系会变，队形也会变。\n可一起走过的时间不会失效。\n\n这首歌陪你把过去接向未来。\n同行过的痕迹，会变成继续往前的线。",
-          ja:"人は離れ、関係は変わり、並び方も変わっていく。\nでも、一緒に歩いた時間は無効になりません。\n\nこの曲は、過去を未来へつないでくれます。\n共に歩いた跡は、これから先へ続く線になります。",
-          en:"People leave, relationships change, formations shift.\nBut the time walked together does not become invalid.\n\nThis song connects the past to the future. The traces of walking together become a line that keeps going."
+          ja:"人は離れ、関係は変わり、並び方も変わっていく。\nでも、一緒に歩いた時間は消えません。\n\nこの曲は、過去を未来へつないでくれます。\n共に歩いた跡は、これから先へ続く線になります。",
+          en:"People leave, relationships change, formations shift.\nBut the time walked together does not stop mattering.\n\nThis song connects the past to the future. The traces of walking together become a line that keeps going."
         }
       }
     ];
@@ -1203,7 +1223,8 @@
         .sort((a, b) => b.score - a.score);
       const winner = ranked[0].result;
       app.lastResult = winner;
-      document.getElementById("resultSong").innerHTML = `<span class="result-group-name">Hey! Say!JUMP</span><span class="result-song-name">${winner.song}</span>`;
+      const artistName = winner.artist || "Hey! Say! JUMP";
+      document.getElementById("resultSong").innerHTML = `<span class="result-group-name">${artistName}</span><span class="result-song-name">${winner.song}</span>`;
       document.getElementById("resultTitle").textContent = winner.title[app.lang];
       document.getElementById("resultDesc").textContent = winner.desc[app.lang];
       document.getElementById("resultNote").textContent = t("resultNote");
@@ -1215,7 +1236,7 @@
       if (!app.lastResult) return;
       const winner = app.lastResult;
       const copyText = `${document.getElementById("mainTitle").textContent}
-Hey! Say!JUMP｜${winner.song}
+${winner.artist || "Hey! Say! JUMP"}｜${winner.song}
 ${winner.title[app.lang]}
 
 ${winner.desc[app.lang]}`;
@@ -1253,17 +1274,177 @@ ${winner.desc[app.lang]}`;
       Object.entries(result.tags).forEach(([dim, weight]) => {
         total += (scores[dim] || 0) * weight;
       });
+      if (result.memberBoost && app.selectedMember && result.memberBoost[app.selectedMember.id]) {
+        total += result.memberBoost[app.selectedMember.id];
+      }
       total += Math.random() * 0.0001;
       return total;
     }
 
     function isEligible(result, member) {
       const limit = eras[member.maxEra];
-      return result.era <= limit;
+      if (result.era > limit) return false;
+      if (result.memberOnly && !result.memberOnly.includes(member.id)) return false;
+      return true;
     }
 
     setCopy();
     renderLanguages();
   </script>
 </body>
-</html>
+</html>,
+      {
+        id: 31, song: "Do it again", artist: "山田涼介", era: 3,
+        memberOnly: ["yamada"],
+        memberBoost: { yamada: 3.4 },
+        tags: { 王道:2.0, 情緒:1.4, 都市:0.9, 前進:0.8 },
+        title: { zh:"让夜里的心跳再响一次", ja:"夜の鼓動をもう一度鳴らす", en:"Let the night heartbeat ring again" },
+        desc: {
+          zh:"有些靠近不是一次就能结束。\n明明已经听见秘密的声音，心还是会想再往前一点。\n\n这首歌陪你把那一瞬间重新点亮。\n不用装作冷静，想再确认一次，就让心跳再响一次。",
+          ja:"一度では終わらない近づき方があります。\n秘密の声をもう聞いてしまったのに、心はまだ少し先へ行きたがる。\n\nこの曲は、その一瞬をもう一度灯してくれます。\n冷静なふりをしなくていい。もう一度確かめたいなら、鼓動をもう一度鳴らせばいい。",
+          en:"Some kinds of closeness do not end after one time.\nEven after hearing the secret voice, your heart still wants to move a little closer.\n\nThis song lights that moment again.\nYou do not have to pretend to be calm. If you want to confirm it once more, let the heartbeat ring again."
+        }
+      },
+      {
+        id: 32, song: "Oh! my darling", artist: "山田涼介", era: 3,
+        memberOnly: ["yamada"],
+        memberBoost: { yamada: 3.2 },
+        tags: { 王道:1.8, 可愛:1.3, 情緒:0.8 },
+        title: { zh:"把心动带进热闹的夜晚", ja:"ときめきを賑やかな夜へ連れていく", en:"Bring your crush into a lively night" },
+        desc: {
+          zh:"有些喜欢适合被放大一点。\n不要太冷静，也不要把心情藏得太深。\n\n这首歌陪你把那份心动带进夜晚。\n灯光亮起来，音乐响起来，喜欢也可以变得很直接。",
+          ja:"少し大きくしていい好きがあります。\n冷静すぎなくていいし、気持ちを深く隠しすぎなくてもいい。\n\nこの曲は、そのときめきを夜へ連れていきます。\nライトが点いて、音楽が鳴ったら、好きはもっとまっすぐでいい。",
+          en:"Some feelings are meant to be made a little louder.\nYou do not have to stay too calm or hide them too deeply.\n\nThis song brings that crush into the night.\nWhen the lights come on and the music starts, liking someone can be direct."
+        }
+      },
+      {
+        id: 33, song: "RED", artist: "Ryosuke Yamada", era: 4,
+        memberOnly: ["yamada"],
+        memberBoost: { yamada: 3.6 },
+        tags: { 王道:2.2, 情緒:1.2, 前進:1.0 },
+        title: { zh:"把自己染成更鲜明的颜色", ja:"自分をもっと鮮やかな色に染める", en:"Dye yourself in a sharper color" },
+        desc: {
+          zh:"现在的你不想只待在背景里。\n你想把存在感调高，让心里的热度被看见。\n\n这首歌陪你把颜色加深。\n不用解释为什么，先更鲜明地站在那里。",
+          ja:"いまのあなたは、背景にいるだけではいたくない。\n存在感を少し上げて、心の熱を見せたい。\n\nこの曲は、色を濃くしてくれます。\n理由を説明しなくてもいい。まず、もっと鮮やかにそこに立てばいい。",
+          en:"Right now, you do not want to stay in the background.\nYou want to turn up your presence and let the heat inside you be seen.\n\nThis song deepens your color.\nYou do not have to explain why. Just stand there more vividly first."
+        }
+      },
+      {
+        id: 34, song: "Bloomin'", artist: "Ryosuke Yamada", era: 4,
+        memberOnly: ["yamada"],
+        memberBoost: { yamada: 3.2 },
+        tags: { 王道:1.3, 情緒:1.4, 温度:1.0 },
+        title: { zh:"让靠近的心情慢慢开花", ja:"近づく気持ちをゆっくり咲かせる", en:"Let closeness bloom slowly" },
+        desc: {
+          zh:"有些距离看起来很近，心里却还隔着一层没说破的空气。\n再往前一步，很多东西都会改变。\n\n这首歌陪你停在花要开的前一刻。\n紧张也好，期待也好，都已经开始有了颜色。",
+          ja:"近く見える距離でも、心にはまだ言えない空気が一枚あります。\nもう一歩進めば、きっと多くのものが変わる。\n\nこの曲は、花が開く直前の時間に寄り添ってくれます。\n緊張も期待も、もう色を持ち始めています。",
+          en:"Some distances look close, but a quiet layer still keeps the feeling unsaid.\nOne more step forward, and many things will change.\n\nThis song stays with you just before the flower opens.\nNervousness and hope have already begun to take on color."
+        }
+      },
+      {
+        id: 35, song: "159", artist: "知念侑李", era: 3,
+        memberOnly: ["chinen"],
+        memberBoost: { chinen: 3.5 },
+        tags: { 可愛:1.8, 都市:1.2, 元気:0.9 },
+        title: { zh:"把规则拿回自己手里", ja:"ルールを自分の手に取り戻す", en:"Take the rules back into your own hands" },
+        desc: {
+          zh:"别人以为已经看懂你了。\n可你偏偏最会利用这种误判。\n\n这首歌陪你把视线反过来。\n被怎么期待、被怎么定义，都不必照单全收。\n你可以笑着接住，再按自己的方式出牌。",
+          ja:"相手はもうあなたを分かったつもりでいる。\nでも、あなたはその誤解をいちばん上手に使える人です。\n\nこの曲は、向けられた視線をひっくり返してくれます。\nどう期待されても、どう決めつけられても、そのまま受け取らなくていい。\n笑って受け止めて、自分のやり方でカードを切ればいい。",
+          en:"People may think they have already figured you out.\nBut you are especially good at using that misunderstanding.\n\nThis song helps you turn the gaze back around.\nYou do not have to accept every expectation or definition placed on you.\nYou can smile, take it in, and play your own card."
+        }
+      },
+      {
+        id: 36, song: "題名の無い物語", artist: "髙木雄也", era: 3,
+        memberOnly: ["takaki"],
+        memberBoost: { takaki: 3.6 },
+        tags: { 情緒:2.1, 温度:1.5, 記憶:0.8 },
+        title: { zh:"在看不清的轮廓里继续相信", ja:"見えない輪郭の中で信じ続ける", en:"Keep believing in the unclear outline" },
+        desc: {
+          zh:"有些幸福像真的一样靠近。\n声音和温度都清楚，只有最重要的那个人始终看不清。\n\n这首歌陪你留住那份不肯散掉的想念。\n哪怕故事还没有题名，哪怕轮廓还没有出现，\n也还是想相信：总有一天，会真正遇见。",
+          ja:"本物みたいに近づいてくる幸せがあります。\n声も温度もはっきりしているのに、いちばん大切な人だけが見えないまま。\n\nこの曲は、消えてくれない想いを残してくれます。\n物語にまだ題名がなくても、輪郭がまだ現れていなくても、\nいつか本当に出会えると信じていたい。",
+          en:"Some happiness comes close enough to feel real.\nThe voice and warmth are clear, but the most important person remains impossible to see.\n\nThis song keeps the longing that will not fade.\nEven if the story still has no title, even if the outline has not appeared yet,\nyou still want to believe that one day, you will truly meet."
+        }
+      },
+      {
+        id: 37, song: "俺たちの青春", artist: "髙木雄也", era: 1,
+        memberOnly: ["takaki"],
+        memberBoost: { takaki: 3.4 },
+        tags: { 元気:1.5, 記憶:1.3, 前進:1.2 },
+        title: { zh:"把此刻能做的事用力做完", ja:"いまできることを思いきりやりきる", en:"Do what only now can do" },
+        desc: {
+          zh:"有些日子回头看会显得笨拙，正在经历的时候却很烫。\n你不想让别人把它说成无意义。\n\n这首歌陪你抓住现在。\n青春不一定漂亮，但一定真切地燃过。",
+          ja:"振り返れば不器用に見える日々でも、その最中にはちゃんと熱があります。\n誰かに無駄だと言われたくない時間がある。\n\nこの曲は、いまをつかませてくれます。\n青春はきれいとは限らない。でも確かに燃えていた。",
+          en:"Some days may look clumsy in hindsight, but they are hot while you are living them.\nYou do not want anyone to call that time meaningless.\n\nThis song helps you hold onto now.\nYouth is not always beautiful, but it did burn for real."
+        }
+      },
+      {
+        id: 38, song: "条件反射", artist: "伊野尾慧", era: 3,
+        memberOnly: ["inoo"],
+        memberBoost: { inoo: 3.5 },
+        tags: { 都市:2.2, 情緒:1.4, 可愛:0.6 },
+        title: { zh:"让理性追不上本能", ja:"理性が本能に追いつかない", en:"Let instinct outrun reason" },
+        desc: {
+          zh:"有些反应来得太快。\n还没想好该不该靠近，身体和心已经先给了答案。\n\n这首歌陪你承认那种不受控制的吸引。\n不端正，不安全，却让人一下子醒过来。",
+          ja:"反応が速すぎる瞬間があります。\n近づいていいか考える前に、身体と心がもう答えを出している。\n\nこの曲は、制御できない引力を認めさせてくれます。\n正しくなくて、安全でもない。でも一瞬で目が覚める。",
+          en:"Some reactions arrive too quickly.\nBefore you can decide whether to move closer, your body and heart have already answered.\n\nThis song lets you admit that uncontrollable attraction.\nIt is not proper, not safe, but it wakes you up all at once."
+        }
+      },
+      {
+        id: 39, song: "流星の詩", artist: "薮宏太", era: 3,
+        memberOnly: ["yabu"],
+        memberBoost: { yabu: 3.6 },
+        tags: { 温度:1.8, 記憶:1.6, 情緒:1.0 },
+        title: { zh:"把想念写进夜空里", ja:"想いを夜空に映す", en:"Write longing into the night sky" },
+        desc: {
+          zh:"现在的你可能需要一首把声音放远的歌。\n想念不一定要喊出来，也可以慢慢投向夜空。\n\n这首歌陪你把感情拉长。\n像流星一样，短暂，却足够被看见。",
+          ja:"いまのあなたには、声を遠くへ置ける歌が必要なのかもしれません。\n想いは叫ばなくてもいい。夜空へゆっくり映せばいい。\n\nこの曲は、感情を長く伸ばしてくれます。\n流星のように短くても、ちゃんと見える光になります。",
+          en:"You may need a song that lets your voice travel far.\nLonging does not always have to be shouted; it can be cast slowly into the night sky.\n\nThis song stretches your feelings out.\nLike a shooting star, it may be brief, but it can still be seen."
+        }
+      },
+      {
+        id: 40, song: "ただ前へ", artist: "Hey! Say! 7", era: 2,
+        memberOnly: ["yamada","chinen","nakajima","okamoto"],
+        memberBoost: { yamada: 1.7, chinen: 1.7, nakajima: 1.7, okamoto: 1.7 },
+        tags: { 前進:2.2, 記憶:1.0, 情緒:0.8 },
+        title: { zh:"带着没有消失的烦恼再走一步", ja:"消えない悩みを抱えたまま、もう一歩進む", en:"Take one more step with the worries still there" },
+        desc: {
+          zh:"问题不会因为一首歌就突然变少。\n烦恼也不会因为想通了，就马上从心里搬走。\n\n这首歌陪你做的事很简单：\n再走一步。\n\n喜悦也好，悲伤也好，\n先不要急着整理成答案。\n带着它们往前走，后来它们会在路边开成花。",
+          ja:"問題は、一曲で急に減るわけではありません。\n悩みも、少し分かったからといってすぐ心から出ていくわけではない。\n\nこの曲が寄り添ってくれることは、とてもシンプルです。\nもう一歩進むこと。\n\n喜びも悲しみも、\n急いで答えにしなくていい。\n抱えたまま前へ進めば、いつか道端に花として咲くでしょう。",
+          en:"Problems will not suddenly become fewer because of one song.\nWorries will not immediately move out of your heart just because you understand them.\n\nWhat this song helps you do is simple:\ntake one more step.\n\nJoy or sadness,\nyou do not have to turn them into answers right away.\nWalk forward with them, and later they may bloom by the roadside."
+        }
+      },
+      {
+        id: 41, song: "ガンバレッツゴー!", artist: "Hey! Say! 7", era: 1,
+        memberOnly: ["yamada","chinen","nakajima","okamoto","morimoto"],
+        memberBoost: { yamada: 1.6, chinen: 1.6, nakajima: 1.6, okamoto: 1.6, morimoto: 1.6 },
+        tags: { 元気:2.1, 団体:1.0, 前進:0.8 },
+        title: { zh:"把收到的元气全力喊回去", ja:"もらった元気を全力で返す", en:"Shout back the energy you received" },
+        desc: {
+          zh:"有时候你不是一个人在努力。\n你看见对方的认真、汗水和坚持，自己也会跟着被点燃。\n\n这首歌陪你把那份元气喊回去。\n谢谢你给我的勇气，所以我也想用全力为你加油。",
+          ja:"頑張っているのは、自分一人だけではない時があります。\n相手の本気や汗、続けてきた努力を見ると、自分も火がつく。\n\nこの曲は、もらった元気を声にして返してくれます。\n勇気をくれてありがとう。だから自分も全力で応援したい。",
+          en:"Sometimes you are not the only one trying hard.\nWhen you see someone's seriousness, sweat, and persistence, you get lit up too.\n\nThis song helps you shout that energy back.\nThank you for giving me courage, so I want to cheer for you with everything I have."
+        }
+      },
+      {
+        id: 42, song: "ス・リ・ル", artist: "Hey! Say! BEST", era: 1,
+        memberOnly: ["arioka","takaki","inoo","yaotome","yabu"],
+        memberBoost: { arioka: 1.5, takaki: 1.5, inoo: 1.5, yaotome: 1.5, yabu: 1.5 },
+        tags: { 都市:1.8, 情緒:1.2, 前進:0.8 },
+        title: { zh:"把理智交给那一下刺激", ja:"理性をその刺激に預ける", en:"Hand reason over to that thrill" },
+        desc: {
+          zh:"有些瞬间，不是想清楚以后才心动。\n是节奏先靠近，空气先变热，身体先知道自己被带走了。\n\n这首歌陪你进入那种危险边缘的清醒。\n不用立刻判断该不该，\n先让感官打开，先承认那一下刺激是真的。",
+          ja:"考えきってから心が動くわけではない瞬間があります。\nリズムが先に近づいて、空気が熱くなり、身体が先に連れていかれたことを知る。\n\nこの曲は、危うさの縁にある冴えた感覚へ連れていきます。\nすぐに正しいかどうか判断しなくていい。\nまず感覚を開いて、その刺激が本物だと認めればいい。",
+          en:"Some moments do not move your heart after you have thought them through.\nThe rhythm comes closer first, the air turns hot, and your body knows it has already been carried away.\n\nThis song brings you into that clear feeling on the edge of danger.\nYou do not have to judge right away whether you should or should not.\nOpen your senses first, and admit that the thrill is real."
+        }
+      },
+      {
+        id: 43, song: "勇気100%", artist: "Hey! Say! JUMP", era: 1,
+        memberBoost: { yamada: 1.1, chinen: 1.1, arioka: 1.1, takaki: 1.1, inoo: 1.1, yaotome: 1.1, yabu: 1.1, morimoto: 1.1, okamoto: 1.1, nakajima: 1.1, all: 1.1 },
+        tags: { 元気:2.2, 前進:1.5, 団体:0.8 },
+        title: { zh:"把想做的事先做起来", ja:"やりたいことをまず始める", en:"Start doing what you want to do" },
+        desc: {
+          zh:"有些答案不会等你准备完美才出现。\n越是犹豫，越容易把真正想做的事拖到很远。\n\n这首歌陪你把勇气拿出来用。\n想做的事就先去做，跌倒了也没关系，往前的力气会在行动里长出来。",
+          ja:"完璧に準備できるまで、答えは待ってくれないことがあります。\n迷うほど、本当にやりたいことは遠くへ延びていく。\n\nこの曲は、勇気を使わせてくれます。\nやりたいことは、まずやってみればいい。転んでも大丈夫。前へ進む力は、動く中で育っていきます。",
+          en:"Some answers will not wait until you are perfectly ready.\nThe more you hesitate, the farther your real wish can drift away.\n\nThis song helps you put your courage to use.\nIf you want to do it, start first. It is okay to fall; the strength to move forward grows through action."
+        }
+      }

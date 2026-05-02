@@ -3,27 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>“今”に寄り添うJUMPの一曲</title>
+  <title>「今」に寄り添うJUMPの一曲</title>
+  
   <style>
     :root {
-      --accent: #7a747d;
-      --accent-2: #b6b0b8;
-      --accent-soft: rgba(122, 116, 125, 0.12);
+      --accent: #526071;
+      --accent-2: #f2a85b;
+      --accent-soft: rgba(82, 96, 113, 0.12);
       --ink: #242336;
       --text: #242336;
       --muted: #747284;
-      --line: rgba(120, 116, 128, 0.22);
-      --glass: rgba(255,255,255,0.72);
-      --glass-strong: rgba(255,255,255,0.90);
-      --shadow: 0 14px 36px rgba(36, 35, 54, 0.10);
-      --bg: linear-gradient(135deg,
-        rgba(233,66,74,0.13) 0%,
-        rgba(245,163,191,0.12) 16%,
-        rgba(242,140,40,0.11) 31%,
-        rgba(139,92,246,0.12) 47%,
-        rgba(107,183,255,0.08) 62%,
-        rgba(244,208,63,0.12) 78%,
-        rgba(124,207,122,0.12) 100%);
+      --line: rgba(120, 116, 128, 0.18);
+      --glass: rgba(255,255,255,0.80);
+      --glass-strong: rgba(255,255,255,0.92);
+      --shadow: 0 18px 40px rgba(36, 35, 54, 0.10);
+      --bg:
+        radial-gradient(circle at 8% 2%, rgba(236,72,91,0.20) 0 16%, transparent 38%),
+        radial-gradient(circle at 92% 10%, rgba(92,176,255,0.22) 0 18%, transparent 40%),
+        radial-gradient(circle at 12% 88%, rgba(110,211,125,0.18) 0 20%, transparent 42%),
+        radial-gradient(circle at 88% 88%, rgba(255,211,62,0.24) 0 18%, transparent 40%),
+        linear-gradient(145deg,
+          rgba(255,248,251,0.98) 0%,
+          rgba(255,236,222,0.96) 20%,
+          rgba(255,250,210,0.94) 38%,
+          rgba(229,255,239,0.94) 56%,
+          rgba(225,244,255,0.95) 76%,
+          rgba(255,241,247,0.96) 100%);
     }
 
     * { box-sizing: border-box; }
@@ -31,6 +36,7 @@
     html {
       min-height: 100%;
       -webkit-text-size-adjust: 100%;
+      scroll-behavior: smooth;
     }
 
     body {
@@ -39,84 +45,189 @@
       min-height: 100svh;
       color: var(--text);
       background: var(--bg);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
-      transition: background 0.42s ease;
+      font-family: "Inter", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
+      transition: background 0.34s ease;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: auto;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(10px);
+    }
+
+    body::before {
+      top: -42px;
+      left: -42px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(236,72,91,0.30), rgba(255,211,62,0.20), rgba(92,176,255,0.18));
+      opacity: 0.72;
+    }
+
+    body::after {
+      right: -50px;
+      bottom: 30px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255,211,62,0.30), rgba(110,211,125,0.22), rgba(92,176,255,0.20));
+      opacity: 0.66;
     }
 
     body.member-theme {
       background:
-        radial-gradient(circle at 8% 0%, rgba(255,255,255,0.92) 0 14%, transparent 38%),
-        radial-gradient(circle at 88% 0%, color-mix(in srgb, var(--accent) 25%, transparent) 0 16%, transparent 42%),
-        linear-gradient(145deg, color-mix(in srgb, var(--accent) 12%, #ffffff) 0%, #ffffff 50%, color-mix(in srgb, var(--accent-2) 16%, #ffffff) 100%);
+        radial-gradient(circle at 0% 0%, rgba(255,255,255,0.95) 0 16%, transparent 40%),
+        linear-gradient(160deg,
+          color-mix(in srgb, var(--accent) 9%, #fffbfd) 0%,
+          #ffffff 50%,
+          color-mix(in srgb, var(--accent-2) 12%, #f9f9ff) 100%);
     }
 
     body.white-theme {
       background:
-        radial-gradient(circle at 8% 0%, rgba(255,255,255,0.96) 0 14%, transparent 38%),
-        radial-gradient(circle at 88% 0%, rgba(210,216,230,0.36) 0 16%, transparent 42%),
-        linear-gradient(145deg, #ffffff 0%, #fafafe 50%, #eef1f7 100%);
+        radial-gradient(circle at 0% 0%, rgba(255,255,255,0.96) 0 16%, transparent 40%),
+        linear-gradient(160deg, #ffffff 0%, #fafafe 48%, #eef1f7 100%);
     }
 
     button {
-      appearance: none;
-      border: 0;
-      cursor: pointer;
       font: inherit;
-      -webkit-tap-highlight-color: transparent;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      border: none;
+      outline: none;
     }
 
     .wrap {
-      width: min(100%, 440px);
+      position: relative;
+      z-index: 1;
+      width: min(100%, 474px);
       margin: 0 auto;
-      padding: calc(10px + env(safe-area-inset-top)) 12px calc(20px + env(safe-area-inset-bottom));
+      padding: 12px 14px 24px;
     }
 
     .hero {
-      display: grid;
-      grid-template-columns: 36px 1fr;
-      column-gap: 10px;
-      align-items: center;
-      padding: 6px 2px 12px;
-      min-height: 74px;
+      position: relative;
+      display: block;
+      margin: 2px 0 16px;
+      padding: 16px 18px 18px;
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.76) 0%, rgba(255,255,255,0.54) 100%);
+      border: 1px solid rgba(255,255,255,0.72);
+      box-shadow: 0 16px 34px rgba(36,35,54,0.062), inset 0 0 0 1px rgba(120,116,128,0.075);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
     }
 
-    .hero::before {
-      content: "♪";
-      width: 36px;
-      height: 36px;
-      border-radius: 13px;
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -16px;
+      top: -18px;
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(236,72,91,0.16), rgba(255,211,62,0.14), rgba(92,176,255,0.16), rgba(110,211,125,0.12));
+      opacity: .48;
+      filter: blur(2px);
+      pointer-events: none;
+    }
+
+    .hero-icon {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      z-index: 1;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
       display: grid;
       place-items: center;
-      background: color-mix(in srgb, var(--accent) 10%, white);
-      color: var(--accent);
-      border: 1px solid color-mix(in srgb, var(--accent) 22%, white);
-      font-size: 20px;
-      font-weight: 680;
-      box-shadow: 0 7px 18px rgba(36,35,54,0.07);
+      background: rgba(255,255,255,0.74);
+      color: color-mix(in srgb, var(--accent) 66%, #8a8794);
+      border: 1px solid rgba(255,255,255,0.84);
+      box-shadow: 0 8px 16px rgba(36,35,54,0.055);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+      display: grid;
+      gap: 8px;
+      padding-right: 58px;
     }
 
     .eyebrow {
-      grid-column: 2;
-      color: color-mix(in srgb, var(--accent) 78%, var(--muted));
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.16em;
+      color: color-mix(in srgb, var(--accent) 48%, #807b89);
+      font-size: 11px;
+      font-weight: 780;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       line-height: 1.15;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      font-family: "SF Pro Display", "Avenir Next", "Segoe UI", "PingFang SC", "Noto Sans JP", sans-serif;
     }
 
     h1 {
-      grid-column: 2;
-      margin: 2px 0 0;
-      font-size: clamp(21px, 5.4vw, 26px);
-      line-height: 1.12;
+      margin: 0;
+      color: #202133;
+      font-family: "SF Pro Display", "Avenir Next", "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans JP", sans-serif;
+      display: grid;
+      gap: 1px;
+    }
+
+    h1 .title-line {
+      display: block;
+      white-space: nowrap;
+    }
+
+    h1 .title-line-top {
+      display: flex;
+      align-items: baseline;
+      gap: 0;
+      font-size: 28px;
+      line-height: 1.06;
       letter-spacing: -0.045em;
-      font-weight: 860;
-      text-wrap: balance;
+      font-weight: 740;
+    }
+
+    h1 .title-bracket {
+      font-size: 0.82em;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      opacity: 0.96;
+    }
+
+    h1 .title-now {
+      font-weight: 820;
+      letter-spacing: -0.055em;
+    }
+
+    h1 .title-rest {
+      margin-left: 0.2em;
+      font-weight: 740;
+      letter-spacing: -0.05em;
+    }
+
+    h1 .title-line-main {
+      font-size: 44px;
+      line-height: 0.94;
+      letter-spacing: -0.075em;
+      font-weight: 840;
     }
 
     .subtitle,
@@ -127,11 +238,15 @@
       display: none;
     }
 
+    main {
+      display: block;
+    }
+
     .screen { display: none; }
-    .screen.active { display: block; animation: fadeUp .24s ease both; }
+    .screen.active { display: block; animation: fadeUp .22s ease both; }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(6px); }
+      from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -139,57 +254,90 @@
     .result-card {
       width: 100%;
       margin: 0 auto;
-      padding: 16px;
-      border-radius: 24px;
+      padding: 18px;
+      border-radius: 28px;
       background: var(--glass);
-      border: 1px solid rgba(255,255,255,0.72);
+      border: 1px solid rgba(255,255,255,0.76);
       box-shadow: var(--shadow), inset 0 0 0 1px var(--line);
       backdrop-filter: blur(18px);
     }
 
-    #quizScreen.card {
-      min-height: calc(100svh - 94px);
-      display: none;
-      flex-direction: column;
-      justify-content: flex-start;
+    .result-card {
+      background: var(--glass-strong);
+      padding: 20px;
     }
 
-    #quizScreen.active {
-      display: flex;
+    .section-title {
+      margin: 0 0 8px;
+      font-size: 17px;
+      font-weight: 830;
+      line-height: 1.22;
+      color: var(--ink);
+    }
+
+    .section-copy {
+      display: block;
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
     }
 
     .language-grid,
     .answer-grid,
     .member-group-grid {
       display: grid;
-      gap: 10px;
+      gap: 12px;
     }
 
     .language-grid { grid-template-columns: 1fr; }
 
+    #languageScreen.card {
+      padding: 16px;
+      border-radius: 30px;
+      display: none;
+    }
+
+    #languageScreen.active {
+      display: block;
+    }
+
+    #memberScreen.card {
+      padding: 18px 16px;
+    }
+
+    #languageScreen .section-title,
+    #languageScreen .section-copy {
+      display: none;
+    }
+
+    #languageScreen .language-grid {
+      display: grid;
+      gap: 10px;
+    }
+
     .member-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+      display: grid;
+      gap: 18px;
     }
 
     .member-section {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      display: grid;
+      gap: 10px;
     }
 
     .member-group-title {
       padding-left: 4px;
       color: var(--muted);
       font-size: 11px;
-      font-weight: 750;
-      letter-spacing: 0.10em;
+      font-weight: 820;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
     .member-group-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 9px;
+      gap: 10px;
     }
 
     .member-section-all .member-group-grid {
@@ -200,15 +348,15 @@
     .member-btn,
     .lang-btn,
     .nav-btn {
-      min-height: 48px;
-      border-radius: 16px;
-      padding: 12px 14px;
-      background: rgba(255,255,255,0.78);
-      border: 1px solid color-mix(in srgb, var(--accent) 25%, white);
+      min-height: 52px;
+      border-radius: 18px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(120, 116, 128, 0.12);
       color: var(--text);
-      box-shadow: 0 6px 18px rgba(36,35,54,0.055);
-      transition: transform .14s ease, background .14s ease, border-color .14s ease;
-      font-weight: 650;
+      box-shadow: 0 8px 20px rgba(36,35,54,0.045);
+      transition: transform .14s ease, background .14s ease, border-color .14s ease, box-shadow .14s ease;
+      font-family: "Avenir Next", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans SC", "Noto Sans JP", sans-serif;
     }
 
     .choice:active,
@@ -221,100 +369,183 @@
     .choice.selected,
     .member-btn.selected,
     .lang-btn.selected {
-      background: color-mix(in srgb, var(--accent) 13%, white);
-      border-color: color-mix(in srgb, var(--accent) 50%, white);
+      background: color-mix(in srgb, var(--accent) 11%, white);
+      border-color: color-mix(in srgb, var(--accent) 42%, white);
     }
 
     .lang-btn {
-      display: block;
-      text-align: center;
-      min-height: 58px;
-      border-radius: 18px;
-      padding: 11px 14px;
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-areas:
+        "meta arrow"
+        "label arrow"
+        "sub arrow";
+      row-gap: 8px;
+      column-gap: 14px;
+      align-items: center;
+      text-align: left;
+      min-height: 96px;
+      border-radius: 24px;
+      padding: 17px 18px;
+      overflow: hidden;
+      border-color: rgba(120, 116, 128, 0.11);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,248,251,0.96) 100%);
+      box-shadow: 0 12px 26px rgba(36,35,54,0.042), inset 0 0 0 1px rgba(255,255,255,0.76);
+    }
+
+    .lang-btn::before {
+      content: attr(data-code);
+      grid-area: meta;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      justify-self: start;
+      min-width: 36px;
+      height: 22px;
+      padding: 0 9px;
+      border-radius: 999px;
+      background: rgba(243,243,247,0.96);
+      color: #8d8998;
+      border: 1px solid rgba(120,116,128,0.10);
+      font-size: 10px;
+      font-weight: 780;
+      letter-spacing: 0.16em;
+    }
+
+    .lang-btn::after {
+      content: "→";
+      grid-area: arrow;
+      align-self: center;
+      color: #8b8793;
+      font-size: 18px;
+      font-weight: 700;
+      opacity: 0.74;
     }
 
     .lang-btn strong {
-      display: block;
-      font-size: 17px;
-      line-height: 1.1;
-      font-weight: 760;
-      letter-spacing: -0.02em;
+      grid-area: label;
+      font-size: clamp(27px, 7vw, 32px);
+      font-weight: 820;
+      line-height: 1.02;
+      letter-spacing: -0.045em;
+      color: #202133;
+      font-family: "SF Pro Display", "Avenir Next", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans JP", sans-serif;
     }
 
     .lang-btn span {
-      display: block;
-      margin-top: 4px;
-      color: var(--muted);
+      grid-area: sub;
+      color: #6f7380;
       font-size: 12px;
-      line-height: 1.25;
-      font-weight: 500;
-    }
-
-    .section-title {
-      margin: 0 0 14px;
-      font-size: 22px;
-      line-height: 1.2;
-      letter-spacing: -0.035em;
-      font-weight: 820;
+      line-height: 1.35;
+      font-weight: 620;
+      letter-spacing: 0.045em;
+      text-transform: uppercase;
+      opacity: 0.86;
     }
 
     .member-btn {
-      min-height: 50px;
-      text-align: center;
-      border-radius: 16px;
-      padding: 10px 8px;
-      display: grid;
-      place-items: center;
+      position: relative;
+      text-align: left;
+      min-height: 62px;
+      padding: 15px 16px 15px 18px;
+      border-radius: 20px;
+      border-color: color-mix(in srgb, var(--member-color, var(--accent)) 18%, white);
+      background: linear-gradient(180deg,
+        color-mix(in srgb, var(--member-color, var(--accent)) 6%, white) 0%,
+        rgba(255,255,255,0.94) 100%);
+    }
+
+    .member-btn.member-all {
+      border-color: rgba(198, 196, 210, 0.52);
+      background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(249,249,253,0.98) 100%);
+    }
+
+    .member-btn::before {
+      content: "";
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--member-color, var(--accent));
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--member-color, var(--accent)) 15%, white);
+    }
+
+    .member-btn.member-all::before {
+      background: #bbb8c7;
+      box-shadow: 0 0 0 6px rgba(212, 209, 224, 0.45);
     }
 
     .member-name {
       display: block;
+      padding-left: 24px;
       font-size: 15px;
-      line-height: 1.12;
-      font-weight: 720;
-      letter-spacing: -0.02em;
+      line-height: 1.24;
+      font-weight: 780;
+      color: var(--ink);
+      letter-spacing: -0.025em;
+      font-family: "Avenir Next", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans JP", sans-serif;
     }
 
-    .member-role { display: none; }
+    #quizScreen.card {
+      min-height: auto;
+      padding: 18px;
+    }
 
     .progress-area {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: minmax(0, 1fr) auto;
       align-items: center;
-      gap: 10px;
-      margin: 0 0 16px;
+      gap: 12px;
+      margin-bottom: 14px;
     }
 
     .progress-track {
-      height: 7px;
-      background: color-mix(in srgb, var(--accent) 12%, white);
+      width: 100%;
+      height: 8px;
+      background: color-mix(in srgb, var(--accent) 10%, white);
       border-radius: 999px;
       overflow: hidden;
     }
 
     .progress-fill {
       height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      border-radius: 999px;
-      transition: width .22s ease;
+      width: 0;
+      background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent-2) 88%, white));
+      border-radius: inherit;
+      transition: width .2s ease;
     }
 
     .progress-text {
-      min-width: 38px;
-      text-align: right;
-      color: var(--accent);
       font-size: 12px;
-      font-weight: 760;
+      line-height: 1;
+      font-weight: 820;
+      color: color-mix(in srgb, var(--accent) 86%, var(--muted));
+      letter-spacing: -0.02em;
+      min-width: 42px;
+      text-align: right;
     }
 
     .question {
       margin: 0 0 14px;
-      font-size: clamp(18px, 5.15vw, 24px);
-      line-height: 1.22;
-      letter-spacing: -0.035em;
-      font-weight: 830;
-      text-wrap: balance;
+      padding: 18px;
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg,
+          color-mix(in srgb, var(--accent) 7%, white) 0%,
+          rgba(255,255,255,0.86) 100%);
+      border: 1px solid color-mix(in srgb, var(--accent) 18%, white);
+      font-size: clamp(19px, 5.8vw, 25px);
+      line-height: 1.34;
+      letter-spacing: -0.03em;
+      font-weight: 720;
+      text-wrap: pretty;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+      font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "SF Pro Display", "Segoe UI", "Noto Sans JP", sans-serif;
     }
 
     .question-sub {
@@ -323,18 +554,18 @@
 
     .answer-grid {
       grid-template-columns: 1fr;
-      gap: 9px;
-      margin-top: auto;
+      gap: 10px;
+      margin-top: 0;
     }
 
     .choice {
-      min-height: 50px;
-      border-radius: 17px;
+      min-height: 56px;
+      border-radius: 18px;
       text-align: left;
-      font-size: 16px;
-      line-height: 1.24;
-      padding: 12px 16px;
-      font-weight: 720;
+      font-size: 18px;
+      line-height: 1.28;
+      padding: 15px 16px;
+      font-weight: 740;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -346,15 +577,15 @@
       color: var(--accent);
       font-size: 20px;
       font-weight: 900;
-      opacity: 0.42;
+      opacity: 0.54;
       margin-left: 12px;
     }
 
     .nav-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-top: 12px;
+      gap: 10px;
+      margin-top: 14px;
     }
 
     #quizScreen .nav-row {
@@ -364,17 +595,22 @@
     #nextBtn { display: none; }
 
     .nav-btn {
-      min-height: 44px;
-      padding: 10px 15px;
+      min-height: 48px;
+      padding: 11px 16px;
       border-radius: 999px;
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 15px;
+      font-weight: 760;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
     }
 
     .nav-btn.primary {
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
       color: white;
       border-color: transparent;
+      box-shadow: 0 12px 24px color-mix(in srgb, var(--accent) 26%, transparent);
     }
 
     .nav-btn:disabled {
@@ -383,147 +619,256 @@
       transform: none;
     }
 
-    .result-card {
-      padding: 16px;
-      border-radius: 24px;
-      background: var(--glass-strong);
-    }
-
     .result-song {
       display: block;
       width: 100%;
-      margin: 0 auto 14px;
-      padding: 15px 14px;
-      border-radius: 20px;
-      background: color-mix(in srgb, var(--accent) 8%, white);
+      margin: 0 auto 18px;
+      padding: 18px 16px;
+      border-radius: 24px;
+      background: linear-gradient(180deg,
+        color-mix(in srgb, var(--accent) 7%, white) 0%,
+        rgba(255,255,255,0.96) 100%);
       color: var(--accent);
-      font-weight: 820;
-      line-height: 1.05;
       text-align: center;
-      border: 1px solid color-mix(in srgb, var(--accent) 24%, white);
-      box-shadow: 0 8px 20px rgba(36,35,54,0.055);
+      border: 1px solid color-mix(in srgb, var(--accent) 18%, white);
+      box-shadow: 0 10px 24px rgba(36,35,54,0.055);
       overflow: hidden;
+    }
+
+    .result-title-block {
+      margin: 0 0 18px;
+      padding: 16px 16px 18px;
+      border-radius: 22px;
+      background: linear-gradient(180deg,
+        color-mix(in srgb, var(--accent) 8%, white) 0%,
+        rgba(255,255,255,0.98) 100%);
+      border: 1px solid color-mix(in srgb, var(--accent) 16%, white);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.78);
+    }
+
+    .result-state-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      margin-bottom: 12px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--accent) 10%, white);
+      color: color-mix(in srgb, var(--accent) 74%, var(--muted));
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      font-family: "Avenir Next", "SF Pro Display", "Segoe UI", sans-serif;
     }
 
     .result-group-name {
       display: block;
-      margin-bottom: 6px;
-      color: var(--muted);
-      font-size: 10.5px;
-      font-weight: 760;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-size: 13px;
+      line-height: 1.15;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: color-mix(in srgb, var(--accent) 52%, var(--muted));
+      margin-bottom: 8px;
     }
 
     .result-song-name {
       display: block;
-      color: var(--accent);
-      font-size: clamp(25px, 8.2vw, 38px);
-      line-height: 1.05;
-      letter-spacing: -0.05em;
-      overflow-wrap: anywhere;
-      word-break: normal;
+      font-size: clamp(28px, 7.4vw, 38px);
+      line-height: 1.03;
+      letter-spacing: -0.055em;
+      font-weight: 850;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      font-family: "Avenir Next", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans JP", sans-serif;
     }
 
     .result-title {
-      display: inline-block;
-      margin: 0 auto 14px;
-      padding: 8px 13px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.70);
-      border: 1px solid color-mix(in srgb, var(--accent) 22%, white);
-      color: color-mix(in srgb, var(--accent) 72%, var(--ink));
-      font-size: clamp(16px, 4.6vw, 20px);
-      line-height: 1.22;
-      letter-spacing: -0.025em;
-      font-weight: 700;
-      text-align: center;
+      margin: 0;
+      padding: 0;
+      font-size: clamp(25px, 7vw, 33px);
+      line-height: 1.28;
+      letter-spacing: -0.05em;
+      font-weight: 860;
+      color: color-mix(in srgb, var(--accent) 90%, #2a2937);
+      font-family: "Avenir Next", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans JP", sans-serif;
     }
 
     .result-desc {
-      white-space: pre-line;
-      margin: 0 auto;
-      color: #4f4a58;
-      font-size: 15.5px;
-      line-height: 1.72;
-      letter-spacing: -0.01em;
-      text-align: left;
+      margin-top: 6px;
+      display: grid;
+      gap: 16px;
+      padding: 2px 2px 0;
+    }
+
+    .result-desc p {
+      margin: 0;
+      font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "Noto Serif JP", "Hiragino Mincho ProN", serif;
+      font-size: 18px;
+      line-height: 1.92;
+      letter-spacing: 0.01em;
+      color: color-mix(in srgb, var(--ink) 92%, var(--accent) 8%);
+      word-break: break-word;
+      text-wrap: pretty;
+    }
+
+    .result-desc p.lead {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: color-mix(in srgb, var(--accent) 8%, white);
+      border: 1px solid color-mix(in srgb, var(--accent) 12%, white);
+      font-size: 18px;
+      line-height: 1.8;
+      color: color-mix(in srgb, var(--accent) 68%, #2b2a38);
     }
 
     .small-note {
-      margin-top: 15px;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid color-mix(in srgb, var(--accent) 10%, rgba(120,116,128,0.18));
+      font-size: 13px;
+      line-height: 1.65;
       color: var(--muted);
-      font-size: 11.5px;
-      line-height: 1.5;
-      text-align: center;
     }
 
     .result-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 9px;
-      margin-top: 16px !important;
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px !important;
     }
 
     .result-actions .nav-btn {
       width: 100%;
-      justify-content: center;
+      min-width: 0;
     }
 
-    @media (max-width: 359px) {
-      .wrap { padding-left: 10px; padding-right: 10px; }
-      .hero { grid-template-columns: 32px 1fr; column-gap: 9px; }
-      .hero::before { width: 32px; height: 32px; border-radius: 12px; font-size: 18px; }
-      h1 { font-size: 20px; }
-      .member-group-grid { grid-template-columns: 1fr; }
-      .question { font-size: 17.5px; }
-      .choice { min-height: 47px; font-size: 15px; }
-      .result-actions { grid-template-columns: 1fr; }
+
+
+    body:not(.member-theme):not(.white-theme) .hero-icon {
+      color: #5f6978;
+      background: linear-gradient(135deg, rgba(255,255,255,0.86), rgba(241,249,255,0.82));
     }
 
-    @media (min-width: 560px) {
+    body:not(.member-theme):not(.white-theme) .eyebrow {
+      color: #687381;
+    }
+
+    body:not(.member-theme):not(.white-theme) .primary {
+      background: linear-gradient(135deg, #536173 0%, #5da8df 42%, #f2b35f 76%, #80c97a 100%);
+      box-shadow: 0 12px 24px rgba(83, 97, 115, 0.16);
+    }
+    @media (max-width: 390px) {
       .wrap {
-        width: min(100%, 520px);
-        padding-top: 18px;
-      }
-
-      .hero {
-        grid-template-columns: 44px 1fr;
-        column-gap: 12px;
-      }
-
-      .hero::before {
-        width: 44px;
-        height: 44px;
-        border-radius: 15px;
-        font-size: 23px;
-      }
-
-      h1 {
-        font-size: 31px;
+        padding: 14px 12px 30px;
       }
 
       .card,
       .result-card {
-        padding: 20px;
+        padding: 16px;
+        border-radius: 24px;
+      }
+
+      .hero {
+        grid-template-columns: 46px minmax(0, 1fr);
+        gap: 10px;
+      }
+
+      .hero-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 16px;
+        font-size: 22px;
+      }
+
+      h1 {
+        font-size: clamp(21px, 7vw, 29px);
+      }
+
+      .eyebrow {
+        font-size: 10px;
+      }
+
+      #languageScreen.card {
+        min-height: calc(100svh - 154px);
+      }
+
+      .hero {
+        padding: 15px 16px 16px;
         border-radius: 28px;
       }
 
-      .language-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+      .hero-icon {
+        width: 36px;
+        height: 36px;
+        right: 14px;
+        top: 14px;
+      }
+
+      .hero-text {
+        padding-right: 48px;
+      }
+
+      h1 .title-line-top {
+        font-size: 24px;
+      }
+
+      h1 .title-line-main {
+        font-size: 39px;
+      }
+
+      .lang-btn {
+        min-height: 90px;
+        padding: 16px 16px;
+      }
+
+      .lang-btn strong {
+        font-size: 24px;
+      }
+
+      .lang-btn span {
+        font-size: 13px;
+      }
+
+      .question {
+        font-size: clamp(18px, 5.5vw, 22px);
+        padding: 16px;
+      }
+
+      .choice {
+        min-height: 54px;
+        font-size: 17px;
+      }
+
+      .result-song-name {
+        font-size: clamp(24px, 7vw, 34px);
+      }
+
+      .result-title {
+        font-size: clamp(23px, 6.2vw, 29px);
+      }
+
+      .result-desc p {
+        font-size: 17px;
+      }
+
+      .result-desc p.lead {
+        font-size: 17px;
       }
     }
   </style>
+
 </head>
 <body>
   <div class="wrap">
     <header class="hero">
-      <div class="eyebrow" id="eyebrow">Hey! Say! JUMP Song Test</div>
-      <h1 id="mainTitle">“今”に寄り添うJUMPの一曲</h1>
-      <p class="subtitle" id="mainSubtitle"></p>
+      <div class="hero-icon" aria-hidden="true">♪</div>
+      <div class="hero-text">
+        <div class="eyebrow" id="eyebrow">Hey! Say! JUMP Song Test</div>
+        <h1 id="mainTitle"><span class="title-line title-line-top"><span class="title-bracket">「</span><span class="title-now">今</span><span class="title-bracket">」</span><span class="title-rest">に寄り添う</span></span><span class="title-line title-line-main">JUMPの一曲</span></h1>
+        <p class="subtitle" id="mainSubtitle"></p>
+      </div>
     </header>
 
     <main>
@@ -556,8 +901,11 @@
       <section id="resultScreen" class="screen">
         <div class="result-card">
           <div class="result-song" id="resultSong"></div>
-          <h2 class="result-title" id="resultTitle"></h2>
-          <p class="result-desc" id="resultDesc"></p>
+          <div class="result-title-block">
+            <div class="result-state-label" id="resultStateLabel"></div>
+            <h2 class="result-title" id="resultTitle"></h2>
+          </div>
+          <div class="result-desc" id="resultDesc"></div>
           <div class="small-note" id="resultNote"></div>
           <div class="nav-row result-actions" style="justify-content:center; margin-top:30px;">
             <button class="nav-btn primary" id="restartBtn"></button>
@@ -573,7 +921,7 @@
       zh: {
         htmlLang: "zh-CN",
         eyebrow: "Hey! Say! JUMP 楽曲診断",
-        mainTitle: "“今”に寄り添うJUMPの一曲",
+        mainTitle: "「今」に寄り添うJUMPの一曲",
         mainSubtitle: "",
         languageTitle: "",
         languageCopy: "",
@@ -586,6 +934,7 @@
         next: "下一题",
         seeResult: "查看结果",
         restart: "再测一次",
+        resultStateLabel: "你的此刻",
         resultNote: "结果由成员属性、题目回答和组合体制时间线共同计算。",
         copyResult: "复制结果",
         copied: "已复制"
@@ -593,7 +942,7 @@
       ja: {
         htmlLang: "ja",
         eyebrow: "Hey! Say! JUMP 楽曲診断",
-        mainTitle: "“今”に寄り添うJUMPの一曲",
+        mainTitle: "「今」に寄り添うJUMPの一曲",
         mainSubtitle: "",
         languageTitle: "",
         languageCopy: "",
@@ -606,6 +955,7 @@
         next: "次へ",
         seeResult: "結果を見る",
         restart: "もう一度診断する",
+        resultStateLabel: "いまのあなた",
         resultNote: "結果はメンバー属性、回答、グループ体制の時間軸をもとに算出されます。",
         copyResult: "結果をコピー",
         copied: "コピーしました"
@@ -613,7 +963,7 @@
       en: {
         htmlLang: "en",
         eyebrow: "Hey! Say! JUMP 楽曲診断",
-        mainTitle: "“今”に寄り添うJUMPの一曲",
+        mainTitle: "「今」に寄り添うJUMPの一曲",
         mainSubtitle: "",
         languageTitle: "",
         languageCopy: "",
@@ -626,6 +976,7 @@
         next: "Next",
         seeResult: "See result",
         restart: "Try again",
+        resultStateLabel: "YOUR MOMENT",
         resultNote: "The result is calculated from member traits, your answers, and the group lineup timeline.",
         copyResult: "Copy result",
         copied: "Copied"
@@ -633,9 +984,9 @@
     };
 
     const languages = [
-      { key: "zh", label: "中文", sub: "此刻与你相伴的JUMP的歌" },
-      { key: "ja", label: "日本語", sub: "“今”に寄り添うJUMPの一曲" },
-      { key: "en", label: "English", sub: "The JUMP song beside you now" }
+      { key: "zh", label: "中文", sub: "此刻与你相伴的 JUMP 之歌" },
+      { key: "ja", label: "日本語", sub: "「今」に寄り添う JUMP の一曲" },
+      { key: "en", label: "ENGLISH", sub: "The JUMP Song Beside You Now" }
     ];
 
     const dimensions = ["王道","可愛","元気","温度","都市","情緒","前進","記憶","変化","団体"];
@@ -644,8 +995,8 @@
       { id: "yamada", name: "山田涼介", role: "current", color: "#e9424a", scores: { 王道:0.6, 情緒:0.4, 記憶:0.2 }, maxEra: "all" },
       { id: "chinen", name: "知念侑李", role: "current", color: "#f5a3bf", scores: { 可愛:0.6, 王道:0.4, 元気:0.2 }, maxEra: "all" },
       { id: "arioka", name: "有岡大貴", role: "current", color: "#f28c28", scores: { 元気:0.6, 可愛:0.4, 前進:0.2 }, maxEra: "all" },
-      { id: "takaki", name: "髙木雄也", role: "current", color: "#8b5cf6", scores: { 温度:0.6, 情緒:0.4, 前進:0.2 }, maxEra: "all" },
-      { id: "inoo", name: "伊野尾慧", role: "current", color: "#6bb7ff", scores: { 都市:0.6, 可愛:0.4, 情緒:0.2 }, maxEra: "all" },
+      { id: "takaki", name: "髙木雄也", role: "current", color: "#7151b3", accent2: "#a493cf", scores: { 温度:0.6, 情緒:0.4, 前進:0.2 }, maxEra: "all" },
+      { id: "inoo", name: "伊野尾慧", role: "current", color: "#4f97e4", accent2: "#9fc2ef", scores: { 都市:0.6, 可愛:0.4, 情緒:0.2 }, maxEra: "all" },
       { id: "yaotome", name: "八乙女光", role: "current", color: "#f4d03f", scores: { 元気:0.6, 団体:0.4, 記憶:0.2 }, maxEra: "all" },
       { id: "yabu", name: "薮宏太", role: "current", color: "#7ccf7a", scores: { 団体:0.6, 記憶:0.4, 温度:0.2 }, maxEra: "all" },
       { id: "morimoto", name: "森本龍太郎", role: "former", color: "#ffffff", scores: { 記憶:0.6, 王道:0.4, 団体:0.2 }, maxEra: "morimoto" },
@@ -919,7 +1270,7 @@
         }
       },
       {
-        id: 12, song: "AinoArika", era: 2,
+        id: 12, song: "Aino Arika", era: 2,
         memberBoost: { yaotome: 0.55, inoo: 0.45 },
         tags: { 情緒:1.8, 記憶:1.3, 都市:0.9, 温度:0.7 },
         title: { zh:"把找不到的喜欢重新握在手里", ja:"見失った好きの在処をもう一度たどる", en:"Find where that feeling went" },
@@ -1144,7 +1495,7 @@
         }
       },
       {
-        id: 33, song: "RED", artist: "Ryosuke Yamada", era: 4,
+        id: 33, song: "RED", artist: "山田涼介", era: 4,
         memberOnly: ["yamada"],
         memberBoost: { yamada: 3.6 },
         tags: { 王道:2.2, 情緒:1.2, 前進:1.0 },
@@ -1156,7 +1507,7 @@
         }
       },
       {
-        id: 34, song: "Bloomin'", artist: "Ryosuke Yamada", era: 4,
+        id: 34, song: "Bloomin'", artist: "山田涼介", era: 4,
         memberOnly: ["yamada"],
         memberBoost: { yamada: 3.2 },
         tags: { 王道:1.3, 情緒:1.4, 温度:1.0 },
@@ -1292,16 +1643,26 @@
     function t(key) { return i18n[app.lang][key]; }
 
     function showScreen(id) {
-      [languageScreen, memberScreen, quizScreen, resultScreen].forEach(s => s.classList.remove("active"));
+      ["languageScreen", "memberScreen", "quizScreen", "resultScreen"].forEach(screenId => {
+        const screen = document.getElementById(screenId);
+        if (screen) screen.classList.remove("active");
+      });
       document.getElementById(id).classList.add("active");
       window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function formatMainTitle(text) {
+      if (text === "「今」に寄り添うJUMPの一曲") {
+        return `<span class="title-line title-line-top"><span class="title-bracket">「</span><span class="title-now">今</span><span class="title-bracket">」</span><span class="title-rest">に寄り添う</span></span><span class="title-line title-line-main">JUMPの一曲</span>`;
+      }
+      return text;
     }
 
     function setCopy() {
       const copy = i18n[app.lang];
       document.documentElement.lang = copy.htmlLang;
       document.getElementById("eyebrow").textContent = copy.eyebrow;
-      document.getElementById("mainTitle").textContent = copy.mainTitle;
+      document.getElementById("mainTitle").innerHTML = formatMainTitle(copy.mainTitle);
       document.getElementById("mainSubtitle").textContent = copy.mainSubtitle;
       document.getElementById("languageTitle").textContent = copy.languageTitle;
       document.getElementById("languageCopy").textContent = copy.languageCopy;
@@ -1310,15 +1671,18 @@
       document.getElementById("backBtn").textContent = copy.back;
       document.getElementById("restartBtn").textContent = copy.restart;
       document.getElementById("copyBtn").textContent = copy.copyResult;
+      document.getElementById("resultStateLabel").textContent = copy.resultStateLabel;
     }
 
     function renderLanguages() {
       const grid = document.getElementById("languageGrid");
       grid.innerHTML = "";
-      languages.forEach(lang => {
+      const codes = { zh: "ZH", ja: "JA", en: "EN" };
+      languages.forEach((lang) => {
         const btn = document.createElement("button");
         btn.className = "lang-btn";
-        btn.innerHTML = `<strong>${lang.label}</strong><br><span style="color:var(--muted);font-size:13px;">${lang.sub}</span>`;
+        btn.dataset.code = codes[lang.key] || lang.key.toUpperCase();
+        btn.innerHTML = `<strong>${lang.label}</strong><span>${lang.sub}</span>`;
         btn.onclick = () => {
           app.lang = lang.key;
           setCopy();
@@ -1353,7 +1717,13 @@
 
         group.items.forEach(member => {
           const btn = document.createElement("button");
-          btn.className = "member-btn";
+          btn.className = "member-btn" + (member.id === "all" ? " member-all" : "");
+          const memberColor = member.id === "all"
+            ? "#c6c3d1"
+            : member.id === "morimoto"
+              ? "#c9d1dc"
+              : member.color;
+          btn.style.setProperty("--member-color", memberColor);
           btn.innerHTML = `<span class="member-name">${member.name}</span>`;
           btn.onclick = () => selectMember(member.id);
           innerGrid.appendChild(btn);
@@ -1373,13 +1743,33 @@
       showScreen("quizScreen");
     }
 
+    function escapeHTML(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function keepNameSpacing(value) {
+      return escapeHTML(value).replace(/ /g, "&nbsp;");
+    }
+
+    function formatResultDesc(text) {
+      return text
+        .split(/\n\s*\n/)
+        .map((paragraph, index) => `<p class="${index === 0 ? "lead" : ""}">${paragraph.replace(/\n/g, "<br>")}</p>`)
+        .join("");
+    }
+
     function applyTheme(member) {
       document.body.classList.remove("member-theme", "white-theme");
       if (!member || member.id === "all") {
-        document.documentElement.style.setProperty("--accent", "#7a747d");
-        document.documentElement.style.setProperty("--accent-2", "#b6b0b8");
-        document.documentElement.style.setProperty("--gold", "#7a747d");
-        document.documentElement.style.setProperty("--accent-soft", "rgba(122, 116, 125, 0.12)");
+        document.documentElement.style.setProperty("--accent", "#3f4758");
+        document.documentElement.style.setProperty("--accent-2", "#f2a85b");
+        document.documentElement.style.setProperty("--gold", "#3f4758");
+        document.documentElement.style.setProperty("--accent-soft", "rgba(63, 71, 88, 0.12)");
         return;
       }
       if (member.id === "morimoto") {
@@ -1392,9 +1782,9 @@
       }
       document.body.classList.add("member-theme");
       document.documentElement.style.setProperty("--accent", member.color);
-      document.documentElement.style.setProperty("--accent-2", tintColor(member.color, 58));
+      document.documentElement.style.setProperty("--accent-2", member.accent2 || tintColor(member.color, 42));
       document.documentElement.style.setProperty("--gold", member.color);
-      document.documentElement.style.setProperty("--accent-soft", hexToRgba(member.color, 0.16));
+      document.documentElement.style.setProperty("--accent-soft", hexToRgba(member.color, 0.14));
     }
 
     function tintColor(hex, amount) {
@@ -1454,10 +1844,10 @@
         renderQuestion();
       } else {
         document.body.classList.remove("member-theme", "white-theme");
-        document.documentElement.style.setProperty("--accent", "#7a747d");
-        document.documentElement.style.setProperty("--accent-2", "#b6b0b8");
-        document.documentElement.style.setProperty("--gold", "#7a747d");
-        document.documentElement.style.setProperty("--accent-soft", "rgba(122, 116, 125, 0.12)");
+        document.documentElement.style.setProperty("--accent", "#3f4758");
+        document.documentElement.style.setProperty("--accent-2", "#f2a85b");
+        document.documentElement.style.setProperty("--gold", "#3f4758");
+        document.documentElement.style.setProperty("--accent-soft", "rgba(63, 71, 88, 0.12)");
         showScreen("memberScreen");
       }
     };
@@ -1477,10 +1867,10 @@
       app.questionIndex = 0;
       app.answers = [];
       document.body.classList.remove("member-theme", "white-theme");
-      document.documentElement.style.setProperty("--accent", "#7a747d");
-      document.documentElement.style.setProperty("--accent-2", "#b6b0b8");
-      document.documentElement.style.setProperty("--gold", "#7a747d");
-      document.documentElement.style.setProperty("--accent-soft", "rgba(122, 116, 125, 0.12)");
+      document.documentElement.style.setProperty("--accent", "#3f4758");
+      document.documentElement.style.setProperty("--accent-2", "#f2a85b");
+      document.documentElement.style.setProperty("--gold", "#3f4758");
+      document.documentElement.style.setProperty("--accent-soft", "rgba(63, 71, 88, 0.12)");
       showScreen("languageScreen");
     };
 
@@ -1492,9 +1882,9 @@
       const winner = ranked[0].result;
       app.lastResult = winner;
       const artistName = winner.artist || "Hey! Say! JUMP";
-      document.getElementById("resultSong").innerHTML = `<span class="result-group-name">${artistName}</span><span class="result-song-name">${winner.song}</span>`;
+      document.getElementById("resultSong").innerHTML = `<span class="result-group-name">${keepNameSpacing(artistName)}</span><span class="result-song-name">${keepNameSpacing(winner.song)}</span>`;
       document.getElementById("resultTitle").textContent = winner.title[app.lang];
-      document.getElementById("resultDesc").textContent = winner.desc[app.lang];
+      document.getElementById("resultDesc").innerHTML = formatResultDesc(winner.desc[app.lang]);
       document.getElementById("resultNote").textContent = t("resultNote");
       showScreen("resultScreen");
     }

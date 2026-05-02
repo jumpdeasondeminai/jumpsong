@@ -1318,21 +1318,21 @@
         ja: "大事な関係が変わった後、関係するものはひとまず一つのフォルダに入れて、すぐには開かない。",
         en: "After an important relationship changes, I put related things into a folder first and do not open them right away.",
         sub: { zh: "", ja: "", en: "" },
-        weights: { 記憶:1.2, 変化:1.0, 温度:0.6, 情緒:0.4 }
+        weights: { 記憶:1.1, 変化:0.9, 温度:0.45, 情緒:0.65, 前進:0.15 }
       },
       {
         zh: "只剩几个小时能见面时，你会先确认吃饭、交通和结束时间，再决定要不要加别的安排。",
         ja: "会える時間が数時間しかない時、食事や移動、帰る時間を先に確認してから、他の予定を足すか決める。",
         en: "When I only have a few hours with someone, I check meals, transport, and when we need to leave before adding anything else.",
         sub: { zh: "", ja: "", en: "" },
-        weights: { 温度:0.7, 前進:0.6, 記憶:0.4, 元気:-0.3 }
+        weights: { 温度:0.65, 前進:0.7, 記憶:0.3, 元気:-0.25, 団体:0.15 }
       },
       {
         zh: "日程表如果排得太满，你会不太安心，想给自己留一点临时调整的空间。",
         ja: "予定が詰まりすぎていると落ち着かず、少し調整できる余白を残したくなる。",
         en: "If my schedule is too packed, I feel uneasy and want to leave some room to adjust.",
         sub: { zh: "", ja: "", en: "" },
-        weights: { 温度:1.0, 都市:0.5, 前進:-0.5, 王道:-0.4 }
+        weights: { 温度:0.85, 都市:0.55, 前進:-0.35, 王道:-0.35, 情緒:0.2 }
       },
       {
         zh: "听歌时，你会先注意编曲和旋律，再慢慢听清歌词在说什么。",
@@ -1540,8 +1540,8 @@
       },
       {
         id: 16, song: "DEAR.", era: 2,
-        memberBoost: { takaki: 0.85, all: 0.45 },
-        tags: { 記憶:2, 温度:1.5, 情緒:1.2 },
+        memberBoost: { takaki: 0.95, all: 0.58, yabu: 0.25, yaotome: 0.25, nakajima: 0.20 },
+        tags: { 記憶:2.05, 温度:1.55, 情緒:1.25 },
         title: { zh:"把迟到的声音递到远方", ja:"遅れた声を遠くへ届ける", en:"Send a late voice far away" },
         desc: {
           zh:"有些话，错过了最容易说出口的时候。\n后来越远，越不知道该怎么开始。\n\n这首歌陪你把声音放进Dear.后面。\n到不了也写下来，写下来的那一刻，它已经在路上了。",
@@ -1605,8 +1605,8 @@
       },
       {
         id: 22, song: "Your Song", era: 3,
-        memberBoost: { yamada: 0.55, takaki: 0.9, all: 0.45 },
-        tags: { 温度:2.4, 記憶:1, 団体:0.6 },
+        memberBoost: { yamada: 0.55, takaki: 1.0, all: 0.65, yabu: 0.30, yaotome: 0.25, arioka: 0.20, chinen: 0.15 },
+        tags: { 温度:2.45, 記憶:1.05, 団体:0.65, 情緒:0.25 },
         title: { zh:"把不成形的话先交给歌", ja:"まとまらない言葉を歌に預ける", en:"Leave the unfinished words with the song" },
         desc: {
           zh:"有些日子不是跌倒，也不是彻底失败。\n只是话说不出口，借口越攒越多，连往前走的脚步都变得没什么底气。\n\n这首歌陪你先把话说出来。\n不用一下子变得很了不起，能有人听你讲喜欢的歌、喜欢的人、乱七八糟的小事，明天就还能再往前一点。",
@@ -1638,8 +1638,8 @@
       },
       {
         id: 25, song: "春玄鳥", era: 3,
-        memberBoost: { takaki: 0.85, all: 0.65, yamada: -0.65 },
-        tags: { 温度:1.75, 記憶:1.35, 変化:1.0, 団体:0.7 },
+        memberBoost: { takaki: 0.25, all: 0.05, yamada: -1.05, chinen: -0.25, arioka: -0.20, inoo: -0.20, yaotome: -0.20, yabu: -0.20, nakajima: -0.30 },
+        tags: { 温度:1.18, 記憶:0.92, 変化:0.72, 団体:0.35, 前進:0.18 },
         title: { zh:"把风向变成继续飞的理由", ja:"風向きを次へ飛ぶ理由にする", en:"Turn the wind into a reason to keep flying" },
         desc: {
           zh:"你不是没有犹豫过。\n只是一路走到这里，身边的人、走过的夜、迎面来的风，都已经变成了继续向前的理由。\n\n这首歌陪你确认那段并肩走过的路。\n不必把每个瞬间都留住，只要知道曾经一起越过的路，会在下一次振翅时托住你。",
@@ -1649,8 +1649,8 @@
       },
       {
         id: 44, song: "サンダーソニア", era: 3,
-        memberBoost: { takaki: 0.75, all: 0.55 },
-        tags: { 情緒:2.0, 前進:1.5, 変化:1.0, 団体:0.8, 温度:0.7 },
+        memberBoost: { takaki: 0.85, all: 0.68, yamada: 0.30, chinen: 0.20, arioka: 0.25, inoo: 0.20, yaotome: 0.25, yabu: 0.30, nakajima: 0.25 },
+        tags: { 情緒:2.05, 前進:1.65, 変化:1.15, 団体:0.9, 温度:0.85 },
         title: { zh:"让被雨打过的心开出花", ja:"雨に打たれた心に花を咲かせる", en:"Let flowers bloom from the rain-touched heart" },
         desc: {
           zh:"你不是一直都能相信自己。\n有时候看着别人发光，会觉得自己好像还差一点；有时候明明已经努力了，心里还是会先冒出不安。\n\n这首歌陪你把走过的雨也留进花里。\n不必把阴影剪掉，也不必假装只剩下光。被雨打过的心，也可以在自己的位置上，慢慢开出只有此刻才会有的花。",
@@ -1693,8 +1693,8 @@
       },
       {
         id: 29, song: "encore", era: 3,
-        memberBoost: { all: 0.55 },
-        tags: { 変化:1.8, 記憶:1.8, 情緒:1.5, 温度:0.6 },
+        memberBoost: { all: 0.72, nakajima: 0.45, yamada: 0.25, inoo: 0.25, yabu: 0.20 },
+        tags: { 変化:1.85, 記憶:1.85, 情緒:1.55, 温度:0.65 },
         title: { zh:"把还想再听一遍的心留给歌", ja:"もう一度聴きたい気持ちを歌に預ける", en:"Entrust the wish to hear it once more to the song" },
         desc: {
           zh:"有些结束，不是当场就能告别的。\n越往前走，越会发现自己还想回头听一次，确认那些没来得及说完的心情。\n\n这首歌陪你把“再来一次”的愿望放进旋律里。\n不必把过去改写成圆满；能在心里再响一次，就已经是另一种继续。",
@@ -1704,8 +1704,8 @@
       },
       {
         id: 30, song: "未来線", era: 3,
-        memberBoost: { all: 0.65 },
-        tags: { 記憶:2, 変化:1.8, 団体:1.4, 温度:0.8 },
+        memberBoost: { all: 0.88, nakajima: 0.45, yabu: 0.35, yaotome: 0.25, arioka: 0.20 },
+        tags: { 記憶:2.05, 変化:1.85, 団体:1.5, 温度:0.85 },
         title: { zh:"把一起走过的时间接到下一站", ja:"共に歩いた時間を次の場所へつなぐ", en:"Connect the time you walked together to the next stop" },
         desc: {
           zh:"人会走，关系会变，队形也会变。\n可一起走过的时间不会失效。\n\n这首歌陪你把过去接向未来。\n同行过的痕迹，会变成继续往前的线。",
@@ -1904,7 +1904,7 @@
       ,{
         id: 48, song: "パレードは終わらない -Life is an Adventure-", era: 4,
         memberBoost: { all: 1.35, yabu: 0.85, yaotome: 0.7, arioka: 0.65, nakajima: 0.35 },
-        tags: { 団体:2.0, 元気:1.35, 前進:1.35, 可愛:0.55, 記憶:0.45 },
+        tags: { 団体:2.1, 元気:1.45, 前進:1.45, 可愛:0.6, 記憶:0.5 },
         title: { zh:"把偶然和期待一起带上路", ja:"偶然と期待を、旅に連れていく", en:"Taking chance and hope along the way" },
         desc: {
           zh:"你不是不会害怕，\n只是总能在某个声音响起的时候，\n重新相信自己还可以往前走。\n\n这首歌陪你把路上的偶然、笑声，\n和那句像魔法一样的“没关系”一起带走。\n就算还不知道会到哪里，\n也可以先跟着心里的热闹，再走一步。",

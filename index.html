@@ -1364,7 +1364,8 @@
     const results = [
       {
         id: 1, song: "Ultra Music Power", era: 1,
-        tags: { 王道:2.5, 記憶:2, 団体:1.5 },
+        memberBoost: { all: -0.9 },
+        tags: { 王道:2.1, 記憶:1.65, 団体:1.2 },
         title: { zh:"把最初的入口重新打开", ja:"最初の入口をもう一度開く", en:"Open the first doorway again" },
         desc: {
           zh:"有些光，后来会变得复杂。\n可它曾经照亮过你，这件事不会消失。\n\n这首歌陪你回到最开始心动的地方。\n不用回到从前，只要记得自己是从哪里出发的。",
@@ -1374,6 +1375,7 @@
       },
       {
         id: 2, song: "Dreams come true", era: 1,
+        memberBoost: { all: 0.35 },
         tags: { 王道:1.5, 元気:1, 前進:1, 記憶:0.8 },
         title: { zh:"给愿望一个还没关上的出口", ja:"願いをまだ手放さずにいる", en:"Leave the door open for your wish" },
         desc: {
@@ -1416,6 +1418,7 @@
       },
       {
         id: 6, song: "「ありがとう」～世界のどこにいても～", era: 1,
+        memberBoost: { all: 0.35 },
         tags: { 記憶:2.2, 団体:1.7, 元気:1 },
         title: { zh:"把说不出口的感谢送远一点", ja:"言えなかったありがとうを遠くへ送る", en:"Send the thanks you could not say" },
         desc: {
@@ -1436,6 +1439,7 @@
       },
       {
         id: 8, song: "Magic Power", era: 2,
+        memberBoost: { all: 0.45 },
         tags: { 元気:2.4, 団体:1.5, 可愛:1.2 },
         title: { zh:"让一起胡闹也变成魔法", ja:"一緒に笑うことを魔法にする", en:"Turn laughing together into magic" },
         desc: {
@@ -1501,7 +1505,7 @@
       },
       {
         id: 14, song: "明日へのYELL", era: 2,
-        memberBoost: { nakajima: 0.55, takaki: 0.45 },
+        memberBoost: { nakajima: 0.55, takaki: 1.0 },
         tags: { 前進:2, 元気:1.5, 王道:0.8, 団体:0.5 },
         title: { zh:"把快要低下去的头再抬起来", ja:"うつむきそうな顔をもう一度上げる", en:"Lift your head again" },
         desc: {
@@ -1522,6 +1526,7 @@
       },
       {
         id: 16, song: "DEAR.", era: 2,
+        memberBoost: { takaki: 0.85, all: 0.45 },
         tags: { 記憶:2, 温度:1.5, 情緒:1.2 },
         title: { zh:"把迟到的声音递到远方", ja:"遅れた声を遠くへ届ける", en:"Send a late voice far away" },
         desc: {
@@ -1543,6 +1548,7 @@
       },
       {
         id: 18, song: "White Love", era: 2,
+        memberBoost: { all: 0.35 },
         tags: { 王道:2.2, 情緒:1, 温度:0.8 },
         title: { zh:"把喜欢说到没有退路", ja:"好きと言い切る", en:"Say love without turning back" },
         desc: {
@@ -1564,9 +1570,9 @@
       },
       {
         id: 20, song: "COSMIC☆HUMAN", era: 2,
-        memberBoost: { inoo: 0.55 },
+        memberBoost: { inoo: 0.55, takaki: 0.65, all: 0.45 },
         tags: { 都市:1.8, 温度:1.2, 団体:1, 可愛:0.5 },
-        title: { zh:"在理解不了人类的时候继续爱人类", ja:"人間を分からないまま愛する", en:"Love people even when you do not understand them" },
+        title: { zh:"在理解不了人类的时候继续爱人类", ja:"人間がわからないまま人間を愛する", en:"Love people even when you do not understand them" },
         desc: {
           zh:"你可能理解不了别人，也理解不了自己。\n失望、喜欢、生气、舍不得，全都挤在一起。\n\n这首歌陪你把矛盾放大到宇宙里。\n人类复杂又笨拙，但还是值得爱一点。",
           ja:"他人も自分も、よくわからない時があります。\n失望、好き、怒り、名残惜しさが一緒に押し寄せる。\n\nこの曲は、その矛盾を宇宙まで広げてくれます。\n人間は複雑で不器用。でも、少し愛してもいい。",
@@ -1585,13 +1591,13 @@
       },
       {
         id: 22, song: "Your Song", era: 3,
-        memberBoost: { yamada: 0.55 },
+        memberBoost: { yamada: 0.55, takaki: 0.9, all: 0.45 },
         tags: { 温度:2.4, 記憶:1, 団体:0.6 },
-        title: { zh:"让一句温柔先落在旁边", ja:"優しい一言をそばに置く", en:"Let one gentle line stay beside you" },
+        title: { zh:"把不成形的话先交给歌", ja:"まとまらない言葉を歌に預ける", en:"Leave the unfinished words with the song" },
         desc: {
-          zh:"你可能不想听“加油”。\n你只是需要有人安静待在旁边。\n\n这首歌陪你慢一点。\n今天不用解释，先被温柔放过。",
-          ja:"頑張ってと言われたい日ばかりではありません。\nただ静かにそばにいてほしい時もある。\n\nこの曲は、少しゆっくりさせてくれます。\n今日は説明しなくていい。まず優しさに甘えていい。",
-          en:"You may not want to hear 'keep going.'\nYou may just need someone sitting quietly beside you.\n\nThis song lets you slow down. You do not have to explain today; let gentleness take care of you first."
+          zh:"有些日子不是跌倒，也不是彻底失败。\n只是话说不出口，借口越攒越多，连往前走的脚步都变得没什么底气。\n\n这首歌陪你先把话说出来。\n不用一下子变得很了不起，能有人听你讲喜欢的歌、喜欢的人、乱七八糟的小事，明天就还能再往前一点。",
+          ja:"転んだわけでも、完全に失敗したわけでもない。\nただ、言葉にできないことが増えて、言い訳もたまって、前へ進む足音まで少し頼りなくなる日があります。\n\nこの曲は、まず話してみる時間をくれます。\n急に立派にならなくてもいい。好きな曲、好きな人、まとまらない小さなことを聞いてくれる誰かがいるだけで、明日へもう少し進めます。",
+          en:"Some days are not a fall, and not a total failure either.\nYou just have more things you cannot put into words, more excuses piling up, and even your steps forward start to feel uncertain.\n\nThis song gives you a place to speak first.\nYou do not have to become impressive overnight. If someone will listen to your favorite songs, your favorite people, and all the little things that do not make sense yet, tomorrow can still move a little further forward."
         }
       },
       {
@@ -1618,12 +1624,24 @@
       },
       {
         id: 25, song: "春玄鳥", era: 3,
+        memberBoost: { takaki: 0.85, all: 0.65 },
         tags: { 温度:2, 記憶:1.6, 変化:1.1, 団体:0.8 },
         title: { zh:"把风向变成继续飞的理由", ja:"風向きを次へ飛ぶ理由にする", en:"Turn the wind into a reason to keep flying" },
         desc: {
           zh:"你不是没有犹豫过。\n只是一路走到这里，身边的人、走过的夜、迎面来的风，都已经变成了继续向前的理由。\n\n这首歌陪你确认那段并肩走过的路。\n不必把每个瞬间都留住，只要知道曾经一起越过的路，会在下一次振翅时托住你。",
           ja:"迷わなかったわけではありません。\nここまで来る間に、そばにいた人、越えてきた夜、向かい風の全部が、次へ進む理由に変わっていきました。\n\nこの曲は、ともに越えてきた道を確かめさせてくれます。\nすべての瞬間を残せなくてもいい。一緒に越えてきた道は、次に羽ばたく時、あなたを支えてくれます。",
           en:"It is not that you never hesitated.\nThe people beside you, the nights you crossed, and the wind coming toward you have all become reasons to keep moving.\n\nThis song helps you confirm that shared journey. You do not have to preserve every moment; the path you crossed together will lift you the next time you spread your wings."
+        }
+      },
+      {
+        id: 44, song: "サンダーソニア", era: 3,
+        memberBoost: { takaki: 0.75, all: 0.55 },
+        tags: { 情緒:2.0, 前進:1.5, 変化:1.0, 団体:0.8, 温度:0.7 },
+        title: { zh:"让被雨打过的心开出花", ja:"雨に打たれた心に花を咲かせる", en:"Let flowers bloom from the rain-touched heart" },
+        desc: {
+          zh:"你不是一直都能相信自己。\n有时候看着别人发光，会觉得自己好像还差一点；有时候明明已经努力了，心里还是会先冒出不安。\n\n这首歌陪你把走过的雨也留进花里。\n不必把阴影剪掉，也不必假装只剩下光。被雨打过的心，也可以在自己的位置上，慢慢开出只有此刻才会有的花。",
+          ja:"いつも自分を信じられるわけではありません。\n誰かが光って見えると、自分はまだ足りない気がする日もある。頑張ってきたはずなのに、不安のほうが先に顔を出す日もあります。\n\nこの曲は、越えてきた雨も花の中に残してくれます。\n影を切り捨てなくてもいいし、光だけが残っているふりをしなくてもいい。雨に打たれた心にも、あなたの場所で、今だから咲ける花があります。",
+          en:"You cannot always believe in yourself.\nSome days, when someone else shines, you feel like you are still missing something. Some days, even after trying hard, anxiety is the first thing that rises.\n\nThis song lets the rain you have crossed remain inside the flower.\nYou do not have to cut away the shadows or pretend that only light remains. Even a rain-touched heart can bloom, in its own place, into a flower that could only exist in this moment."
         }
       },
       {
@@ -1639,7 +1657,7 @@
       },
       {
         id: 27, song: "ファンファーレ！", era: 3,
-        memberBoost: { yamada: 0.55 },
+        memberBoost: { yamada: 0.55, all: 0.35 },
         tags: { 元気:1.5, 前進:1.5, 情緒:1, 王道:0.8 },
         title: { zh:"把短暂的相遇变热烈", ja:"短い出会いを熱くする", en:"Make a brief meeting burn bright" },
         desc: {
@@ -1650,7 +1668,8 @@
       },
       {
         id: 28, song: "UMP", era: 3,
-        tags: { 変化:2.3, 王道:2, 記憶:1.6, 団体:1 },
+        memberBoost: { all: -1.0 },
+        tags: { 変化:2.0, 王道:1.6, 記憶:1.3, 団体:0.8 },
         title: { zh:"把旧的名字唱成新的回答", ja:"古い名前を新しい答えとして歌う", en:"Sing an old name as a new answer" },
         desc: {
           zh:"有些东西很重要，却不能原样拿回来。\n\n这首歌陪你带着过去继续往前。\n旧的名字没有消失，只是被唱成了新的回答。",
@@ -1660,6 +1679,7 @@
       },
       {
         id: 29, song: "encore", era: 3,
+        memberBoost: { all: 0.55 },
         tags: { 変化:1.8, 記憶:1.8, 情緒:1.5, 温度:0.6 },
         title: { zh:"把还想再听一遍的心留给歌", ja:"もう一度聴きたい気持ちを歌に預ける", en:"Entrust the wish to hear it once more to the song" },
         desc: {
@@ -1670,6 +1690,7 @@
       },
       {
         id: 30, song: "未来線", era: 3,
+        memberBoost: { all: 0.65 },
         tags: { 記憶:2, 変化:1.8, 団体:1.4, 温度:0.8 },
         title: { zh:"把一起走过的时间接到下一站", ja:"共に歩いた時間を次の場所へつなぐ", en:"Connect the time you walked together to the next stop" },
         desc: {
@@ -1741,20 +1762,20 @@
       {
         id: 36, song: "題名の無い物語", artist: "髙木雄也", era: 3,
         memberOnly: ["takaki"],
-        memberBoost: { takaki: 3.6 },
-        tags: { 情緒:2.1, 温度:1.5, 記憶:0.8 },
-        title: { zh:"在看不清的轮廓里继续相信", ja:"見えない輪郭の中で信じ続ける", en:"Keep believing in the unclear outline" },
+        memberBoost: { takaki: 2.45 },
+        tags: { 情緒:1.85, 温度:1.35, 記憶:0.65 },
+        title: { zh:"把梦醒后的想念继续留住", ja:"夢から覚めても想いを手放さない", en:"Hold on to the feeling after the dream" },
         desc: {
-          zh:"有些幸福像真的一样靠近。\n声音和温度都清楚，只有最重要的那个人始终看不清。\n\n这首歌陪你留住那份不肯散掉的想念。\n哪怕故事还没有题名，哪怕轮廓还没有出现，\n也还是想相信：总有一天，会真正遇见。",
-          ja:"本物みたいに近づいてくる幸せがあります。\n声も温度もはっきりしているのに、いちばん大切な人だけが見えないまま。\n\nこの曲は、消えてくれない想いを残してくれます。\n物語にまだ題名がなくても、輪郭がまだ現れていなくても、\nいつか本当に出会えると信じていたい。",
-          en:"Some happiness comes close enough to feel real.\nThe voice and warmth are clear, but the most important person remains impossible to see.\n\nThis song keeps the longing that will not fade.\nEven if the story still has no title, even if the outline has not appeared yet,\nyou still want to believe that one day, you will truly meet."
+          zh:"有些人像只在梦里出现。\n声音和温度都那么清楚，可一睁开眼，伸手碰到的却只有空气。\n\n这首歌陪你留下那份无法抹掉的想念。\n就算它没有名字、没有结局，也仍然可以成为支撑你活下去的理由。",
+          ja:"夢の中でしか会えない人がいます。\n声も温もりもこんなにはっきりしているのに、目を覚まして手を伸ばすと、触れられるのは空気だけ。\n\nこの曲は、消せない想いをそっと残してくれます。\n名前も結末もない物語でも、それはあなたを生かす理由になり得ます。",
+          en:"Some people only appear in dreams.\nTheir voice and warmth feel so clear, but when you wake up and reach out, all you touch is air.\n\nThis song lets you keep the feeling you cannot erase.\nEven if the story has no name and no ending, it can still become a reason that keeps you alive."
         }
       },
       {
         id: 37, song: "俺たちの青春", artist: "髙木雄也", era: 1,
         memberOnly: ["takaki"],
-        memberBoost: { takaki: 3.4 },
-        tags: { 元気:1.5, 記憶:1.3, 前進:1.2 },
+        memberBoost: { takaki: 2.95 },
+        tags: { 元気:1.55, 記憶:1.25, 前進:1.25 },
         title: { zh:"把此刻能做的事用力做完", ja:"今できることを思いきりやりきる", en:"Do what only this moment allows" },
         desc: {
           zh:"有些日子回头看会显得笨拙，正在经历的时候却很烫。\n你不想让别人把它说成无意义。\n\n这首歌陪你抓住现在。\n青春不一定漂亮，但一定真切地燃过。",
@@ -1813,7 +1834,7 @@
       {
         id: 42, song: "ス・リ・ル", artist: "Hey! Say! BEST", era: 1,
         memberOnly: ["arioka","takaki","inoo","yaotome","yabu"],
-        memberBoost: { arioka: 1.5, takaki: 1.5, inoo: 1.5, yaotome: 1.5, yabu: 1.5 },
+        memberBoost: { arioka: 1.5, takaki: 2.05, inoo: 1.5, yaotome: 1.5, yabu: 1.5 },
         tags: { 都市:1.8, 情緒:1.2, 前進:0.8 },
         title: { zh:"把理智交给那一下刺激", ja:"理性をその刺激に預ける", en:"Hand reason over to that thrill" },
         desc: {
@@ -1831,6 +1852,17 @@
           zh:"有些答案不会等你准备完美才出现。\n越是犹豫，越容易把真正想做的事拖到很远。\n\n这首歌陪你把勇气拿出来用。\n想做的事就先去做，跌倒了也没关系，往前的力气会在行动里长出来。",
           ja:"完璧に準備できるまで、答えは待ってくれないことがあります。\n迷うほど、本当にやりたいことは遠くへ延びていく。\n\nこの曲は、勇気を使わせてくれます。\nやりたいことは、まずやってみればいい。転んでも大丈夫。前へ進む力は、動く中で育っていきます。",
           en:"Some answers will not wait until you are perfectly ready.\nThe more you hesitate, the farther your real wish can drift away.\n\nThis song helps you put your courage to use.\nIf you want to do it, start first. It is okay to fall; the strength to move forward grows through action."
+        }
+      },
+      {
+        id: 45, song: "ビターチョコレート", era: 3,
+        memberBoost: { inoo: 1.15, arioka: 0.75, yamada: 0.7, nakajima: 0.35, takaki: 0.25 },
+        tags: { 情緒:2.0, 温度:1.2, 都市:0.8, 変化:0.7 },
+        title: { zh:"把喜欢和苦味都咽下去", ja:"好きも苦味も飲み込む", en:"Swallowing both love and bitterness" },
+        desc: {
+          zh:"你不是不懂喜欢，\n只是太常把对方放在前面，\n把自己的声音放到很后面。\n\n这首歌陪你承认：\n有些喜欢不是不够真，\n只是已经苦到不能继续吞下去了。",
+          ja:"あなたは、好きな人に近づこうとして、\n少しずつ自分を後回しにしてしまうことがある。\n\nこの曲は、甘さよりも苦さに気づく一曲。\n好きだったからこそ我慢してきた心に、\nもう無理をしなくていいよと教えてくれる。",
+          en:"You try to get closer to someone you love,\nand sometimes leave your own feelings behind.\n\nThis song stays with the moment when sweetness turns bitter.\nIt reminds you that love was real,\nbut you do not have to keep swallowing what hurts."
         }
       }
 

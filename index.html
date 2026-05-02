@@ -645,7 +645,7 @@
       text-align: center;
       border: 1px solid color-mix(in srgb, var(--accent) 18%, white);
       box-shadow: 0 10px 24px rgba(36,35,54,0.055);
-      overflow: hidden;
+      overflow: visible;
     }
 
     .result-title-block {
@@ -686,14 +686,16 @@
 
     .result-song-name {
       display: block;
-      font-size: clamp(28px, 7.4vw, 38px);
-      line-height: 1.03;
-      letter-spacing: -0.055em;
+      font-size: clamp(27px, 6.8vw, 36px);
+      line-height: 1.16;
+      letter-spacing: -0.045em;
       font-weight: 850;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: clip;
       max-width: 100%;
+      overflow-wrap: anywhere;
+      padding: 1px 0 3px;
       font-family: "Avenir Next", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans JP", sans-serif;
     }
 
@@ -734,6 +736,16 @@
       font-size: 18px;
       line-height: 1.8;
       color: color-mix(in srgb, var(--accent) 68%, #2b2a38);
+    }
+
+    html[lang="zh-CN"] .result-desc p {
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    html[lang="zh-CN"] .result-desc p.lead {
+      font-weight: 500;
     }
 
     .small-note {
@@ -1037,7 +1049,8 @@
       }
 
       .result-song-name {
-        font-size: clamp(24px, 7vw, 34px);
+        font-size: clamp(23px, 6.4vw, 32px);
+        line-height: 1.18;
       }
 
       .result-title {

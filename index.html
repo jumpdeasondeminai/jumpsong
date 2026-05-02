@@ -18,17 +18,17 @@
       --glass-strong: rgba(255,255,255,0.92);
       --shadow: 0 18px 40px rgba(36, 35, 54, 0.10);
       --bg:
-        radial-gradient(circle at 8% 2%, rgba(236,72,91,0.20) 0 16%, transparent 38%),
-        radial-gradient(circle at 92% 10%, rgba(92,176,255,0.22) 0 18%, transparent 40%),
-        radial-gradient(circle at 12% 88%, rgba(110,211,125,0.18) 0 20%, transparent 42%),
-        radial-gradient(circle at 88% 88%, rgba(255,211,62,0.24) 0 18%, transparent 40%),
+        radial-gradient(circle at 4% 0%, rgba(255,142,153,0.22) 0 18%, transparent 40%),
+        radial-gradient(circle at 96% 4%, rgba(126,211,255,0.22) 0 18%, transparent 42%),
+        radial-gradient(circle at 6% 72%, rgba(127,224,155,0.20) 0 22%, transparent 44%),
+        radial-gradient(circle at 92% 82%, rgba(255,221,96,0.24) 0 20%, transparent 42%),
         linear-gradient(145deg,
-          rgba(255,248,251,0.98) 0%,
-          rgba(255,236,222,0.96) 20%,
-          rgba(255,250,210,0.94) 38%,
-          rgba(229,255,239,0.94) 56%,
-          rgba(225,244,255,0.95) 76%,
-          rgba(255,241,247,0.96) 100%);
+          #fff8fb 0%,
+          #fff3e8 18%,
+          #fffbe7 36%,
+          #edfff3 56%,
+          #e9f8ff 76%,
+          #fff8fb 100%);
     }
 
     * { box-sizing: border-box; }
@@ -440,9 +440,22 @@
       font-size: 12px;
       line-height: 1.35;
       font-weight: 620;
+      letter-spacing: 0;
+      word-spacing: 0;
+      text-transform: none;
+      opacity: 0.86;
+    }
+
+    .lang-btn[data-lang="en"] span {
       letter-spacing: 0.045em;
       text-transform: uppercase;
-      opacity: 0.86;
+    }
+
+    .lang-btn[data-lang="zh"] span,
+    .lang-btn[data-lang="ja"] span {
+      letter-spacing: 0;
+      word-spacing: 0;
+      font-feature-settings: "palt" 1;
     }
 
     .member-btn {
@@ -732,6 +745,67 @@
       color: var(--muted);
     }
 
+
+    .share-qr-card {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 14px;
+      margin-top: 18px;
+      padding: 12px 14px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(205, 204, 216, 0.42);
+      box-shadow: 0 8px 20px rgba(36,35,54,0.040), inset 0 0 0 1px rgba(255,255,255,0.52);
+    }
+
+    .share-qr-img {
+      width: 76px;
+      height: 76px;
+      display: block;
+      padding: 6px;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid rgba(36,35,54,0.08);
+      object-fit: contain;
+    }
+
+    .share-qr-text {
+      display: grid;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .share-qr-title {
+      font-size: 15px;
+      line-height: 1.28;
+      font-weight: 830;
+      color: color-mix(in srgb, var(--accent) 72%, #2a2937);
+      letter-spacing: -0.03em;
+      font-family: "Avenir Next", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans JP", sans-serif;
+    }
+
+    .share-qr-copy {
+      font-size: 12px;
+      line-height: 1.45;
+      font-weight: 620;
+      color: var(--muted);
+    }
+
+    body:not(.member-theme):not(.white-theme) .share-qr-card {
+      background:
+        linear-gradient(125deg,
+          rgba(233, 66, 74, 0.045) 0%,
+          rgba(245, 163, 191, 0.045) 15%,
+          rgba(242, 140, 40, 0.042) 30%,
+          rgba(244, 208, 63, 0.042) 45%,
+          rgba(124, 207, 122, 0.042) 60%,
+          rgba(79, 151, 228, 0.042) 78%,
+          rgba(113, 81, 179, 0.042) 100%),
+        rgba(255,255,255,0.90);
+      border-color: rgba(255,255,255,0.76);
+    }
+
     .result-actions {
       display: grid !important;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -746,18 +820,118 @@
 
 
 
+    body:not(.member-theme):not(.white-theme)::before {
+      background: linear-gradient(135deg, rgba(255,128,144,0.28), rgba(255,219,100,0.22), rgba(127,211,255,0.18), rgba(130,226,150,0.16));
+      opacity: 0.66;
+      filter: blur(8px);
+    }
+
+    body:not(.member-theme):not(.white-theme)::after {
+      background: linear-gradient(135deg, rgba(255,223,102,0.26), rgba(130,226,150,0.20), rgba(127,211,255,0.18), rgba(255,166,196,0.16));
+      opacity: 0.60;
+      filter: blur(10px);
+    }
+
+    body:not(.member-theme):not(.white-theme) .hero {
+      background:
+        radial-gradient(circle at 88% 16%, rgba(127,211,255,0.16) 0 18%, transparent 42%),
+        radial-gradient(circle at 8% 8%, rgba(255,148,160,0.12) 0 20%, transparent 45%),
+        linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.82) 100%);
+      box-shadow: 0 10px 22px rgba(36,35,54,0.032), inset 0 0 0 1px rgba(255,255,255,0.86);
+    }
+
+    body:not(.member-theme):not(.white-theme) .hero::after {
+      background: linear-gradient(135deg, rgba(255,150,164,0.16), rgba(255,222,102,0.14), rgba(126,211,255,0.16), rgba(132,225,151,0.12));
+      opacity: 0.42;
+    }
+
     body:not(.member-theme):not(.white-theme) .hero-icon {
       color: #5f6978;
-      background: linear-gradient(135deg, rgba(255,255,255,0.86), rgba(241,249,255,0.82));
+      background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(247,252,255,0.90));
+      box-shadow: 0 6px 14px rgba(36,35,54,0.035);
     }
 
     body:not(.member-theme):not(.white-theme) .eyebrow {
       color: #687381;
     }
 
+    body:not(.member-theme):not(.white-theme) .progress-track {
+      background: rgba(255,255,255,0.58);
+      border: 1px solid rgba(255,255,255,0.70);
+      box-shadow: inset 0 1px 5px rgba(36,35,54,0.035);
+    }
+
+    body:not(.member-theme):not(.white-theme) .progress-fill {
+      background: linear-gradient(90deg,
+        rgba(233, 66, 74, 0.34) 0%,
+        rgba(245, 163, 191, 0.34) 15%,
+        rgba(242, 140, 40, 0.32) 30%,
+        rgba(244, 208, 63, 0.32) 45%,
+        rgba(124, 207, 122, 0.32) 60%,
+        rgba(79, 151, 228, 0.32) 78%,
+        rgba(113, 81, 179, 0.32) 100%);
+      box-shadow: 0 0 8px rgba(124, 207, 122, 0.08);
+    }
+
     body:not(.member-theme):not(.white-theme) .primary {
-      background: linear-gradient(135deg, #536173 0%, #5da8df 42%, #f2b35f 76%, #80c97a 100%);
-      box-shadow: 0 12px 24px rgba(83, 97, 115, 0.16);
+      background: linear-gradient(135deg,
+        rgba(233, 66, 74, 0.28) 0%,
+        rgba(245, 163, 191, 0.26) 15%,
+        rgba(242, 140, 40, 0.25) 30%,
+        rgba(244, 208, 63, 0.25) 45%,
+        rgba(124, 207, 122, 0.25) 60%,
+        rgba(79, 151, 228, 0.25) 78%,
+        rgba(113, 81, 179, 0.25) 100%);
+      color: #485262;
+      border: 1px solid rgba(255,255,255,0.74);
+      box-shadow: 0 12px 24px rgba(116, 141, 160, 0.10), inset 0 1px 0 rgba(255,255,255,0.54);
+    }
+
+    body:not(.member-theme):not(.white-theme) .question,
+    body:not(.member-theme):not(.white-theme) .result-song,
+    body:not(.member-theme):not(.white-theme) .result-title-block,
+    body:not(.member-theme):not(.white-theme) .result-desc p.lead {
+      background:
+        linear-gradient(125deg,
+          rgba(233, 66, 74, 0.075) 0%,
+          rgba(245, 163, 191, 0.075) 15%,
+          rgba(242, 140, 40, 0.070) 30%,
+          rgba(244, 208, 63, 0.070) 45%,
+          rgba(124, 207, 122, 0.070) 60%,
+          rgba(79, 151, 228, 0.070) 78%,
+          rgba(113, 81, 179, 0.070) 100%),
+        linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.78) 100%);
+      border-color: rgba(255,255,255,0.76);
+      box-shadow: 0 8px 22px rgba(36,35,54,0.040), inset 0 0 0 1px rgba(255,255,255,0.42);
+    }
+
+    body:not(.member-theme):not(.white-theme) .result-actions .nav-btn.primary {
+      background: rgba(255,255,255,0.92);
+      color: #485262;
+      border: 1px solid rgba(205, 204, 216, 0.50);
+      box-shadow: 0 8px 20px rgba(36,35,54,0.045);
+    }
+
+    body:not(.member-theme):not(.white-theme) .result-state-label {
+      background: linear-gradient(125deg,
+        rgba(233, 66, 74, 0.10) 0%,
+        rgba(245, 163, 191, 0.10) 15%,
+        rgba(242, 140, 40, 0.09) 30%,
+        rgba(244, 208, 63, 0.09) 45%,
+        rgba(124, 207, 122, 0.09) 60%,
+        rgba(79, 151, 228, 0.09) 78%,
+        rgba(113, 81, 179, 0.09) 100%);
+      color: #667180;
+      border: 1px solid rgba(255,255,255,0.70);
+    }
+
+    body:not(.member-theme):not(.white-theme) .choice.selected,
+    body:not(.member-theme):not(.white-theme) .member-btn.selected,
+    body:not(.member-theme):not(.white-theme) .lang-btn.selected {
+      background: linear-gradient(180deg,
+        rgba(255,246,235,0.96) 0%,
+        rgba(239,250,255,0.94) 100%);
+      border-color: rgba(255,207,138,0.42);
     }
     @media (max-width: 390px) {
       .wrap {
@@ -907,7 +1081,14 @@
           </div>
           <div class="result-desc" id="resultDesc"></div>
           <div class="small-note" id="resultNote"></div>
-          <div class="nav-row result-actions" style="justify-content:center; margin-top:30px;">
+          <div class="share-qr-card" id="shareQrCard">
+            <img class="share-qr-img" src="data:image/png;base64,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" alt="QR code" />
+            <div class="share-qr-text">
+              <div class="share-qr-title" id="shareQrTitle"></div>
+              <div class="share-qr-copy" id="shareQrCopy"></div>
+            </div>
+          </div>
+          <div class="nav-row result-actions" style="justify-content:center; margin-top:24px;">
             <button class="nav-btn primary" id="restartBtn"></button>
             <button class="nav-btn" id="copyBtn"></button>
           </div>
@@ -920,7 +1101,7 @@
     const i18n = {
       zh: {
         htmlLang: "zh-CN",
-        eyebrow: "Hey! Say! JUMP 楽曲診断",
+        eyebrow: "Hey! Say! JUMP楽曲診断",
         mainTitle: "「今」に寄り添うJUMPの一曲",
         mainSubtitle: "",
         languageTitle: "",
@@ -936,12 +1117,14 @@
         restart: "再测一次",
         resultStateLabel: "你的此刻",
         resultNote: "结果由成员属性、题目回答和组合体制时间线共同计算。",
+        shareQrTitle: "截图分享给朋友",
+        shareQrCopy: "扫码也来测一测",
         copyResult: "复制结果",
         copied: "已复制"
       },
       ja: {
         htmlLang: "ja",
-        eyebrow: "Hey! Say! JUMP 楽曲診断",
+        eyebrow: "Hey! Say! JUMP楽曲診断",
         mainTitle: "「今」に寄り添うJUMPの一曲",
         mainSubtitle: "",
         languageTitle: "",
@@ -957,12 +1140,14 @@
         restart: "もう一度診断する",
         resultStateLabel: "いまのあなた",
         resultNote: "結果はメンバー属性、回答、グループ体制の時間軸をもとに算出されます。",
+        shareQrTitle: "スクショでシェア",
+        shareQrCopy: "QRから診断できます",
         copyResult: "結果をコピー",
         copied: "コピーしました"
       },
       en: {
         htmlLang: "en",
-        eyebrow: "Hey! Say! JUMP 楽曲診断",
+        eyebrow: "Hey! Say! JUMP楽曲診断",
         mainTitle: "「今」に寄り添うJUMPの一曲",
         mainSubtitle: "",
         languageTitle: "",
@@ -978,14 +1163,16 @@
         restart: "Try again",
         resultStateLabel: "YOUR MOMENT",
         resultNote: "The result is calculated from member traits, your answers, and the group lineup timeline.",
+        shareQrTitle: "Share by screenshot",
+        shareQrCopy: "Scan to take the test",
         copyResult: "Copy result",
         copied: "Copied"
       }
     };
 
     const languages = [
-      { key: "zh", label: "中文", sub: "此刻与你相伴的 JUMP 之歌" },
-      { key: "ja", label: "日本語", sub: "「今」に寄り添う JUMP の一曲" },
+      { key: "zh", label: "中文", sub: "此刻与你相伴的JUMP的歌" },
+      { key: "ja", label: "日本語", sub: "「今」に寄り添うJUMPの一曲" },
       { key: "en", label: "ENGLISH", sub: "The JUMP Song Beside You Now" }
     ];
 
@@ -1002,7 +1189,7 @@
       { id: "morimoto", name: "森本龍太郎", role: "former", color: "#ffffff", scores: { 記憶:0.6, 王道:0.4, 団体:0.2 }, maxEra: "morimoto" },
       { id: "okamoto", name: "岡本圭人", role: "former", color: "#3fbf6f", scores: { 変化:0.6, 記憶:0.4, 前進:0.2 }, maxEra: "okamoto" },
       { id: "nakajima", name: "中島裕翔", role: "former", color: "#7fd4ff", scores: { 変化:0.6, 情緒:0.4, 前進:0.2 }, maxEra: "nakajima" },
-      { id: "all", name: "Hey! Say! JUMP 全員", role: "all", color: "gradient", scores: { 団体:0.6, 記憶:0.4, 温度:0.2 }, maxEra: "all" }
+      { id: "all", name: "Hey! Say! JUMP全員", role: "all", color: "gradient", scores: { 団体:0.6, 記憶:0.4, 温度:0.2 }, maxEra: "all" }
     ];
 
     const eras = { morimoto: 1, okamoto: 2, nakajima: 3, all: 4 };
@@ -1273,11 +1460,11 @@
         id: 12, song: "Aino Arika", era: 2,
         memberBoost: { yaotome: 0.55, inoo: 0.45 },
         tags: { 情緒:1.8, 記憶:1.3, 都市:0.9, 温度:0.7 },
-        title: { zh:"把找不到的喜欢重新握在手里", ja:"見失った好きの在処をもう一度たどる", en:"Find where that feeling went" },
+        title: { zh:"把心里的坐标重新点亮", ja:"心の中の座標をもう一度灯す", en:"Light up the coordinates in your heart again" },
         desc: {
-          zh:"有些喜欢，会被距离、时间和沉默弄得模糊。\n\n这首歌陪你重新摸索一遍。\n说不清也没关系，先把那份在意握回手里。",
-          ja:"好きという気持ちは、距離や時間や沈黙でぼやけていくことがあります。\n\nこの曲は、もう一度たどる時間をくれます。\nうまく言えなくてもいい。まず、その大事な気持ちを手の中へ戻して。",
-          en:"Some love gets blurred by distance, time, and silence.\n\nThis song lets you feel around for it again. Even if you cannot explain it, hold that care in your hands first."
+          zh:"有些东西不是消失了，只是被日子推远了。\n越走越远的时候，你反而会忽然发现：原来自己一直在找的，不是答案，而是那个能让心重新对准的方向。\n\n这首歌陪你把心里的坐标重新点亮。\n爱在哪里，不一定要马上说清；但当你再次抬头，知道自己想往哪里去，那一刻就已经足够。",
+          ja:"消えてしまったわけではなく、日々の中で少し遠くなっていただけのものがあります。\n歩き続けるうちに、探していたのは答えではなく、心がもう一度向かえる方角だったのだと気づくことがあります。\n\nこの曲は、心の中の座標をもう一度灯してくれます。\n愛の在処をすぐに言葉にできなくてもいい。顔を上げた時、自分がどこへ向かいたいのか分かるなら、その瞬間だけで十分です。",
+          en:"Some things have not disappeared; they have only been pushed farther away by everyday life.\nAs you keep walking, you may realize that what you were looking for was not an answer, but a direction your heart could face again.\n\nThis song lights up the coordinates in your heart once more.\nYou do not have to explain where love is right away. If, when you look up again, you know where you want to go, that moment is enough."
         }
       },
       {
@@ -1411,11 +1598,11 @@
       {
         id: 25, song: "春玄鳥", era: 3,
         tags: { 温度:2, 記憶:1.6, 変化:1.1, 団体:0.8 },
-        title: { zh:"把飞过的春天留在身后", ja:"飛び越えた春をそっと残す", en:"Keep the spring you flew through with you" },
+        title: { zh:"把风向变成继续飞的理由", ja:"風向きを次へ飛ぶ理由にする", en:"Turn the wind into a reason to keep flying" },
         desc: {
-          zh:"春天快要翻页了。\n回头看，才发现已经飞过这么多地方。\n\n这首歌陪你收好那段同行。\n风吹过，夜冷过，一起越过的痕迹会留下来。",
-          ja:"春はもうページをめくろうとしています。\n振り返ると、ずいぶん遠くまで飛んできたことに気づく。\n\nこの曲は、一緒に飛んだ時間をしまっておいてくれます。\n風が吹いて、夜が冷えて、それでも一緒に越えた跡は残ります。",
-          en:"Spring is about to turn the page.\nLooking back, you realize how far you have flown.\n\nThis song helps you keep that shared path. The wind blew, the night was cold, and the traces of crossing it together remain."
+          zh:"你不是没有犹豫过。\n只是一路走到这里，身边的人、走过的夜、迎面来的风，都已经变成了继续向前的理由。\n\n这首歌陪你确认那段并肩走过的路。\n不必把每个瞬间都留住，只要知道曾经一起越过的路，会在下一次振翅时托住你。",
+          ja:"迷わなかったわけではありません。\nここまで来る間に、そばにいた人、越えてきた夜、向かい風の全部が、次へ進む理由に変わっていきました。\n\nこの曲は、ともに越えてきた道を確かめさせてくれます。\nすべての瞬間を残せなくてもいい。一緒に越えてきた道は、次に羽ばたく時、あなたを支えてくれます。",
+          en:"It is not that you never hesitated.\nThe people beside you, the nights you crossed, and the wind coming toward you have all become reasons to keep moving.\n\nThis song helps you confirm that shared journey. You do not have to preserve every moment; the path you crossed together will lift you the next time you spread your wings."
         }
       },
       {
@@ -1453,11 +1640,11 @@
       {
         id: 29, song: "encore", era: 3,
         tags: { 変化:1.8, 記憶:1.8, 情緒:1.5, 温度:0.6 },
-        title: { zh:"把错过的那一遍留给歌", ja:"聴き逃した一回を歌に預ける", en:"Leave the missed moment to the song" },
+        title: { zh:"把还想再听一遍的心留给歌", ja:"もう一度聴きたい気持ちを歌に預ける", en:"Leave the wish to hear it once more with the song" },
         desc: {
-          zh:"心里有一遍没有放完。\n有些话差一点出口，有些告别差一点完成。\n\n这首歌陪你再听一次。\n现实往前走，歌声替那段心情响起encore。",
-          ja:"心の中に、まだ流れきっていない一回があります。\n言葉は少し届かず、別れも少し未完成のまま。\n\nこの曲は、もう一度聴かせてくれます。\n現実が前へ進んでも、その気持ちには歌がencoreを鳴らします。",
-          en:"Inside you, one version has not finished playing.\nSome words almost came out; some goodbyes almost completed.\n\nThis song lets you hear it once more. Reality moves forward, and the song rings encore for that feeling."
+          zh:"有些结束，不是当场就能告别的。\n越往前走，越会发现自己还想回头听一次，确认那些没来得及说完的心情。\n\n这首歌陪你把“再来一次”的愿望放进旋律里。\n不必把过去改写成圆满；能在心里再响一次，就已经是另一种继续。",
+          ja:"終わりは、その場ですぐに受け入れられるものではありません。\n前へ進むほど、もう一度だけ聴きたい、言えなかった気持ちを確かめたいと思うことがあります。\n\nこの曲は、「もう一度」という願いをメロディに預けさせてくれます。\n過去をきれいに書き換えなくていい。心の中でもう一度響くなら、それも次へ進む形です。",
+          en:"Some endings cannot be accepted the moment they happen.\nThe further you move forward, the more you may want to hear it once again and check the feelings you never finished saying.\n\nThis song lets you place that wish for one more time inside the melody. You do not have to rewrite the past into something perfect; if it can ring once more in your heart, that is another way to continue."
         }
       },
       {
@@ -1658,31 +1845,46 @@
       return text;
     }
 
+    function cleanCjkAsciiSpacing(text, lang = app.lang) {
+      if (lang === "en" || text == null) return text;
+      const cjk = "\u3040-\u30ff\u3400-\u9fff\uf900-\ufaff\u3000-\u303f";
+      return String(text)
+        .replace(new RegExp(`([${cjk}])\s+([A-Za-z0-9])`, "g"), "$1$2")
+        .replace(new RegExp(`([A-Za-z0-9])\s+([${cjk}])`, "g"), "$1$2");
+    }
+
+    function cleanUiText(text) {
+      return cleanCjkAsciiSpacing(text, app.lang);
+    }
+
     function setCopy() {
       const copy = i18n[app.lang];
       document.documentElement.lang = copy.htmlLang;
-      document.getElementById("eyebrow").textContent = copy.eyebrow;
+      document.getElementById("eyebrow").textContent = cleanUiText(copy.eyebrow);
       document.getElementById("mainTitle").innerHTML = formatMainTitle(copy.mainTitle);
-      document.getElementById("mainSubtitle").textContent = copy.mainSubtitle;
-      document.getElementById("languageTitle").textContent = copy.languageTitle;
-      document.getElementById("languageCopy").textContent = copy.languageCopy;
-      document.getElementById("memberTitle").textContent = copy.memberTitle;
-      document.getElementById("memberCopy").textContent = copy.memberCopy;
-      document.getElementById("backBtn").textContent = copy.back;
-      document.getElementById("restartBtn").textContent = copy.restart;
-      document.getElementById("copyBtn").textContent = copy.copyResult;
-      document.getElementById("resultStateLabel").textContent = copy.resultStateLabel;
+      document.getElementById("mainSubtitle").textContent = cleanUiText(copy.mainSubtitle);
+      document.getElementById("languageTitle").textContent = cleanUiText(copy.languageTitle);
+      document.getElementById("languageCopy").textContent = cleanUiText(copy.languageCopy);
+      document.getElementById("memberTitle").textContent = cleanUiText(copy.memberTitle);
+      document.getElementById("memberCopy").textContent = cleanUiText(copy.memberCopy);
+      document.getElementById("backBtn").textContent = cleanUiText(copy.back);
+      document.getElementById("restartBtn").textContent = cleanUiText(copy.restart);
+      document.getElementById("copyBtn").textContent = cleanUiText(copy.copyResult);
+      document.getElementById("resultStateLabel").textContent = cleanUiText(copy.resultStateLabel);
+      document.getElementById("shareQrTitle").textContent = cleanUiText(copy.shareQrTitle);
+      document.getElementById("shareQrCopy").textContent = cleanUiText(copy.shareQrCopy);
     }
 
     function renderLanguages() {
       const grid = document.getElementById("languageGrid");
       grid.innerHTML = "";
-      const codes = { zh: "ZH", ja: "JA", en: "EN" };
+      const codes = { zh: "ZH", ja: "JP", en: "EN" };
       languages.forEach((lang) => {
         const btn = document.createElement("button");
         btn.className = "lang-btn";
+        btn.dataset.lang = lang.key;
         btn.dataset.code = codes[lang.key] || lang.key.toUpperCase();
-        btn.innerHTML = `<strong>${lang.label}</strong><span>${lang.sub}</span>`;
+        btn.innerHTML = `<strong>${lang.label}</strong><span>${cleanCjkAsciiSpacing(lang.sub, lang.key)}</span>`;
         btn.onclick = () => {
           app.lang = lang.key;
           setCopy();
@@ -1808,11 +2010,11 @@
 
     function renderQuestion() {
       const q = questions[app.questionIndex];
-      document.getElementById("questionText").textContent = q[app.lang];
-      document.getElementById("questionSub").textContent = q.sub[app.lang];
+      document.getElementById("questionText").textContent = cleanUiText(q[app.lang]);
+      document.getElementById("questionSub").textContent = cleanUiText(q.sub[app.lang]);
       document.getElementById("progressText").textContent = `${app.questionIndex + 1}/${questions.length}`;
       document.getElementById("progressFill").style.width = `${((app.questionIndex + 1) / questions.length) * 100}%`;
-      document.getElementById("nextBtn").textContent = app.questionIndex === questions.length - 1 ? t("seeResult") : t("next");
+      document.getElementById("nextBtn").textContent = cleanUiText(app.questionIndex === questions.length - 1 ? t("seeResult") : t("next"));
       document.getElementById("backBtn").disabled = false;
       document.getElementById("nextBtn").disabled = app.answers[app.questionIndex] === undefined;
 
@@ -1821,7 +2023,7 @@
       t("answers").forEach((label, index) => {
         const btn = document.createElement("button");
         btn.className = "choice" + (app.answers[app.questionIndex] === index ? " selected" : "");
-        btn.textContent = label;
+        btn.textContent = cleanUiText(label);
         btn.onclick = () => {
           app.answers[app.questionIndex] = index;
           renderQuestion();
@@ -1883,9 +2085,9 @@
       app.lastResult = winner;
       const artistName = winner.artist || "Hey! Say! JUMP";
       document.getElementById("resultSong").innerHTML = `<span class="result-group-name">${keepNameSpacing(artistName)}</span><span class="result-song-name">${keepNameSpacing(winner.song)}</span>`;
-      document.getElementById("resultTitle").textContent = winner.title[app.lang];
+      document.getElementById("resultTitle").textContent = cleanUiText(winner.title[app.lang]);
       document.getElementById("resultDesc").innerHTML = formatResultDesc(winner.desc[app.lang]);
-      document.getElementById("resultNote").textContent = t("resultNote");
+      document.getElementById("resultNote").textContent = cleanUiText(t("resultNote"));
       showScreen("resultScreen");
     }
 
@@ -1893,11 +2095,23 @@
     document.getElementById("copyBtn").onclick = async () => {
       if (!app.lastResult) return;
       const winner = app.lastResult;
-      const copyText = `${document.getElementById("mainTitle").textContent}
-${winner.artist || "Hey! Say! JUMP"}｜${winner.song}
-${winner.title[app.lang]}
+      const testTitle = "「今」に寄り添うJUMPの一曲";
+      const shareUrl = "https://jumpdeasondeminai.github.io/jumpsong/";
+      const hashtags = [
+        "#HeySayJUMP",
+        "#HeySayJUMP楽曲診断",
+        "#今に寄り添うJUMPの一曲"
+      ].join(" ");
+      const copyText = `${testTitle}
 
-${winner.desc[app.lang]}`;
+${winner.artist || "Hey! Say! JUMP"} | ${winner.song}
+${cleanUiText(winner.title[app.lang])}
+
+${cleanUiText(winner.desc[app.lang])}
+
+${shareUrl}
+
+${hashtags}`;
       try {
         await navigator.clipboard.writeText(copyText);
       } catch (err) {
@@ -1909,8 +2123,8 @@ ${winner.desc[app.lang]}`;
         document.body.removeChild(temp);
       }
       const btn = document.getElementById("copyBtn");
-      const original = t("copyResult");
-      btn.textContent = t("copied");
+      const original = cleanUiText(t("copyResult"));
+      btn.textContent = cleanUiText(t("copied"));
       setTimeout(() => { btn.textContent = original; }, 1200);
     };
 
